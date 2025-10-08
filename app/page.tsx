@@ -6,7 +6,9 @@ import { PortfolioCard } from '../src/components/PortfolioCard';
 import { ExperienceCard } from '../src/components/ExperienceCard';
 import { EducationCard } from '../src/components/EducationCard';
 import { ImageWithFallback } from '../src/components/ui/ImageWithFallback';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, Phone, PhoneForwarded, FileText, Check } from 'lucide-react';
+import { ProfileAvatar } from '../src/components/ProfileAvatar';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../src/components/ui/tooltip';
 
 const categories = ['All', 'Design', 'Development'];
 
@@ -98,153 +100,191 @@ const portfolioItems = [
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [copiedItem, setCopiedItem] = useState<string | null>(null);
 
-  const filteredItems = activeCategory === 'All' 
-    ? portfolioItems 
+  const copyToClipboard = async (text: string, type: 'email' | 'phone') => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedItem(type);
+      
+      setTimeout(() => {
+        setCopiedItem(null);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  };
+
+  const handleEmailClick = (e: React.MouseEvent) => {
+    // Only prevent default and copy on desktop (screen width > 768px)
+    if (window.innerWidth > 768) {
+      e.preventDefault();
+      copyToClipboard('jonatas@example.com', 'email');
+    }
+  };
+
+  const handlePhoneClick = (e: React.MouseEvent) => {
+    // Only prevent default and copy on desktop (screen width > 768px)
+    if (window.innerWidth > 768) {
+      e.preventDefault();
+      copyToClipboard('+5511999999999', 'phone');
+    }
+  };
+
+  const filteredItems = activeCategory === 'All'
+    ? portfolioItems
     : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Column: Avatar, Social Links, Experience & Education (Fixed/Sticky) */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
+
+        <div className="flex transition-all duration-500">
+          
+          <motion.aside
+            initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-1"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="w-16 md:w-1/4"
           >
-            <div className="lg:sticky lg:top-8 space-y-8">
-              {/* Avatar & Social Links - Desktop: Vertical, Mobile: Horizontal */}
-              <header className="flex lg:flex-col flex-row items-center lg:text-center gap-4 lg:gap-0">
-                {/* Avatar */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="lg:mb-6"
-                >
-                  <div className="relative w-32 h-32 lg:w-64 lg:h-64 rounded-full overflow-hidden ring-4 ring-primary/20 shadow-xl">
-                    <ImageWithFallback
-                      src="https://images.unsplash.com/photo-1576558656222-ba66febe3dec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDF8fHx8MTc1OTQxMjc1M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_medium=referral"
-                      alt="Profile Avatar"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </motion.div>
+            <div className="sticky top-[2rem] z-10">
+              <div className="relative">
 
-                {/* Social Links */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="flex gap-2 lg:gap-4"
-                >
-                  <motion.a
-                    href="https://github.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 lg:p-3 rounded-full bg-card border border-border hover:bg-accent transition-colors"
-                  >
-                    <Github className="w-4 h-4 lg:w-5 lg:h-5" />
-                  </motion.a>
-                  <motion.a
-                    href="https://linkedin.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 lg:p-3 rounded-full bg-card border border-border hover:bg-accent transition-colors"
-                  >
-                    <Linkedin className="w-4 h-4 lg:w-5 lg:h-5" />
-                  </motion.a>
-                  <motion.a
-                    href="https://twitter.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-2 lg:p-3 rounded-full bg-card border border-border hover:bg-accent transition-colors"
-                  >
-                    <Twitter className="w-4 h-4 lg:w-5 lg:h-5" />
-                  </motion.a>
-                </motion.div>
-              </header>
-
-              {/* Experience Section - Hidden on Mobile */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="hidden lg:block"
-              >
-                <h2 className="mb-6">Experience</h2>
-                <div>
-                  <ExperienceCard
-                    title={experiences[0].title}
-                    company={experiences[0].company}
-                    period={experiences[0].period}
-                    description={experiences[0].description}
-                    delay={0.7}
-                  />
+                <ProfileAvatar size="small" className="mt-[.25rem] w-sidebar md:h-32 lg:h-48 xl:h-64 lg:ring-4" />
+                
+                <div id="triangle" className="absolute right-[10px] md:right-[23px] top-1/2 mt-[-12px] md:mt-[-24px]">
+                  <div className="absolute ml-[-1px] w-0 h-0 border-t-[12px] md:border-t-[24px] border-t-transparent border-r-[12px] md:border-r-[24px] border-r-border border-b-[12px] md:border-b-[24px] border-b-transparent" />
+                  <div className="absolute w-0 h-0 border-t-[12px] md:border-t-[24px] border-t-transparent border-r-[12px] md:border-r-[24px] border-r-card border-b-[12px] md:border-b-[24px] border-b-transparent" />
                 </div>
-              </motion.div>
+              </div>
 
-              {/* Education Section - Hidden on Mobile */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="hidden lg:block"
+                className="hidden lg:block text-center w-sidebar mt-6 mb-2"
               >
-                <h2 className="mb-6">Education</h2>
-                <div>
-                  <EducationCard
-                    degree={education[0].degree}
-                    institution={education[0].institution}
-                    period={education[0].period}
-                    description={education[0].description}
-                    delay={0.9}
-                  />
-                </div>
+                <h1 className="text-xl">Jonatas Ricardo S. Santos</h1>
+                <h2 className="text-base">Fullstack Software Engineer</h2>
+              </motion.div>
+
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="sticky w-sidebar mt-4 flex gap-2 flex-col lg:flex-row justify-between items-center"
+              >
+                  <motion.a
+                    href="https://linkedin.com/in/jonatassantos"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300"
+                  >
+                    <Linkedin className="w-5 h-5 text-primary" />
+                  </motion.a>
+
+                  <motion.a
+                    href="https://github.com/jonatassantos"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300"
+                  >
+                    <Github className="w-5 h-5 text-primary" />
+                  </motion.a>
+
+                  <motion.a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300"
+                  >
+                    <FileText className="w-5 h-5 text-primary" />
+                  </motion.a>
+                
+
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative"
+                  >
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <motion.a
+                          href="mailto:jonatas@example.com"
+                          onClick={handleEmailClick}
+                          className="block p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300 cursor-pointer"
+                        >
+                          {copiedItem === 'email' ? (
+                            <Check className="w-5 h-5 text-green-500" />
+                          ) : (
+                            <Mail className="w-5 h-5 text-primary" />
+                          )}
+                        </motion.a>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>
+                          Click to copy: jonatas@example.com
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative"
+                  >
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <motion.a
+                          href="tel:+5511999999999"
+                          onClick={handlePhoneClick}
+                          className="block p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300 cursor-pointer"
+                        >
+                          {copiedItem === 'phone' ? (
+                            <Check className="w-5 h-5 text-green-500" />
+                          ) : (
+                            <Phone className="w-5 h-5 text-primary" />
+                          )}
+                        </motion.a>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Click to copy: +5511999999999</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </motion.div>
+                
               </motion.div>
             </div>
-          </motion.div>
 
-          {/* Right Column: Filters & Portfolio Grid (Scrollable) */}
-          <div className="lg:col-span-2">
 
+          </motion.aside>
+
+          <main className="flex-1 lg:w-3/4">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="relative bg-card border border-border rounded-xl shadow-lg p-6 lg:p-8 space-y-6 lg:space-y-8"
+              className="relative bg-card border border-border rounded-xl shadow-lg p-6 space-y-6"
             >
-            {/* Sticky Triangle for Desktop */}
-            <div className="hidden lg:block sticky ml-[-2.7rem] top-[2rem]
-            \z-10">
-              <div className="absolute left-0 top-0 w-0 h-0 border-t-[12px] border-t-transparent border-r-[12px] border-r-card border-b-[12px] border-b-transparent" />
-              <div className="absolute left-[-1px] top-0 w-0 h-0 border-t-[12px] border-t-transparent border-r-[12px] border-r-border border-b-[12px] border-b-transparent" />
-            </div>
-
-              {/* Mobile Triangle - Points Upward */}
-              <div className="lg:hidden sticky left-4 top-[-1px] \z-10">
-                <div className="w-0 h-0 border-l-[12px] border-l-transparent border-b-[12px] border-b-card border-r-[12px] border-r-transparent" />
-                <div className="mt-[1px] left-4 top-[-2px] w-0 h-0 border-l-[12px] border-l-transparent border-b-[12px] border-b-border border-r-[12px] border-r-transparent" />
-              </div>
               {/* Presentation Area */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="pb-6 lg:pb-8 border-b border-border"
+                className="pb-6 border-b border-border"
               >
                 <p className="text-muted-foreground leading-relaxed">
                   Hi, my name is <span className="text-foreground">Jonatas Santos</span> and I'm a{' '}
-                  <span className="text-foreground">Frontend Developer</span> specializing in crafting beautiful, 
-                  responsive web experiences with modern technologies. I'm passionate about creating intuitive user 
+                  <span className="text-foreground">Frontend Developer</span> specializing in crafting beautiful,
+                  responsive web experiences with modern technologies. I'm passionate about creating intuitive user
                   interfaces and bringing creative designs to life with clean, efficient code.
                 </p>
               </motion.div>
@@ -254,7 +294,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.7 }}
-                className="flex justify-center lg:justify-start gap-3 lg:gap-4 flex-wrap"
+                className="flex justify-center gap-3 flex-wrap"
               >
                 {categories.map((category, index) => (
                   <motion.button
@@ -263,11 +303,10 @@ export default function HomePage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
                     onClick={() => setActiveCategory(category)}
-                    className={`px-6 py-3 rounded-full transition-all duration-300 ${
-                      activeCategory === category
-                        ? 'bg-primary text-primary-foreground shadow-lg scale-105'
-                        : 'bg-background text-foreground hover:bg-accent border border-border'
-                    }`}
+                    className={`px-6 py-3 rounded-full transition-all duration-300 ${activeCategory === category
+                      ? 'bg-primary text-primary-foreground shadow-lg scale-105'
+                      : 'bg-background text-foreground hover:bg-accent border border-border'
+                      }`}
                   >
                     {category}
                   </motion.button>
@@ -275,7 +314,7 @@ export default function HomePage() {
               </motion.div>
 
               {/* Portfolio Grid */}
-              <motion.div 
+              <motion.div
                 layout
                 className="grid grid-cols-1 md:grid-cols-2 gap-8"
               >
@@ -293,7 +332,7 @@ export default function HomePage() {
                 </AnimatePresence>
               </motion.div>
             </motion.div>
-          </div>
+          </main>
         </div>
       </div>
     </div>

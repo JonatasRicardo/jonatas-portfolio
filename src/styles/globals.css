@@ -394,6 +394,11 @@
 }
 
 @layer utilities {
+
+  .w-sidebar {
+    @apply w-12 md:w-32 lg:w-48 xl:w-64;
+  }
+  
   .absolute {
     position: absolute;
   }

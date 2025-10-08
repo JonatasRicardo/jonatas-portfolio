@@ -64,7 +64,7 @@
             "typescript": "5.9.3"
       },
       "scripts": {
-            "dev": "next dev",
+            "dev": "NODE_OPTIONS='--inspect' next dev",
             "build": "next build",
             "start": "next start",
             "lint": "next lint"

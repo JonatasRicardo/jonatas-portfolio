@@ -29,7 +29,7 @@ export default function HomePage() {
         transition={{ duration: 0.6, delay: 0.7 }}
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
-        <Link href="/articles">
+        <Link href="/posts">
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

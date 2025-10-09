@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { ImageWithFallback } from './ui/ImageWithFallback';
-import { Post } from '@/src/interfaces/post';
+import { Post } from '@/interfaces/post';
 
 interface ArticlesPreviewProps {
   articles: Post[];

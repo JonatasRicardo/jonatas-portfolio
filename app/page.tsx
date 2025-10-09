@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, FileText, Briefcase } from 'lucide-react';
-import { ArticlesPreview } from '@/src/components/articles-preview';
-import { getAllPosts } from '@/src/lib/api';
-import Content from '@/src/components/content';
+import { ArticlesPreview } from '@/components/articles-preview';
+import { getAllPosts } from '@/lib/api';
+import Content from '@/components/content';
 
 export default function HomePage() {
   const articles = getAllPosts();

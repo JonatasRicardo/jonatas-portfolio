@@ -1,7 +1,7 @@
 import React from 'react';
-import { PortfolioFilter } from '@/src/components/portfolio-filter';
-import { getAllPosts } from '@/src/lib/api';
-import Header from '@/src/components/header';
+import { PortfolioFilter } from '@/components/portfolio-filter';
+import { getAllPosts } from '@/lib/api';
+import Header from '@/components/header';
 
 export default function ArticlesPage() {
   const portfolioItems = getAllPosts();

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { ExperienceCard } from '@/src/components/experience-card';
-import { EducationCard } from '@/src/components/education-card';
+import { ExperienceCard } from '@/components/experience-card';
+import { EducationCard } from '@/components/education-card';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 

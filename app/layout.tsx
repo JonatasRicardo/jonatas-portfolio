@@ -6,8 +6,13 @@ import Template from '@/src/components/template'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Jonatas Santos - Portfolio',
-  description: 'Frontend Developer specializing in modern web technologies',
+  title: 'Jonatas Santos - Frontend Software Engineer',
+  description: 'Senior Frontend Engineer specializing in React, Next.js, and AI/ML. Building scalable products and sharing insights on modern web engineering.',
+  icons: {
+    icon: '/src/imgs/jonatas-ricardo-santos-frontend-icon.png',
+    shortcut: '/src/imgs/jonatas-ricardo-santos-frontend-icon.png',
+    apple: '/src/imgs/jonatas-ricardo-santos-frontend-icon.png',
+  },
 }
 
 export default function RootLayout({

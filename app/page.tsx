@@ -1,78 +1,67 @@
-"use client"
 import React from 'react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, FileText, Briefcase } from 'lucide-react';
+import { ArticlesPreview } from '@/src/components/articles-preview';
+import { getAllPosts } from '@/src/lib/api';
+import Content from '@/src/components/content';
 
 export default function HomePage() {
+  const articles = getAllPosts();
+
   return (
     <>
       {/* Presentation Area */}
-      <motion.div
+      <Content
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
         className="pb-6 border-b border-border"
       >
-        <p className="text-muted-foreground leading-relaxed">
-          Hi, my name is <span className="text-foreground">Jonatas Santos</span> and I'm a{' '}
-          <span className="text-foreground">Frontend Developer</span> specializing in crafting beautiful,
-          responsive web experiences with modern technologies. I'm passionate about creating intuitive user
-          interfaces and bringing creative designs to life with clean, efficient code.
+        <p className="mb-5 text-accent-foreground leading-relaxed">
+          Hi, my name is <strong itemProp="givenName" className="text-foreground">Jônatas Ricardo Santos</strong>, a Senior Frontend Engineer with over <span aria-label="15 years of experience" className="text-foreground">15+ years</span> of experience building 
+          high-performance web applications. My work blends modern frontend technologies 
+          (<strong>React, Next.js, TypeScript, GraphQL</strong>) with a growing focus on <strong>AI and Machine Learning</strong> to ship scalable, user-centric products.
         </p>
-      </motion.div>
+
+        <p className="text-accent-foreground leading-relaxed">
+          Here I share <strong>projects</strong>, <strong>articles</strong>, and <strong>practical insights</strong> on how solid engineering practices, documentation, 
+          and design systems accelerate delivery and empower teams.
+          I’m passionate about <em>bridging code, creativity, and intelligence</em> — helping 
+          products evolve faster and developers learn smarter.
+        </p>
+
+
+      </Content>
 
       {/* Navigation Cards */}
-      <motion.div
+      <Content
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.7 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="flex gap-4"
       >
         <Link href="/posts">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-xl transition-all duration-300 p-6"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                <FileText className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Articles & Portfolio</h3>
-                <p className="text-muted-foreground">Explore my work and projects</p>
-              </div>
-            </div>
-            <div className="flex items-center text-primary group-hover:translate-x-2 transition-transform duration-300">
-              <span className="text-sm font-medium">View Articles</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </div>
-          </motion.div>
+          <div className="group flex items-center gap-3 px-4 py-3 rounded-lg bg-card border border-border hover:shadow-md transition-all duration-300">
+            <FileText className="w-5 h-5 text-primary" />
+            <span className="text-sm font-medium">Articles</span>
+            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform duration-300" />
+          </div>
         </Link>
 
         <Link href="/resume">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="group relative overflow-hidden rounded-xl bg-card border border-border hover:shadow-xl transition-all duration-300 p-6"
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 rounded-lg bg-accent/10 text-accent">
-                <Briefcase className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold">Resume & Experience</h3>
-                <p className="text-muted-foreground">My professional journey</p>
-              </div>
-            </div>
-            <div className="flex items-center text-accent group-hover:translate-x-2 transition-transform duration-300">
-              <span className="text-sm font-medium">View Resume</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </div>
-          </motion.div>
+          <div className="group flex items-center gap-3 px-4 py-3 rounded-lg bg-card border border-border hover:shadow-md transition-all duration-300">
+            <Briefcase className="w-5 h-5 text-accent" />
+            <span className="text-sm font-medium">Resume</span>
+            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform duration-300" />
+          </div>
         </Link>
-      </motion.div>
+      </Content>
+
+      {/* Articles Preview Section */}
+      {articles.length > 0 && (
+        <ArticlesPreview articles={articles} />
+      )}
     </>
   );
 }

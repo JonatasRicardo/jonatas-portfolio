@@ -3,7 +3,7 @@ import React from "react";
 import { ImageWithFallback } from "./ui/ImageWithFallback";
 import { cn } from "./ui/utils";
 
-import profileImg from "../imgs/jonatas-ricardo.jpg"
+import profileImg from "../imgs/jonatas-ricardo-santos-frontend-avatar.png"
 
 interface ProfileAvatarProps extends React.ComponentProps<"div"> {
     size?: 'small' | 'medium' | 'large';

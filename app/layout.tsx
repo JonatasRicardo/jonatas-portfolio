@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import '../src/styles/globals.css'
+import '@/styles/globals.css'
 import Template from '@/components/template'
 import favicon from '@/imgs/jonatas-ricardo-santos-frontend-icon.png'
 

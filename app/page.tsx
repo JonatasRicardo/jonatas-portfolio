@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import Link from 'next/link';
 import { ArrowRight, FileText, Briefcase } from 'lucide-react';
 import { ArticlesPreview } from '@/components/articles-preview';

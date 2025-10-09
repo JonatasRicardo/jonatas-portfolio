@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PortfolioCard } from './PortfolioCard';
+import { PortfolioCard } from './portfolio-card';
 import Link from 'next/link';
 
 export function PortfolioFilter({

@@ -1,7 +1,7 @@
 // "use client"
 
 import { motion } from 'motion/react';
-import Content from './Content';
+import Content from './content';
 
 type Props = {
   content: string;

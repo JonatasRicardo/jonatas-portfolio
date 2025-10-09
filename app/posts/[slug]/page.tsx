@@ -1,4 +1,4 @@
-import Header from "@/src/components/Header";
+import Header from "@/src/components/header";
 import { PostBody } from "@/src/components/post-body";
 import { PostHeader } from "@/src/components/post-header";
 import { getAllPosts, getPostBySlug } from "@/src/lib/api";

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 
 export default function Template({
     children

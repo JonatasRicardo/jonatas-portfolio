@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/styles/globals.css'
-import Template from '@/components/template'
+import Template from 'app/components/template'
 import favicon from '@/imgs/jonatas-ricardo-santos-frontend-icon.png'
 
 const inter = Inter({ subsets: ['latin'] })

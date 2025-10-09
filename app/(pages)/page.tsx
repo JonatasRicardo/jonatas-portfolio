@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, FileText, Briefcase } from 'lucide-react';
-import { ArticlesPreview } from '@/components/articles-preview';
-import { getAllPosts } from '@/lib/api';
-import Content from '@/components/content';
+import { ArticlesPreview } from 'app/components/articles-preview';
+import { getAllPosts } from 'app/lib/api';
+import Content from 'app/components/content';
 
 export default function HomePage() {
   const articles = getAllPosts();

@@ -1,7 +1,7 @@
-import Header from "@/components/header";
-import { PostBody } from "@/components/post-body";
-import { getAllPosts, getPostBySlug } from "@/lib/api";
-import markdownToHtml from "@/lib/markdownToHtml";
+import Header from "app/components/header";
+import { PostBody } from "app/components/post-body";
+import { getAllPosts, getPostBySlug } from "app/lib/api";
+import markdownToHtml from "app/lib/markdownToHtml";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

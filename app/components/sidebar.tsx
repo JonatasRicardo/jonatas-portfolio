@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { SocialLinks } from '@/components/social-links';
-import { ProfileAvatar } from '@/components/profile-avatar';
+import { SocialLinks } from 'app/components/social-links';
+import { ProfileAvatar } from 'app/components/profile-avatar';
 
 export default function Sidebar() {
     return (

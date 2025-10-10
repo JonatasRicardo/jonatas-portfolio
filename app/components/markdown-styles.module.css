@@ -1,0 +1,97 @@
+.markdown {
+  @apply rounded-sm;
+}
+.markdown h1 {
+  @apply text-4xl font-bold mt-0 mb-2;
+}
+
+.markdown h2 {
+  @apply text-3xl font-bold mt-0 mb-2;
+}
+
+.markdown h3 {
+  @apply text-2xl font-bold mt-0 mb-2;
+}
+
+.markdown h4 {
+  @apply text-xl font-bold mt-0 mb-2;
+}
+
+.markdown h5 {
+  @apply text-lg font-bold mt-0 mb-2;
+}
+
+.markdown h6 {
+  @apply text-base font-bold mt-0 mb-2;
+}
+
+.markdown p {
+  @apply mt-0 mb-4;
+}
+
+.markdown a {
+  @apply text-blue-500 no-underline;
+}
+
+.markdown a:hover {
+  @apply text-blue-600 no-underline;
+}
+
+.markdown blockquote {
+  @apply border-l-4 border-gray-300 font-normal italic mt-8 mb-8 pl-6 text-gray-700 text-lg;
+}
+
+.markdown code {
+  @apply rounded-sm mb-2 px-2 py-px text-sm;
+}
+.markdown > div {
+  @apply rounded-sm;
+}
+
+.markdown hr {
+  @apply border-b border-gray-300 mt-12 mb-12 rounded-full;
+}
+
+.markdown ul {
+  @apply list-disc list-inside mt-4 mb-4;
+}
+
+.markdown ol {
+  @apply list-decimal list-inside mt-4 mb-4;
+}
+
+.markdown table {
+  @apply w-full text-gray-900 mb-4 p-0 border-collapse;
+}
+
+.markdown table tr {
+  @apply border-t border-gray-600 bg-white m-0 p-0;
+}
+
+.markdown table tr:nth-child(2n) {
+  @apply bg-gray-50;
+}
+
+.markdown table tr th {
+  @apply font-bold border border-gray-600 text-left m-0 px-3 py-1.5;
+}
+
+.markdown table tr th:first-child {
+  @apply mt-0;
+}
+
+.markdown table tr th:last-child {
+  @apply mb-0;
+}
+
+.markdown table tr td {
+  @apply border border-gray-600 text-left m-0 px-3 py-1.5;
+}
+
+.markdown table tr td:first-child {
+  @apply mt-0;
+}
+
+.markdown table tr td:last-child {
+  @apply mb-0;
+}

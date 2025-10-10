@@ -1,7 +1,7 @@
-// "use client"
+"use client"
 
-import { motion } from 'motion/react';
 import Content from './content';
+import { MarkdownRenderer } from './markdown-renderer';
 
 type Props = {
   content: string;
@@ -10,9 +10,12 @@ type Props = {
 export function PostBody({ content }: Props) {
   return (
     <Content className="pt-4">
-      <div
-        // className={markdownStyles["markdown"]}
+      {/* <div
+        className={markdownStyles["markdown"]}
         dangerouslySetInnerHTML={{ __html: content }}
+      /> */}
+      <MarkdownRenderer
+        content={content}
       />
     </Content>
   );

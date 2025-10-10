@@ -19,9 +19,10 @@ export default async function Post(props: Params) {
         <article className="mb-32">
             <Header
                 title={post.title}
+                description={post.description}
             />
            
-            <PostBody content={content} />
+            <PostBody content={post.content} />
         </article>
     );
 }

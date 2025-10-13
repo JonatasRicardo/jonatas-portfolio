@@ -1,7 +1,7 @@
 import React from "react";
 
-import { ImageWithFallback } from "./ui/ImageWithFallback";
-import { cn } from "./ui/utils";
+import { ImageWithFallback } from "./base-ui/ImageWithFallback";
+import { cn } from "./base-ui/utils";
 
 import profileImg from "../imgs/jonatas-ricardo-santos-frontend-avatar.png"
 

@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import Sidebar from './sidebar';
+
+import Sidebar from '@/components/sidebar';
+import Chat from '@/components/chat';
 
 export default function Template({
-    children
+  children
 }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
@@ -24,6 +26,7 @@ export default function Template({
             </motion.div>
           </main>
         </div>
+        <Chat />
       </div>
     </div>
   );

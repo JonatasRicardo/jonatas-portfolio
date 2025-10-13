@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula, gruvboxLight, gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { cn } from './ui/utils'
+import { cn } from './base-ui/utils'
 import markdownStyles from "./markdown-styles.module.css";
 
 interface MarkdownRendererProps {

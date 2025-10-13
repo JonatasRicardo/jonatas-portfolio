@@ -3,6 +3,7 @@ import { PostBody } from "app/components/post-body";
 import { getAllPosts, getPostBySlug } from "app/lib/api";
 import markdownToHtml from "app/lib/markdownToHtml";
 import { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Post(props: Params) {
@@ -21,8 +22,8 @@ export default async function Post(props: Params) {
                 title={post.title}
                 description={post.description}
             />
-           
-            <PostBody content={post.content} />
+                       
+            <PostBody image={post.image} content={post.content} />
         </article>
     );
 }

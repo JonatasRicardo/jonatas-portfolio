@@ -28,7 +28,7 @@ function CodeRender({ node, inline, className, children, ...props }: CodeCompone
       style={gruvboxDark}
       language={language}
       PreTag="div"
-      customStyle={{ margin: 0 }}
+      className="rounded-md !mb-6"
     >
       {String(children).replace(/\n$/, '')}
     </SyntaxHighlighter> ) : (
@@ -53,7 +53,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
         remarkPlugins={[remarkGfm]}
         components={{
           code: CodeRender,
-          a: LinkRenderer
+          a: LinkRenderer,
         }}
       >
         {content}

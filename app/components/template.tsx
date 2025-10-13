@@ -15,7 +15,7 @@ export default function Template({
         <div className="flex transition-all duration-500">
           <Sidebar />
 
-          <main className="flex-1 lg:w-3/4">
+          <main className="flex-1 lg:w-3/4 min-w-0">
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}

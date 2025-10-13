@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { SocialLinks } from 'app/components/social-links';
 import { ProfileAvatar } from 'app/components/profile-avatar';
+import Link from 'next/link';
 
 export default function Sidebar() {
     return (
@@ -13,7 +14,9 @@ export default function Sidebar() {
         >
             <div className="sticky top-[2rem] z-10">
                 <div className="relative">
-                    <ProfileAvatar size="small" className="mt-[.25rem] w-sidebar md:h-32 lg:h-48 xl:h-64 lg:ring-4" />
+                    <Link href="/">
+                        <ProfileAvatar size="small" className="mt-[.25rem] w-sidebar md:h-32 lg:h-48 xl:h-64 lg:ring-4" />
+                    </Link>
 
                     <div id="triangle" className="absolute right-[10px] md:right-[23px] top-1/2 mt-[-12px] md:mt-[-24px]">
                         <div className="absolute ml-[-1px] w-0 h-0 border-t-[12px] md:border-t-[24px] border-t-transparent border-r-[12px] md:border-r-[24px] border-r-border border-b-[12px] md:border-b-[24px] border-b-transparent" />

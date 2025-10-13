@@ -1,103 +1,103 @@
-# Configuração do Chat com AI SDK
+# Chat Setup with AI SDK
 
-## Instalação
+## Installation
 
-As dependências já foram instaladas:
-- `ai` - AI SDK da Vercel
-- `@ai-sdk/openai` - Provedor OpenAI para o AI SDK
+Dependencies have already been installed:
+- `ai` - Vercel AI SDK
+- `@ai-sdk/openai` - OpenAI provider for AI SDK
 
-## Configuração
+## Configuration
 
-### 1. Variáveis de Ambiente
+### 1. Environment Variables
 
-Crie um arquivo `.env.local` na raiz do projeto com:
+Create a `.env.local` file in the project root with:
 
 ```env
-OPENAI_API_KEY=sua_chave_api_openai_aqui
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-**Importante:** 
-- O arquivo `.env.local` é ignorado pelo Git (já configurado no `.gitignore`)
-- Nunca commite sua chave de API real
-- Use apenas para desenvolvimento local
+**Important:** 
+- The `.env.local` file is ignored by Git (already configured in `.gitignore`)
+- Never commit your real API key
+- Use only for local development
 
-### 2. Obter Chave da API OpenAI
+### 2. Get OpenAI API Key
 
-1. Acesse [OpenAI Platform](https://platform.openai.com/)
-2. Faça login ou crie uma conta
-3. Vá para "API Keys" no menu lateral
-4. Clique em "Create new secret key"
-5. Copie a chave e cole no arquivo `.env.local`
+1. Go to [OpenAI Platform](https://platform.openai.com/)
+2. Login or create an account
+3. Go to "API Keys" in the sidebar menu
+4. Click "Create new secret key"
+5. Copy the key and paste it in the `.env.local` file
 
-## Funcionalidades Implementadas
+## Implemented Features
 
 ### ✅ Chat Interface
-- Interface de chat moderna com animações
-- Mensagens em tempo real
-- Scroll automático para novas mensagens
-- Indicador de carregamento
-- Design responsivo
+- Modern chat interface with animations
+- Real-time messages
+- Auto-scroll to new messages
+- Loading indicator
+- Responsive design
 
 ### ✅ API Route
-- Endpoint `/api/chat` configurado
-- Streaming de respostas
-- Integração com OpenAI GPT-4o-mini
-- Tratamento de erros
+- `/api/chat` endpoint configured
+- Response streaming
+- OpenAI GPT-4o-mini integration
+- Error handling
 
-### ✅ Componentes
-- `app/components/chat/index.tsx` - Componente principal do chat
-- `app/api/chat/route.ts` - API route para processamento
+### ✅ Components
+- `app/components/chat/index.tsx` - Main chat component
+- `app/api/chat/route.ts` - API route for processing
 
-## Como Usar
+## How to Use
 
-1. Configure a variável de ambiente `OPENAI_API_KEY`
-2. Execute o projeto: `npm run dev`
-3. Navegue até a página que contém o componente Chat
-4. Digite uma mensagem e pressione Enter ou clique no botão de envio
+1. Configure the `OPENAI_API_KEY` environment variable
+2. Run the project: `npm run dev`
+3. Navigate to the page containing the Chat component
+4. Type a message and press Enter or click the send button
 
-## Personalização
+## Customization
 
-### Modelo de IA
-Para alterar o modelo, edite `app/api/chat/route.ts`:
-
-```typescript
-model: openai('gpt-4o-mini'), // ou 'gpt-4', 'gpt-3.5-turbo', etc.
-```
-
-### Parâmetros
-Ajuste temperatura e tokens máximos:
+### AI Model
+To change the model, edit `app/api/chat/route.ts`:
 
 ```typescript
-temperature: 0.7,    // 0.0 (determinístico) a 1.0 (criativo)
-maxTokens: 1000,      // Limite de tokens na resposta
+model: openai('gpt-4o-mini'), // or 'gpt-4', 'gpt-3.5-turbo', etc.
 ```
 
-### Estilos
-O chat usa Tailwind CSS e pode ser personalizado editando as classes no componente.
+### Parameters
+Adjust temperature and max tokens:
 
-## Configuração para Produção
+```typescript
+temperature: 0.7,    // 0.0 (deterministic) to 1.0 (creative)
+maxTokens: 1000,      // Token limit in response
+```
+
+### Styles
+The chat uses Tailwind CSS and can be customized by editing the classes in the component.
+
+## Production Configuration
 
 ### Vercel
-1. Acesse o dashboard da Vercel
-2. Vá para Settings > Environment Variables
-3. Adicione `OPENAI_API_KEY` com sua chave de API
-4. Faça o deploy
+1. Go to the Vercel dashboard
+2. Go to Settings > Environment Variables
+3. Add `OPENAI_API_KEY` with your API key
+4. Deploy
 
-### Outras Plataformas
-Configure a variável de ambiente `OPENAI_API_KEY` nas configurações da sua plataforma de hospedagem.
+### Other Platforms
+Configure the `OPENAI_API_KEY` environment variable in your hosting platform settings.
 
 ## Troubleshooting
 
-### Erro de API Key
-- Verifique se a chave está correta no `.env.local`
-- Certifique-se de que o arquivo está na raiz do projeto
-- Reinicie o servidor após adicionar a variável
-- Para produção, verifique se a variável está configurada na plataforma de hospedagem
+### API Key Error
+- Check if the key is correct in `.env.local`
+- Make sure the file is in the project root
+- Restart the server after adding the variable
+- For production, verify the variable is configured in the hosting platform
 
-### Erro de CORS
-- O chat funciona apenas em localhost em desenvolvimento
-- Para produção, configure CORS adequadamente
+### CORS Error
+- The chat only works on localhost in development
+- For production, configure CORS properly
 
-### Erro de Streaming
-- Verifique se o modelo suporta streaming
-- Alguns modelos podem ter limitações de taxa
+### Streaming Error
+- Check if the model supports streaming
+- Some models may have rate limitations

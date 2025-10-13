@@ -9,7 +9,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai('gpt-3.5-turbo'),
-    system: 'Você é um assistente útil e prestativo.',
+    system: 'You are a helpful and friendly assistant.',
     messages: convertToModelMessages(messages),
   });
 

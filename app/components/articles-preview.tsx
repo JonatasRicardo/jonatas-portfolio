@@ -28,8 +28,8 @@ export function ArticlesPreview({ articles }: ArticlesPreviewProps) {
       className="mt-8"
     >
       <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-2">Últimos Artigos</h3>
-        <p className="text-muted-foreground">Confira meus artigos mais recentes</p>
+        <h3 className="text-xl font-semibold mb-2">Latest Articles</h3>
+        <p className="text-muted-foreground">Check out my most recent articles</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -81,7 +81,7 @@ export function ArticlesPreview({ articles }: ArticlesPreviewProps) {
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
           >
-            <span className="text-sm font-medium">Ver todos os artigos</span>
+            <span className="text-sm font-medium">View all articles</span>
             <ArrowRight className="w-4 h-4" />
           </motion.div>
         </Link>

@@ -125,11 +125,11 @@ export function ChatMessageBlock({ children, role }: {
     role?: 'user' | 'system' | 'assistant' | 'form' | 'loading'
 }) {
     const talkBoxStyles = {
-        'assistant': 'float-left',
-        'system': 'float-left',
-        'user': 'float-right',
-        'loading': 'float-left',
-        'form': '',
+        'assistant': 'float-left bg-card',
+        'system': 'float-left bg-card',
+        'user': 'float-right bg-accent',
+        'loading': 'float-left bg-card',
+        'form': 'bg-card',
     }
 
     return (
@@ -141,7 +141,7 @@ export function ChatMessageBlock({ children, role }: {
         >
             <ChatSystemAvatar hide={['form', 'user', 'loading'].includes(role)} />
             <div className="flex-1 lg:w-3/4">
-                <div className={`${talkBoxStyles[role] ?? 'float-right'} bg-card border border-border rounded-xl shadow-lg p-6 space-y-6`}>
+                <div className={`${talkBoxStyles[role]}  border border-border rounded-xl shadow-lg p-6 space-y-6`}>
                     {children}
                 </div>
             </div>
@@ -179,7 +179,7 @@ export default function Chat() {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages])
+    }, [messages.length])
 
     return (
         <>

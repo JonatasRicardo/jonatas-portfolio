@@ -7,8 +7,8 @@ import favicon from '@/imgs/jonatas-ricardo-santos-frontend-icon.png'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Jonatas Santos - Frontend Software Engineer',
-  description: 'Senior Frontend Engineer specializing in React, Next.js, and AI/ML. Building scalable products and sharing insights on modern web engineering.',
+  title: 'Jonatas Santos - Fullstack Software Engineer',
+  description: 'Senior Fullstack Engineer specializing in React, Next.js, and AI/ML. Building scalable products and sharing insights on modern web engineering.',
   icons: {
     icon: favicon.src,
     shortcut: favicon.src,

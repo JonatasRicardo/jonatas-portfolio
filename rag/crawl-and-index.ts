@@ -15,7 +15,7 @@ import crypto from "node:crypto";
 import OpenAI from "openai";
 
 const OPENAI_EMBED_MODEL = "text-embedding-3-large";
-const BASE = "https://jonatas-portfolio-two.vercel.app";
+const BASE = "https://www.jonatasricardo.com";
 const OUT = path.join(process.cwd(), "rag", "site-index.json");
 
 // --- tiny vector helpers
@@ -29,6 +29,7 @@ const ai = new OpenAI({
 // Basic scope: homepage, posts, and articles listing
 const SEEDS = [
   `${BASE}/`,
+  `${BASE}/resume`,
   `${BASE}/posts/myth-use-client-ssr-en`,
 ];
 

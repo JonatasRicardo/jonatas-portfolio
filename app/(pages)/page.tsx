@@ -40,29 +40,6 @@ export default function HomePage() {
         <ResumePreview />
       </div>
 
-      {/* Navigation Cards */}
-      <Content
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.7 }}
-        className="flex gap-4"
-      >
-        <Link href="/posts">
-          <div className="group flex items-center gap-3 px-4 py-3 rounded-lg bg-card border border-border hover:shadow-md transition-all duration-300">
-            <FileText className="w-5 h-5 text-primary" />
-            <span className="text-sm font-medium">Articles</span>
-            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform duration-300" />
-          </div>
-        </Link>
-
-        <Link href="/resume">
-          <div className="group flex items-center gap-3 px-4 py-3 rounded-lg bg-card border border-border hover:shadow-md transition-all duration-300">
-            <Briefcase className="w-5 h-5 text-accent" />
-            <span className="text-sm font-medium">Resume</span>
-            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform duration-300" />
-          </div>
-        </Link>
-      </Content> 
     </>
   );
 }

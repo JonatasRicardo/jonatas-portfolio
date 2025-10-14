@@ -22,6 +22,7 @@ export function ResumePreview() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <h2 className="text-xl font-semibold">Resume Preview</h2>
+
                 <Link 
                     href="/resume"
                     className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"

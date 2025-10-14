@@ -25,12 +25,21 @@ export function ArticlesPreview({ articles }: ArticlesPreviewProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.8 }}
-      className="mt-8"
+      className="space-y-6"
     >
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-2">Latest Articles</h3>
+      {/* Header */}
+      <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Articles</h2>
+
+          <Link 
+              href="/posts"
+              className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors duration-300"
+          >
+              View All
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+          </Link>
       </div>
-      
+        
       <div className="grid grid-cols-1 gap-4">
         {articles.slice(0, 4).map((article, index) => (
           <Link href={`/posts/${article.slug}`} key={article.slug}>
@@ -60,7 +69,7 @@ export function ArticlesPreview({ articles }: ArticlesPreviewProps) {
                 </h4>
                 
                 <p className="text-xs text-muted-foreground line-clamp-2">
-                  {article.excerpt}
+                  {article.description || article.excerpt}
                 </p>
               </div>
             </motion.article>

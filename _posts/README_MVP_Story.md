@@ -1,7 +1,7 @@
 ---
 title: "MVP, Early Return & Soft Skills"
 description: "The story of an e-commerce built inside a `README.md`"
-image: "/posts/ecom-mvp.png"
+image: "/posts/ecom-mvp-2.png"
 category: "E-commerce"
 date: "2025-10-14"
 id: 2

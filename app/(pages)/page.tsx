@@ -2,8 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, FileText, Briefcase } from 'lucide-react';
 import { ArticlesPreview } from 'app/components/articles-preview';
+
 import { getAllPosts } from 'app/lib/api';
 import Content from 'app/components/content';
+import { ResumePreview } from '@/components/resume/resume-preview';
 
 export default function HomePage() {
   const articles = getAllPosts();
@@ -18,20 +20,25 @@ export default function HomePage() {
         className="pb-6 border-b border-border"
       >
         <p className="mb-5 text-accent-foreground leading-relaxed">
-          Hi, my name is <strong itemProp="givenName" className="text-foreground">Jônatas Ricardo Santos</strong>, a Senior Frontend Engineer with over <span aria-label="15 years of experience" className="text-foreground">15+ years</span> of experience building 
-          high-performance web applications. My work blends modern frontend technologies 
-          (<strong>React, Next.js, TypeScript, GraphQL</strong>) with a growing focus on <strong>AI and Machine Learning</strong> to ship scalable, user-centric products.
+          Hi, my name is <strong itemProp="givenName" className="text-foreground">Jônatas Ricardo Santos</strong>, a Senior Fullstack Engineer with over <span aria-label="15 years of experience" className="text-foreground">15+ years</span> of experience, specializing in <strong>frontend development</strong> and currently expanding my expertise into <strong>AI and Machine Learning</strong>. I build high-performance, user-centric web applications using modern technologies like <strong>React, Next.js, TypeScript, and GraphQL</strong>.
         </p>
 
         <p className="text-accent-foreground leading-relaxed">
-          Here I share <strong>projects</strong>, <strong>articles</strong>, and <strong>practical insights</strong> on how solid engineering practices, documentation, 
-          and design systems accelerate delivery and empower teams.
-          I’m passionate about <em>bridging code, creativity, and intelligence</em> — helping 
-          products evolve faster and developers learn smarter.
+          Here I share <strong>projects</strong>, <strong>articles</strong>, and <strong>practical insights</strong> on frontend architecture, design systems, and how AI/ML is transforming the development landscape. I'm passionate about <em>bridging beautiful interfaces with intelligent functionality</em> — creating products that are both delightful to use and powered by cutting-edge technology.
         </p>
 
-
       </Content>
+
+      {/* Articles and Resume Preview Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Articles Preview */}
+        {articles.length > 0 && (
+          <ArticlesPreview articles={articles} />
+        )}
+        
+        {/* Resume Preview */}
+        <ResumePreview />
+      </div>
 
       {/* Navigation Cards */}
       <Content
@@ -55,12 +62,7 @@ export default function HomePage() {
             <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:translate-x-1 transition-transform duration-300" />
           </div>
         </Link>
-      </Content>
-
-      {/* Articles Preview Section */}
-      {articles.length > 0 && (
-        <ArticlesPreview articles={articles} />
-      )}
+      </Content> 
     </>
   );
 }

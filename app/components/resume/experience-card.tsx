@@ -8,15 +8,16 @@ interface ExperienceCardProps {
   period: string;
   description: string;
   delay?: number;
+  preview?: boolean
 }
 
-export function ExperienceCard({ title, company, period, description, delay = 0 }: ExperienceCardProps) {
+export function ExperienceCard({ title, preview,  company, period, description, delay = 0 }: ExperienceCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay }}
-      className="relative pl-8 pb-8 border-l-2 border-primary/30 last:pb-0"
+      className="relative pl-8 border-l-2 border-primary/30 last:pb-0"
     >
       <motion.div
         initial={{ scale: 0 }}
@@ -34,7 +35,7 @@ export function ExperienceCard({ title, company, period, description, delay = 0 
         </div>
       </div>
       <p className="text-muted-foreground mb-2">{period}</p>
-      <p className="text-muted-foreground">{description}</p>
+      {!preview && <p className="text-muted-foreground">{description}</p>}
     </motion.div>
   );
 }

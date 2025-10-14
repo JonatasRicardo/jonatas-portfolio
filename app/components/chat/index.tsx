@@ -205,7 +205,7 @@ export default function Chat() {
             <ChatMessageBlock role='form'>
                 <form onSubmit={handleSubmit} className="flex space-x-2">
                     <Textarea
-                        placeholder="Type your message..."
+                        placeholder="Hi, I'm Jonatas. What do you want to ask me?"
                         className="flex-1 min-h-[60px] p-0 resize-none bg-transparent border-0"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}

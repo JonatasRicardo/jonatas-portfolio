@@ -25,7 +25,7 @@ export function SocialLinks() {
     // Only prevent default and copy on desktop (screen width > 768px)
     if (window.innerWidth > 768) {
       e.preventDefault();
-      copyToClipboard('jonatas@example.com', 'email');
+      copyToClipboard('jonatasricardo90@gmail.com', 'email');
     }
   };
 
@@ -33,7 +33,7 @@ export function SocialLinks() {
     // Only prevent default and copy on desktop (screen width > 768px)
     if (window.innerWidth > 768) {
       e.preventDefault();
-      copyToClipboard('+5511999999999', 'phone');
+      copyToClipboard('+5521980484957', 'phone');
     }
   };
 
@@ -45,7 +45,7 @@ export function SocialLinks() {
       className="sticky w-sidebar mt-4 flex gap-2 flex-col lg:flex-row justify-between items-center"
     >
       <motion.a
-        href="https://linkedin.com/in/jonatassantos"
+        href="https://www.linkedin.com/in/jonatasricardo/"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}
@@ -56,7 +56,7 @@ export function SocialLinks() {
       </motion.a>
 
       <motion.a
-        href="https://github.com/jonatassantos"
+        href="https://github.com/JonatasRicardo"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}
@@ -67,7 +67,7 @@ export function SocialLinks() {
       </motion.a>
 
       <motion.a
-        href="/resume.pdf"
+        href="/JonatasSantos-Resume.pdf"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}
@@ -85,7 +85,7 @@ export function SocialLinks() {
         <Tooltip>
           <TooltipTrigger asChild>
             <motion.a
-              href="mailto:jonatas@example.com"
+              href="mailto:jonatasricardo90@gmail.com"
               onClick={handleEmailClick}
               className="block p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300 cursor-pointer"
             >
@@ -97,8 +97,9 @@ export function SocialLinks() {
             </motion.a>
           </TooltipTrigger>
           <TooltipContent>
+          
             <p>
-              Click to copy: jonatas@example.com
+              Click to copy: jonatasricardo90@gmail.com
             </p>
           </TooltipContent>
         </Tooltip>
@@ -112,7 +113,7 @@ export function SocialLinks() {
         <Tooltip>
           <TooltipTrigger asChild>
             <motion.a
-              href="tel:+5511999999999"
+              href="tel:+5521980484957"
               onClick={handlePhoneClick}
               className="block p-2 bg-primary/10 hover:bg-primary/20 rounded-full transition-colors duration-300 cursor-pointer"
             >
@@ -124,7 +125,7 @@ export function SocialLinks() {
             </motion.a>
           </TooltipTrigger>
           <TooltipContent>
-            <p>Click to copy: +5511999999999</p>
+            <p>Click to copy: +55 21 9804 84957</p>
           </TooltipContent>
         </Tooltip>
       </motion.div>

@@ -8,15 +8,16 @@ interface EducationCardProps {
   period: string;
   description?: string;
   delay?: number;
+  preview?: boolean;
 }
 
-export function EducationCard({ degree, institution, period, description, delay = 0 }: EducationCardProps) {
+export function EducationCard({ degree, preview, institution, period, description, delay = 0 }: EducationCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay }}
-      className="relative pl-8 pb-8 border-l-2 border-accent-foreground/30 last:pb-0"
+      className="relative pl-8 border-l-2 border-accent-foreground/30 last:pb-0"
     >
       <motion.div
         initial={{ scale: 0 }}
@@ -34,7 +35,7 @@ export function EducationCard({ degree, institution, period, description, delay 
         </div>
       </div>
       <p className="text-muted-foreground mb-2">{period}</p>
-      {description && <p className="text-muted-foreground">{description}</p>}
+      {description && !preview && <p className="text-muted-foreground">{description}</p>}
     </motion.div>
   );
 }

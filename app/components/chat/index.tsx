@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { ProfileAvatar } from '@/components/profile-avatar';
 import { Textarea } from '@/components/base-ui/textarea';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, Trash2 } from 'lucide-react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 
@@ -136,7 +136,7 @@ export function ChatMessageBlock({ children, role }: {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, delay: .8 }}
             className="mt-6 flex"
         >
             <ChatSystemAvatar hide={['form', 'user', 'loading'].includes(role)} />
@@ -153,7 +153,7 @@ export default function Chat() {
     const [input, setInput] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const { messages, sendMessage, status, error } = useChat({
+    const { messages, sendMessage, status, error, setMessages } = useChat({
         transport: new DefaultChatTransport({
             api: '/api/chat',
         }),
@@ -177,8 +177,14 @@ export default function Chat() {
         }
     };
 
+    const clearMessages = () => {
+        setMessages([]);
+    };
+
     useEffect(() => {
-        scrollToBottom();
+        if (messages?.length > 0) {
+            scrollToBottom();
+        }
     }, [messages.length])
 
     return (
@@ -212,13 +218,25 @@ export default function Chat() {
                         onKeyDown={handleKeyDown}
                         disabled={status !== 'ready'}
                     />
-                    <button
-                        type="submit"
-                        disabled={status !== 'ready' || !input.trim()}
-                        className="self-center w-10 h-10 enabled:hover:bg-accent flex items-center justify-center bg-primary/10  rounded-full transition-colors duration-300"
-                    >
-                        <ArrowUp className="w-6 h-6" />
-                    </button>
+                    <div className="flex space-x-2">
+                        {messages.length > 0 && (
+                            <button
+                                type="button"
+                                onClick={clearMessages}
+                                className="self-center w-10 h-10 hover:bg-destructive/10 flex items-center justify-center bg-destructive/5 rounded-full transition-colors duration-300"
+                                title="Limpar mensagens"
+                            >
+                                <Trash2 className="w-5 h-5 text-destructive" />
+                            </button>
+                        )}
+                        <button
+                            type="submit"
+                            disabled={status !== 'ready' || !input.trim()}
+                            className="self-center w-10 h-10 enabled:hover:bg-accent flex items-center justify-center bg-primary/10  rounded-full transition-colors duration-300"
+                        >
+                            <ArrowUp className="w-6 h-6" />
+                        </button>
+                    </div>
                 </form>
             </ChatMessageBlock>
 

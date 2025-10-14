@@ -52,6 +52,10 @@
   @apply border-b border-gray-300 mt-12 mb-12 rounded-full;
 }
 
+.markdown img {
+  @apply w-full max-w-sm inline-block;
+}
+
 .markdown ul {
   @apply list-disc list-inside mt-4 mb-4;
 }

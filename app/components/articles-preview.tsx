@@ -29,7 +29,6 @@ export function ArticlesPreview({ articles }: ArticlesPreviewProps) {
     >
       <div className="mb-6">
         <h3 className="text-xl font-semibold mb-2">Latest Articles</h3>
-        <p className="text-muted-foreground">Check out my most recent articles</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -68,24 +67,6 @@ export function ArticlesPreview({ articles }: ArticlesPreviewProps) {
           </Link>
         ))}
       </div>
-      
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.2 }}
-        className="mt-6 text-center"
-      >
-        <Link href="/posts">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-          >
-            <span className="text-sm font-medium">View all articles</span>
-            <ArrowRight className="w-4 h-4" />
-          </motion.div>
-        </Link>
-      </motion.div>
     </motion.div>
   );
 }

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next';
+
 import '@/styles/globals.css'
 import Template from 'app/components/template'
 import favicon from '@/imgs/jonatas-ricardo-santos-frontend-icon.png'
@@ -75,6 +77,7 @@ export default function RootLayout({
         <Template>
           {children}
         </Template>
+        <Analytics />
       </body>
     </html>
   )

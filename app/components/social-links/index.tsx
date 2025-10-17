@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Github, Linkedin, Twitter, Mail, Phone, PhoneForwarded, FileText, Check } from 'lucide-react';
-import { Tooltip, TooltipTrigger, TooltipContent } from './base-ui/tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../base-ui/tooltip';
 
 export function SocialLinks() {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);

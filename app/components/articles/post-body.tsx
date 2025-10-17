@@ -1,8 +1,8 @@
 "use client"
 
 import Image from 'next/image';
-import Content from './content';
-import { MarkdownRenderer } from './markdown-renderer';
+import Content from '../content';
+import { MarkdownRenderer } from '../markdown/markdown-renderer';
 
 type Props = {
   content: string;

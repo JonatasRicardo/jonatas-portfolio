@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, FileText, Briefcase } from 'lucide-react';
-import { ArticlesPreview } from 'app/components/articles-preview';
+import { ArticlesPreview } from '@/components/articles/articles-preview';
 
 import { getAllPosts } from 'app/lib/api';
-import Content from 'app/components/content';
+import Content from '@/components/content';
 import { ResumePreview } from '@/components/resume/resume-preview';
 
 export default function HomePage() {

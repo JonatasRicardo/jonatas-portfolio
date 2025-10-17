@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next';
 
 import '@/styles/globals.css'
-import Template from 'app/components/template'
+import Template from '@/components/template'
 import favicon from '@/imgs/jonatas-ricardo-santos-frontend-icon.png'
 import ogImage from '@/imgs/jonatas-ricardo-santos-frontend-icon.png'
 

@@ -1,5 +1,5 @@
-import Header from "app/components/header";
-import { PostBody } from "app/components/post-body";
+import Header from "@/components/header";
+import { PostBody } from "@/components/articles/post-body";
 import { getAllPosts, getPostBySlug } from "app/lib/api";
 import markdownToHtml from "app/lib/markdownToHtml";
 import { Metadata } from "next";

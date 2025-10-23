@@ -2,7 +2,7 @@
 import { screen, cleanup } from '@testing-library/react'
 
 // Portable stories helpers for Next.js + Vite
-import { composeStories } from '@storybook/nextjs-vite'
+import { composeStories } from '@storybook/test'
 
 // Importa os stories do ProfileAvatar
 import * as stories from './profile-avatar.stories'

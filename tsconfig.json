@@ -34,7 +34,9 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "src/types/**/*.ts",
-    "./.next/types/**/*.ts"
+    "./.next/types/**/*.ts",
+    "vitest.shims.d.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/nextjs-vite'
+import '../app/styles/globals.css'
+
 
 const preview: Preview = {
   parameters: {

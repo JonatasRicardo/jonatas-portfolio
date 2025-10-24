@@ -3,8 +3,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 
-import Sidebar from '@/components/sidebar';
-import Chat from '@/components/chat';
+import Sidebar from 'components/sidebar';
+import Chat from 'components/chat';
 
 export default function Template({
   children

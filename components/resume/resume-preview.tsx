@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { ExperienceCard } from '@/components/resume/experience-card';
-import { EducationCard } from '@/components/resume/education-card';
+import { ExperienceCard } from 'components/resume/experience-card';
+import { EducationCard } from 'components/resume/education-card';
 import Link from 'next/link';
 import { ArrowRight, Briefcase, GraduationCap } from 'lucide-react';
 import { education, experiences } from './resume-data';

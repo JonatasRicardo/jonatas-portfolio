@@ -1,11 +1,11 @@
 'use client'
 
-import React from 'react';
+import { ArrowRight, Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
-import { ArrowRight, Calendar, Clock } from 'lucide-react';
-import { ImageWithFallback } from '../base-ui/ImageWithFallback';
-import { Post } from 'app/interfaces/post';
+import React from 'react';
+import { ImageWithFallback } from 'components/base-ui/ImageWithFallback';
+import { Post } from 'interfaces/post';
 
 interface ArticlesPreviewProps {
   articles: Post[];

@@ -16,6 +16,17 @@ const config: NextConfig = {
     { source: "/health", destination: "/api/health" },
     { source: "/ping", destination: "/api/health" },
   ],
+  turbopack: {
+    resolveAlias: {
+      "refractor/lib/all": "refractor/all",
+      "refractor/lib/core": "refractor/core",
+    },
+  },
+  webpack: (cfg) => {
+    cfg.resolve.alias["refractor/lib/all"] = "refractor/all"
+    cfg.resolve.alias["refractor/lib/core"] = "refractor/core"
+    return cfg
+  },
 }
 
 export default env.ANALYZE ? withBundleAnalyzer({ enabled: env.ANALYZE })(config) : config

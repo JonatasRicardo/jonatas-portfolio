@@ -1,14 +1,14 @@
 "use client"
 
-import React from 'react';
+import { ArrowLeft, Brain, Code, Database, Download, TestTube, Wrench, Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
-import { EducationCard } from '@/components/resume/education-card';
-import { ExperienceCard } from '@/components/resume/experience-card';
-import { ArrowLeft, Download, Code, Database, Brain, Wrench, TestTube, Zap } from 'lucide-react';
-import { Button } from '@/components/base-ui/button';
-import { Badge } from '@/components/base-ui/badge';
-import { education, experiences, skills } from '@/components/resume/resume-data';
+import React from 'react';
+import { Badge } from 'components/base-ui/badge';
+import { Button } from 'components/base-ui/button';
+import { EducationCard } from 'components/resume/education-card';
+import { ExperienceCard } from 'components/resume/experience-card';
+import { education, experiences, skills } from 'components/resume/resume-data';
 
 export default function ResumePage() {
     return (

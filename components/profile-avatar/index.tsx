@@ -1,9 +1,8 @@
 import React from "react";
 
-import { ImageWithFallback } from "@/components/base-ui/ImageWithFallback";
-import { cn } from "@/components/base-ui/utils";
-
-import profileImg from "@/imgs/jonatas-ricardo-santos-frontend-avatar.png"
+import profileImg from "assets/imgs/jonatas-ricardo-santos-frontend-avatar.png"
+import { ImageWithFallback } from "components/base-ui/ImageWithFallback";
+import { cn } from "components/base-ui/utils";
 
 interface ProfileAvatarProps extends React.ComponentProps<"div"> {
     size?: 'small' | 'medium' | 'large';

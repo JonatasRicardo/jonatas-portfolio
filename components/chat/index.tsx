@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
-import { ProfileAvatar } from '@/components/profile-avatar';
-import { Textarea } from '@/components/base-ui/textarea';
+import { ProfileAvatar } from 'components/profile-avatar';
+import { Textarea } from 'components/base-ui/textarea';
 import { ArrowUp, Trash2 } from 'lucide-react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';

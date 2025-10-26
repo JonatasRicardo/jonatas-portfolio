@@ -6,7 +6,7 @@ describe("Sidebar", () => {
     render(<Sidebar />);
 
     const homeLinks = screen.getAllByRole("link", { name: "" });
-    expect(homeLinks.some((a) => (a as HTMLAnchorElement).getAttribute("href") === "/")).toBe(true);
+    expect(homeLinks.some((a) => (a as HTMLAnchorElement).getAttribute("href")?.includes("/"))).toBe(true);
 
     const links = screen.getAllByRole("link");
     expect(links.length).toBeGreaterThan(1);

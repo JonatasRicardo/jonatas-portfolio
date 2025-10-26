@@ -26,7 +26,7 @@ export function ProfileAvatar({
          >
             <ImageWithFallback
                 src={profileImg.src}
-                alt="Profile Avatar"
+                alt="Photo of Jonatas Ricardo Santos"
                 className="w-full h-full object-cover"
             />
         </div>

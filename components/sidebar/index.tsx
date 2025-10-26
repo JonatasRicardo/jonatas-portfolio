@@ -18,9 +18,9 @@ export default function Sidebar() {
                         <ProfileAvatar size="small" className="mt-[.25rem] w-sidebar md:h-32 lg:h-48 xl:h-64 lg:ring-4" />
                     </Link>
 
-                    <div id="triangle" className="absolute md:right-[23px] right-[10px] top-1/2 md:mt-[-24px] mt-[-12px] ">
-                        <div className="absolute ml-[-1px] w-0 h-0 md:border-t-[24px] border-t-[12px]  border-t-transparent md:border-r-[24px] border-r-[12px]  border-r-border md:border-b-[24px] border-b-[12px]  border-b-transparent" />
-                        <div className="absolute w-0 h-0 md:border-t-[24px] border-t-[12px] border-t-transparent  md:border-r-[24px] border-r-[12px] border-r-card md:border-b-[24px] border-b-[12px] border-b-transparent" />
+                    <div id="triangle" className="absolute md:right-[23px]! right-[10px] top-1/2 md:mt-[-24px]! mt-[-12px] ">
+                        <div className="absolute ml-[-1px] w-0 h-0 md:border-t-[24px]! border-t-[12px]  border-t-transparent md:border-r-[24px]! border-r-[12px]  border-r-border md:border-b-[24px]! border-b-[12px]  border-b-transparent" />
+                        <div className="absolute w-0 h-0 md:border-t-[24px]! border-t-[12px] border-t-transparent  md:border-r-[24px]! border-r-[12px] border-r-card md:border-b-[24px]! border-b-[12px] border-b-transparent" />
                     </div>
                 </div>
 

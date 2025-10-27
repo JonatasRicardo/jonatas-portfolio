@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion } from 'motion/react';
+import React from 'react';
 import { ImageWithFallback } from '../base-ui/ImageWithFallback';
 
 interface PortfolioCardProps {

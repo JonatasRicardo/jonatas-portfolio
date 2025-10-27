@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState } from 'react';
+import { Check, FileText, Github, Linkedin, Mail, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Github, Linkedin, Twitter, Mail, Phone, PhoneForwarded, FileText, Check } from 'lucide-react';
-import { Tooltip, TooltipTrigger, TooltipContent } from '../base-ui/tooltip';
+import React, { useState } from 'react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../base-ui/tooltip';
 
 export function SocialLinks() {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);

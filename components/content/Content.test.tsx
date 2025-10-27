@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
 import type { HTMLAttributes, ReactNode, Ref } from "react";
+import { describe, expect, it, vi } from "vitest";
 
 vi.mock("motion/react", async () => {
   const React = await import("react");

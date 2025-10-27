@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 import { SocialLinks } from ".";
 
 const meta: Meta<typeof SocialLinks> = {
-  title: "SocialLinks",
+  title: "2 Components/SocialLinks",
   component: SocialLinks,
 };
 

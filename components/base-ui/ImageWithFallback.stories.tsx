@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ImageWithFallback } from './ImageWithFallback';
 
 const meta: Meta<typeof ImageWithFallback> = {
-  title: 'Components/Data Display/ImageWithFallback',
+  title: '2 Components/ImageWithFallback',
   component: ImageWithFallback,
   parameters: { layout: 'centered' },
 };

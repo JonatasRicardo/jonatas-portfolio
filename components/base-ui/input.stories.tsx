@@ -4,7 +4,7 @@ import { Input } from './input';
 import { Label } from './label';
 
 const meta: Meta<typeof Input> = {
-  title: 'Components/Inputs/Input',
+  title: '2 Components/Input',
   component: Input,
   parameters: {
     layout: 'centered',

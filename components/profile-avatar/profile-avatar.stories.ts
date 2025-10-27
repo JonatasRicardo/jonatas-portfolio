@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProfileAvatar } from './index';
 
 const meta = {
-  title: 'Components/ProfileAvatar',
+  title: '2 Components/ProfileAvatar',
   component: ProfileAvatar,
   parameters: {
     layout: 'centered',

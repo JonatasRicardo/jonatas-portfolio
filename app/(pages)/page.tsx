@@ -1,11 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
-import { ArrowRight, FileText, Briefcase } from 'lucide-react';
-import { ArticlesPreview } from 'app/components/articles-preview';
 
-import { getAllPosts } from 'app/lib/api';
-import Content from 'app/components/content';
-import { ResumePreview } from '@/components/resume/resume-preview';
+import { ArticlesPreview } from 'components/articles/articles-preview';
+import Content from 'components/content';
+import { ResumePreview } from 'components/resume/resume-preview';
+import { getAllPosts } from 'lib/api';
 
 export default function HomePage() {
   const articles = getAllPosts();
@@ -30,7 +28,7 @@ export default function HomePage() {
       </Content>
 
       {/* Articles and Resume Preview Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Articles Preview */}
         {articles.length > 0 && (
           <ArticlesPreview articles={articles} />

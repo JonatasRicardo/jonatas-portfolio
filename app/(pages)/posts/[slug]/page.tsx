@@ -1,10 +1,8 @@
-import Header from "app/components/header";
-import { PostBody } from "app/components/post-body";
-import { getAllPosts, getPostBySlug } from "app/lib/api";
-import markdownToHtml from "app/lib/markdownToHtml";
 import { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import { PostBody } from "components/articles/post-body";
+import Header from "components/header";
+import { getAllPosts, getPostBySlug } from "lib/api";
 
 export default async function Post(props: Params) {
     const params = await props.params;
@@ -13,8 +11,6 @@ export default async function Post(props: Params) {
     if (!post) {
         return notFound();
     }
-
-    const content = await markdownToHtml(post.content || "");
 
     return (
         <article className="mb-32">

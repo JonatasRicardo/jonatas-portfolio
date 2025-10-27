@@ -1,6 +1,6 @@
+import OpenAI from "openai";
 import fs from "node:fs/promises";
 import path from "node:path";
-import OpenAI from "openai";
 
 // === RAG load ===
 type Doc = { id: string; url: string; title: string; text: string; embedding: number[] };

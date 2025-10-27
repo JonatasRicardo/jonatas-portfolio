@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { describe, it, vi, afterEach, beforeEach } from 'vitest';
-import Chat, { Typing, ChatMessageBlock } from './index';
+import { afterEach, beforeEach, describe, it, vi } from 'vitest';
+import Chat, { ChatMessageBlock, Typing } from './index';
 
 // Mock dependencies
 vi.mock('@ai-sdk/react', () => {
@@ -17,6 +17,8 @@ vi.mock('@ai-sdk/react', () => {
 });
 
 import { useChat } from '@ai-sdk/react'; 
+import { ChatRequestOptions } from 'ai';
+import React from 'react';
 
 vi.mock('lucide-react', () => ({
   ArrowUp: () => <svg data-testid="icon-arrow-up" />,
@@ -29,7 +31,7 @@ vi.mock('motion/react', async () => {
     {},
     {
       get: () =>
-        React.forwardRef(function MotionDiv({ children, ...props }, ref) {
+        React.forwardRef(function MotionDiv({ children, ...props }: React.AllHTMLAttributes<HTMLDivElement>, ref) {
           return React.createElement('div', { ref, ...props }, children);
         }),
     },
@@ -42,7 +44,7 @@ vi.mock('components/profile-avatar', () => ({
 }));
 
 vi.mock('components/base-ui/textarea', () => ({
-  Textarea: ({ value, onChange, onKeyDown, ...props }: any) => (
+  Textarea: ({ value, onChange, onKeyDown, ...props }: React.AllHTMLAttributes<HTMLTextAreaElement>) => (
     <textarea value={value} onChange={onChange} onKeyDown={onKeyDown} {...props} />
   ),
 }));
@@ -68,11 +70,27 @@ describe('Chat Component', () => {
   it('should allow sending a message', async () => {
     const sendMessageMock = vi.fn();
     vi.mocked(useChat).mockReturnValue({
-      messages: [],
-      sendMessage: sendMessageMock,
-      status: 'ready',
-      error: null,
-      setMessages: vi.fn(),
+        messages: [],
+        sendMessage: sendMessageMock,
+        status: 'ready',
+        setMessages: vi.fn(),
+        id: '',
+        error: undefined,
+        stop: function (): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        regenerate: function (): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        resumeStream: function (options?: ChatRequestOptions): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        addToolResult: function <TOOL extends string>({ state, tool, toolCallId, output, errorText, }: { state?: 'output-available'; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: 'output-error'; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        clearError: function (): void {
+            throw new Error('Function not implemented.');
+        }
     });
 
     render(<Chat />);
@@ -89,11 +107,27 @@ describe('Chat Component', () => {
   it('should allow clearing messages', async () => {
     const setMessagesMock = vi.fn();
     vi.mocked(useChat).mockReturnValue({
-      messages: [{ id: '1', role: 'user', parts: [{ type: 'text', text: 'Hello' }] }],
-      sendMessage: vi.fn(),
-      status: 'ready',
-      error: null,
-      setMessages: setMessagesMock,
+        messages: [{ id: '1', role: 'user', parts: [{ type: 'text', text: 'Hello' }] }],
+        sendMessage: vi.fn(),
+        status: 'ready',
+        setMessages: setMessagesMock,
+        error: undefined,
+        id: '',
+        regenerate: function (): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        stop: function (): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        resumeStream: function (options?: ChatRequestOptions): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        addToolResult: function <TOOL extends string>({ state, tool, toolCallId, output, errorText, }: { state?: 'output-available'; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: 'output-error'; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
+            throw new Error('Function not implemented.');
+        },
+        clearError: function (): void {
+            throw new Error('Function not implemented.');
+        }
     });
 
     render(<Chat />);

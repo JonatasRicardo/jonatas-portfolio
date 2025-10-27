@@ -1,11 +1,10 @@
-import { join } from "path";
-import fs from "fs";
 import matter from "gray-matter";
+import fs from "fs";
+import { join } from "path";
 
 import { Post } from "interfaces/post";
 
 const postsDirectory = join(process.cwd(), "_posts");
-const articlesDirectory = join(process.cwd(), "_posts");
 
 export function getPostSlugs() {
   return fs.readdirSync(postsDirectory);

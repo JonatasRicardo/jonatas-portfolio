@@ -1,105 +1,87 @@
 
-# [Next.js Enterprise Boilerplate](https://blazity.com/open-source/nextjs-enterprise-boilerplate) 
+## Jonatas Portfolio
 
-A production-ready template for building enterprise applications with Next.js. This boilerplate provides a solid foundation with carefully selected technologies and ready-to-go infrastructure to help you develop high-quality applications efficiently.
+Personal portfolio built with Next.js 15, Tailwind CSS 4, and TypeScript. It includes Markdown-based blog posts, a resume page, reusable components with Storybook, a complete test setup (unit and E2E), and helpful integrations for developer productivity.
 
-## Motivation
+### Tech stack
+- **Next.js 15** (App Router)
+- **React 19** and **TypeScript**
+- **Tailwind CSS 4**
+- **Vitest** + **Testing Library** for unit tests
+- **Playwright** for E2E tests
+- **Storybook 8** for component docs
+- **Radix UI** and **CVA** for UI foundations
 
-While most Next.js boilerplates focus on individual developer needs with excessive complexity, **next-enterprise** prioritizes strategic simplicity for enterprise teams. It offers a streamlined foundation with high-impact features that maximize developer productivity and accelerate time-to-market for business-critical applications.
+### Requirements
+- Node.js >= 20
+- pnpm (recommended via Corepack)
 
-<a href="https://blazity.com/">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="/assets/blazity-logo-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="/assets/blazity-logo-light.svg">
-  <img alt="Logo" align="right" height="80" src="/assets/blazity-logo-light.svg">
-</picture>
-</a>
+Enable Corepack and install dependencies:
 
-> [!NOTE]
-> **Blazity** is a group of Next.js architects. We help organizations architect, optimize, and deploy high-performance Next.js applications at scale. Contact us at [contact@blazity.com](https://blazity.com) if you’d like to talk about your project.
+```bash
+corepack enable
+pnpm install
+```
 
+### Running
+- Dev server: `pnpm dev` (http://localhost:3000)
+- Production build: `pnpm build`
+- Serve build: `pnpm start`
 
+### Storybook
+- Run: `pnpm storybook` (http://localhost:6006)
+- Static build: `pnpm build-storybook`
 
-## Documentation
+### Tests
+- Unit: `pnpm test`
+- Watch mode: `pnpm test:watch`
+- Tests UI: `pnpm test:ui`
+- Coverage: `pnpm test:coverage` (report in `coverage/`)
+- E2E headless: `pnpm e2e:headless`
+- E2E UI: `pnpm e2e:ui` (automatically starts `pnpm dev` via Playwright config)
 
-There is a separate documentation that explains its functionality, highlights core business values and technical decisions, provides guidelines for future development, and includes architectural diagrams.
+### Linting and formatting
+- Lint: `pnpm lint`
+- Lint (fix): `pnpm lint:fix`
+- Prettier check: `pnpm prettier`
+- Prettier fix: `pnpm prettier:fix`
+- Format all (ts, tsx, md): `pnpm format`
 
-We encourage you to [visit our docs (docs.blazity.com)](https://docs.blazity.com) to learn more
+### Bundle analysis
+- `pnpm analyze` with `ANALYZE=true` enables the bundle analyzer during build.
 
-## Integrated features
+### Environment variables
+This project uses `@t3-oss/env-nextjs` for typed envs. Available variables:
 
-### Boilerplate
-With this template you will get all the boilerplate features included:
+- `ANALYZE` (optional): "true" | "false" — enables bundle report when "true".
 
-* [Next.js 15](https://nextjs.org/) - Performance-optimized configuration using App Directory
-* [Tailwind CSS v4](https://tailwindcss.com/) - Utility-first CSS framework for efficient UI development
-* [ESlint 9](https://eslint.org/) and [Prettier](https://prettier.io/) - Code consistency and error prevention
-* [Corepack](https://github.com/nodejs/corepack) & [pnpm](https://pnpm.io/) as the package manager - For project management without compromises 
-* [Strict TypeScript](https://www.typescriptlang.org/) - Enhanced type safety with carefully crafted config and [ts-reset](https://github.com/total-typescript/ts-reset) library
-* [GitHub Actions](https://github.com/features/actions) - Pre-configured workflows including bundle size and performance tracking
-* Perfect Lighthouse score - Optimized performance metrics
-* [Bundle analyzer](https://www.npmjs.com/package/@next/bundle-analyzer) - Monitor and manage bundle size during development
-* Testing suite - [Vitest](https://vitest.dev), [React Testing Library](https://testing-library.com/react), and [Playwright](https://playwright.dev/) for comprehensive testing
-* [Storybook](https://storybook.js.org/) - Component development and documentation
-* Advanced testing - Smoke and acceptance testing capabilities
-* [Conventional commits](https://www.conventionalcommits.org/) - Standardized commit history management
-* [Observability](https://opentelemetry.io/) - Open Telemetry integration
-* [Absolute imports](https://nextjs.org/docs/advanced-features/module-path-aliases) - Simplified import structure
-* [Health checks](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) - Kubernetes-compatible monitoring
-* [Radix UI](https://www.radix-ui.com/) - Headless components for customization
-* [CVA](http://cva.style/) (Class Variance Authority) - Consistent design system creation
-* [Renovate BOT](https://www.whitesourcesoftware.com/free-developer-tools/renovate) - Automated dependency and security updates
-* [Patch-package](https://www.npmjs.com/package/patch-package) - External dependency fixes without compromises
-* Component relationship tools - Graph for managing coupling and cohesion
-* [Semantic Release](https://github.com/semantic-release/semantic-release) - Automated changelog generation
-* [T3 Env](https://env.t3.gg/) - Streamlined environment variable management
+Define them in your environment or in a `.env` file when needed.
 
-### Infrastructure & deployments
+### Additional scripts
+- Generate coupling graph: `pnpm coupling-graph` (produces `graph.svg`)
+- RAG (optional): `pnpm rag` runs `rag/crawl-and-index.ts` with `dotenv` loaded
 
-#### Vercel
+### Project structure
+```text
+app/
+  (pages)/             # Main pages (home, posts, resume, APIs)
+components/            # Components (base UI, layout, portfolio, resume, etc.)
+public/                # Public images and post assets
+styles/                # Global CSS and Tailwind
+lib/                   # Helpers (APIs, utils)
+e2e/                   # E2E tests (Playwright)
+rag/                   # Crawling/index scripts (optional)
+.storybook/            # Storybook config
+```
 
-Easily deploy your Next.js app with [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=github&utm_campaign=next-enterprise) by clicking the button below:
+### Commit conventions
+This repo follows **Conventional Commits**. Message format: `type(scope): subject`.
 
-[![Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/Blazity/next-enterprise)
+### Deploy
+Recommended via **Vercel**. After building (`pnpm build`), you can publish by configuring the project in the Vercel dashboard.
 
-#### Custom cloud infrastructure
+### Credits
+This project was bootstrapped from Blazity's Next.js Enterprise Boilerplate and customized for Jonatas' portfolio.
 
-**next-enterprise** offers dedicated infrastructure as code (IaC) solutions built with Terraform, designed specifically for deploying Next.js applications based on our extensive experience working with enterprise clients.
-
-Learn more in our [documentation (docs.blazity.com)][docs] how to quickstart with the deployments using simple CLI.
-
-#### Available cloud providers and theirs features:
-
-* **AWS (Amazon Web Services)**
-  * Automated provisioning of AWS infrastructure
-  * Scalable & secure setup using:
-     * VPC - Isolated network infrastructure
-     * Elastic Container Service (ECS) - Container orchestration
-     * Elastic Container Registry (ECR) - Container image storage
-     * Application Load Balancer - Traffic distribution
-     * S3 + CloudFront - Static asset delivery and caching
-     * AWS WAF - Web Application Firewall protection
-     * Redis Cluster - Caching
-  * CI/CD ready - Continuous integration and deployment pipeline
-
-*... more coming soon*
-
-### Team & maintenance
-
-**next-enterprise** is backed and maintained by [Blazity](https://blazity.com), providing up to date security features and integrated feature updates.
-
-#### Active maintainers
-
-- Igor Klepacki ([neg4n](https://github.com/neg4n)) - Open Source Software Developer
-- Tomasz Czechowski ([tomaszczechowski](https://github.com/tomaszczechowski)) - Solutions Architect & DevOps
-- Jakub Jabłoński ([jjablonski-it](https://github.com/jjablonski-it)) - Head of Integrations
-
-#### All-time contributors
-[bmstefanski](https://github.com/bmstefanski)
-
-## License
-
+### License
 MIT
-
-
-[docs]: https://docs.blazity.com/next-enterprise/deployments/enterprise-cli

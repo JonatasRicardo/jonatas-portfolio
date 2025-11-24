@@ -7,11 +7,11 @@
  * Run:  ts-node scripts/crawl-and-index.ts
  */
 import 'dotenv/config';
+import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { JSDOM } from "jsdom";
 import pLimit from "p-limit";
-import crypto from "node:crypto";
 import OpenAI from "openai";
 
 const OPENAI_EMBED_MODEL = "text-embedding-3-large";
@@ -109,7 +109,14 @@ function hashId(url: string, idx: number) {
 
 function cosine(a: number[], b: number[]) {
   let dot = 0, na = 0, nb = 0;
-  for (let i = 0; i < a.length; i++) { dot += a[i] * b[i]; na += a[i] ** 2; nb += b[i] ** 2; }
+  const len = Math.min(a.length, b.length);
+  for (let i = 0; i < len; i++) {
+    const av = a[i] ?? 0;
+    const bv = b[i] ?? 0;
+    dot += av * bv;
+    na += av ** 2;
+    nb += bv ** 2;
+  }
   return dot / (Math.sqrt(na) * Math.sqrt(nb));
 }
 
@@ -134,7 +141,7 @@ async function main() {
         url: raw.url,
         title,
         text: chunk,
-        embedding: embs[i],
+        embedding: embs[i] as number[],
       });
     });
   }

@@ -139,9 +139,9 @@ export function ChatMessageBlock({ children, role }: {
             transition={{ duration: 0.3, delay: .8 }}
             className="mt-6 flex"
         >
-            <ChatSystemAvatar hide={['form', 'user', 'loading'].includes(role)} />
+            <ChatSystemAvatar hide={role ? ['form', 'user', 'loading'].includes(role) : false} />
             <div className="flex-1 lg:w-3/4">
-                <div className={`${talkBoxStyles[role]}  border border-border rounded-xl shadow-lg p-6 space-y-6`}>
+                <div className={`${talkBoxStyles[role ?? 'assistant']}  border border-border rounded-xl shadow-lg p-6 space-y-6`}>
                     {children}
                 </div>
             </div>

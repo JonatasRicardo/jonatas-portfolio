@@ -3,10 +3,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dracula, gruvboxLight, gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { cn } from '../base-ui/utils'
-import markdownStyles from "./markdown-styles.module.css";
 
 interface MarkdownRendererProps {
   content: string,
@@ -23,19 +20,17 @@ interface CodeComponentProps {
 
 function CodeRender({ node, inline, className, children, ...props }: CodeComponentProps) {
   const match = /language-(\w+)/.exec(className || '')
-  let language = match ? match[1] : '';
-  return !inline && match ? (<SyntaxHighlighter
-      style={gruvboxDark}
-      language={language}
-      PreTag="div"
-      className="rounded-md !mb-6"
-    >
-      {String(children).replace(/\n$/, '')}
-    </SyntaxHighlighter> ) : (
-    <code className={className} {...props}>
-      {children}
-    </code>
-  )
+  const language = match ? match[1] : '';
+  if (!inline && match) {
+    return (
+      <pre className="rounded-md !mb-6 overflow-x-auto">
+        <code className={className} {...props}>
+          {String(children).replace(/\n$/, '')}
+        </code>
+      </pre>
+    )
+  }
+  return <code className={className} {...props}>{children}</code>
 }
 
 function LinkRenderer({ href, children, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
@@ -48,7 +43,7 @@ function LinkRenderer({ href, children, ...props }: React.AnchorHTMLAttributes<H
 
 export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
   return (
-    <div className={cn("prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100", markdownStyles["markdown"])}>
+    <div className={cn("prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100 rounded-xl", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

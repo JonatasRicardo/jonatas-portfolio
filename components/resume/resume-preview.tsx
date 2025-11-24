@@ -8,10 +8,9 @@ import Link from 'next/link';
 import { ArrowRight, Briefcase, GraduationCap } from 'lucide-react';
 import { education, experiences } from './resume-data';
 
-const latestExperience = experiences[0];
-const latestEducation = education.slice(0, 2);
-
 export function ResumePreview() {
+    const latestExperience = experiences[0];
+    const latestEducation = education.slice(0, 2);
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -38,14 +37,16 @@ export function ResumePreview() {
                     <Briefcase className="w-4 h-4" />
                     Latest Experience
                 </div>
-                <ExperienceCard
-                    title={latestExperience.title}
-                    company={latestExperience.company}
-                    period={latestExperience.period}
-                    description={latestExperience.description}
-                    delay={0}
-                    preview
-                />
+                {latestExperience && (
+                    <ExperienceCard
+                        title={latestExperience.title}
+                        company={latestExperience.company}
+                        period={latestExperience.period}
+                        description={latestExperience.description}
+                        delay={0}
+                        preview
+                    />
+                )}
             </div>
 
             {/* Latest Education */}

@@ -12,19 +12,26 @@ const RAG_PATH = path.join(process.cwd(), "rag", "site-index.json");
 // cosine
 function cosine(a: number[], b: number[]) {
   let dot = 0, na = 0, nb = 0;
-  for (let i = 0; i < a.length; i++) { dot += a[i] * b[i]; na += a[i] ** 2; nb += b[i] ** 2; }
+  const len = Math.min(a.length, b.length);
+  for (let i = 0; i < len; i++) {
+    const av = a[i] ?? 0;
+    const bv = b[i] ?? 0;
+    dot += av * bv;
+    na += av ** 2;
+    nb += bv ** 2;
+  }
   return dot / (Math.sqrt(na) * Math.sqrt(nb));
 }
 
 async function embedOnce(text: string) {
   const e = await ai.embeddings.create({ model: EMBED_MODEL, input: text });
-  return e.data[0].embedding as number[];
+  return (e.data?.[0]?.embedding ?? []) as number[];
 }
 
 async function retrieve(query: string, k = 4): Promise<Doc[]> {
   const raw = await fs.readFile(RAG_PATH, "utf-8").catch(() => "{}");
-  const idx: Index = JSON.parse(raw || "{}");
-  if (!idx.docs?.length) return [];
+  const idx = JSON.parse(raw || "{}") as { docs?: Doc[] };
+  if (!idx.docs || idx.docs.length === 0) return [];
   const q = await embedOnce(query);
   const scored = idx.docs
     .map(d => ({ d, score: cosine(q, d.embedding) }))

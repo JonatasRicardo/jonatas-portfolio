@@ -392,7 +392,16 @@
 @layer utilities {
 
   .w-sidebar {
-    @apply w-12 md:w-32 lg:w-48 xl:w-64;
+    @apply w-12;
+  }
+  @media (width >= 48rem) {
+    .w-sidebar { @apply w-32; }
+  }
+  @media (width >= 80rem) {
+    .w-sidebar { @apply w-48; }
+  }
+  @media (width >= 96rem) {
+    .w-sidebar { @apply w-64; }
   }
   
   .absolute {

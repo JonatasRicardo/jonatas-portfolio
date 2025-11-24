@@ -12,7 +12,6 @@ if (!(React as any).act) {
 
 // Polyfill: matchMedia (used by hooks/components relying on media queries)
 if (typeof window !== "undefined" && !window.matchMedia) {
-  // @ts-expect-error jsdom typings
   window.matchMedia = (query: string) => {
     return {
       matches: false,

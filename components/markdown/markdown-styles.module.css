@@ -1,5 +1,5 @@
 .markdown {
-  @apply rounded-sm;
+  border-radius: var(--radius);
 }
 .markdown h1 {
   @apply text-4xl font-bold mt-0 mb-2;
@@ -42,10 +42,11 @@
 }
 
 .markdown code {
-  @apply rounded-sm mb-6 px-2 py-px text-sm;
+  border-radius: var(--radius);
+  @apply mb-6 px-2 py-px text-sm;
 }
 .markdown > div {
-  @apply rounded-sm;
+  border-radius: var(--radius);
 }
 
 .markdown hr {

@@ -6,11 +6,11 @@ import { askJonatas } from './jonatas-assistant';
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json();
+  const body = (await req.json()) as { messages: UIMessage[] };
+  const { messages } = body;
 
   const modelMessages = convertToModelMessages(messages);
-
-  const lastMessage =  String(modelMessages[modelMessages.length - 1].content);
+  const lastMessage = String(modelMessages.at(-1)?.content ?? "");
 
   const { prompt } = await askJonatas(lastMessage);
 

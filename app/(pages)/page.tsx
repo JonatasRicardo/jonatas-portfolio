@@ -24,6 +24,9 @@ export default function HomePage() {
         <p className="text-accent-foreground leading-relaxed">
           Here I share <strong>projects</strong>, <strong>articles</strong>, and <strong>practical insights</strong> on frontend architecture, design systems, and how AI/ML is transforming the development landscape. I'm passionate about <em>bridging beautiful interfaces with intelligent functionality</em> — creating products that are both delightful to use and powered by cutting-edge technology.
         </p>
+        <p className="text-accent-foreground leading-relaxed mt-5">
+          You can also chat with me — just scroll to the bottom of the page.
+        </p>
 
       </Content>
 

@@ -5,6 +5,7 @@ const meta: Meta<typeof ResumePreview> = {
   title: '2 Components/Resume/ResumePreview',
   component: ResumePreview,
   parameters: { layout: 'padded' },
+  tags: ['autodocs'],
 };
 
 export default meta;

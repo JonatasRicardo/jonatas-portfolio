@@ -4,6 +4,7 @@ import Sidebar from ".";
 const meta: Meta<typeof Sidebar> = {
   title: "2 Components/Sidebar",
   component: Sidebar,
+  tags: ['autodocs'],
 };
 
 type Story = StoryObj<typeof Sidebar>;

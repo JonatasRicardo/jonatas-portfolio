@@ -5,6 +5,7 @@ const meta: Meta<typeof EducationCard> = {
   title: '2 Components/Resume/EducationCard',
   component: EducationCard,
   parameters: { layout: 'centered' },
+  tags: ['autodocs'],
   args: {
     degree: 'MIT Professional Certificate in Data Science and Machine Learning',
     institution: 'Massachusetts Institute of Technology (MIT)',

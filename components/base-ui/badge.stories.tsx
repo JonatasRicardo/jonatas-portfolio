@@ -5,6 +5,7 @@ const meta: Meta<typeof Badge> = {
   title: '2 Components/Badge',
   component: Badge,
   parameters: { layout: 'centered' },
+  tags: ['autodocs'],
   argTypes: {
     variant: { control: 'radio', options: ['default', 'secondary', 'destructive', 'outline'] },
   },

@@ -23,7 +23,8 @@
     "e2e:ui": "playwright test --ui",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "postinstall": "npx patch-package -y",
-    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
+    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg",
+    "chromatic": "npx chromatic --project-token=chpt_c36a8b08ff03f31"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.53",
@@ -128,6 +129,7 @@
     "@vitest/coverage-v8": "3.2.4",
     "@vitest/ui": "^3.2.4",
     "all-contributors-cli": "^6.26.1",
+    "chromatic": "^13.3.4",
     "cross-env": "^7.0.3",
     "dotenv": "^17.2.3",
     "eslint": "^9.26.0",

@@ -4,6 +4,7 @@ import { SocialLinks } from ".";
 const meta: Meta<typeof SocialLinks> = {
   title: "2 Components/SocialLinks",
   component: SocialLinks,
+  tags: ['autodocs'],
 };
 
 type Story = StoryObj<typeof SocialLinks>;

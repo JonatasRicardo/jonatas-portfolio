@@ -5,6 +5,7 @@ const meta: Meta<typeof ExperienceCard> = {
   title: '2 Components/Resume/ExperienceCard',
   component: ExperienceCard,
   parameters: { layout: 'centered' },
+  tags: ['autodocs'],
   args: {
     title: 'Senior Frontend Engineer',
     company: 'Optii Solutions – Texas, USA (Remote)',

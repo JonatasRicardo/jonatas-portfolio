@@ -6,6 +6,7 @@ const meta: Meta<typeof Tooltip> = {
   title: '2 Components/Tooltip',
   component: Tooltip,
   parameters: { layout: 'centered' },
+  tags: ['autodocs'],
 };
 export default meta;
 

@@ -3,6 +3,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import  "./markdown-styles.css"
 import { cn } from '../base-ui/utils'
 
 interface MarkdownRendererProps {
@@ -41,10 +42,12 @@ function LinkRenderer({ href, children, ...props }: React.AnchorHTMLAttributes<H
   );
 }
 
+
 export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
   return (
-    <div className={cn("prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100 rounded-xl", className)}>
+    <div  className={cn("prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100 markdown")}>
       <ReactMarkdown
+
         remarkPlugins={[remarkGfm]}
         components={{
           code: CodeRender,

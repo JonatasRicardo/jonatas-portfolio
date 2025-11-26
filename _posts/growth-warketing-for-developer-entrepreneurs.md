@@ -1,6 +1,6 @@
 ---
 title: "Growth Marketing for Developer Entrepreneurs"
-description: "How I turned technical knowledge into $120K using Growth Marketing"
+description: "How I turned technical knowledge into R$ 120K using Growth Marketing"
 image: "/posts/vtex-dev.png"
 category: "Growth"
 date: "2025-11-20"
@@ -38,6 +38,8 @@ I set up campaigns on Google Ads and Facebook/Instagram. My criteria were people
 
 The anguish was real. So much effort, so much dedicated time, and the market seemed indifferent. It was a moment of questioning everything. But I decided not to give up.
 
+!['black friday landing page'](/posts/vtex-dev-black-november.png)
+
 ## Black Friday: The Turning Point
 
 As Black Friday approached, I created a specific campaign. This is where marketing really began. I implemented a price anchoring strategy: the basic package cost $600 (originally $1,000) and included the complete course. The premium package at $1,000 included the course plus two hours of consulting and a hiring plan. And there was the enterprise package at $1,500, with the course plus eight to ten hours of consulting and a complete implementation strategy.
@@ -61,6 +63,9 @@ The product had made noise. I had caught the attention of a company listed on th
 With sales happening and customers acquired, a new demand emerged: VTEX IO, the platform's new version. Problem? I didn't know how to use it yet—I had left the market.
 
 The solution was interesting: I learned while getting paid. I closed a freelance project to implement a store in VTEX IO, learned hands-on, and created a new module for the course.
+
+!['vtex io landing page'](/posts/vtex-dev-black-november.gif)
+
 
 ## Growth Marketing in Practice: VTEX IO
 
@@ -87,6 +92,8 @@ The 1.85% conversion rate might seem modest at first glance, but for a $500 prod
 Financially, the project was highly relevant. From occasional freelancer to scalable product creator. $24K in revenue with minimal investment, plus recurring revenue through additional consulting that emerged naturally.
 
 But the biggest gain was the learning. I experienced the entire growth marketing cycle in practice: finding product-market fit, optimizing conversions, acquiring customers through multiple channels, mastering strategic SEO, using paid advertising with brutal efficiency, implementing email marketing, and developing sophisticated pricing strategy.
+
+!['GA'](/posts/vtex-dev-GA.png)
 
 ## Lessons Learned: Growth for Developer Entrepreneurs
 

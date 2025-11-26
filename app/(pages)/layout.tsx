@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import 'styles/globals.css'
 import 'styles/tailwind.css'
 
 import favicon from 'assets/imgs/jonatas-ricardo-santos-frontend-icon.png'

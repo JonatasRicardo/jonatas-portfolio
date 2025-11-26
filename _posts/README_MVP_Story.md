@@ -23,7 +23,6 @@ Simple, fast, and it worked.
 !['readme ecommerce'](/posts/ecom-mvp-1.png)
 !['readme ecommerce'](/posts/ecom-mvp-4.png)
 
----
 
 ## Early Return
 
@@ -32,7 +31,6 @@ Even if I had chosen a ready-made e-commerce template, I know I would have spent
 But by choosing the simplest path possible, I was able to **test fast, get real feedback, and focus on what really mattered**.  
 That was my **early return** — validating the idea before overinvesting in features or infrastructure.
 
----
 
 ## Overcoming Fear & Learning New Things
 
@@ -46,7 +44,6 @@ What if I sent that LinkedIn message?
 In my case, my “What if” moment was **showing my project at a dev event**.  
 There, I could see people’s genuine reactions: laughing at the shirts, asking questions, sharing feedback — and I learned more in that one day than in months of coding.
 
----
 
 ## Training My Mental Model
 
@@ -63,7 +60,6 @@ It was a chain of small “What ifs” that changed my career trajectory:
 - **2022:** started working for U.S. companies.  
 - **2025:** specialized at the **MIT** in **AI & Machine Learning**, expanding my horizons.
 
----
 
 ## So… what happened to the store?
 

@@ -52,8 +52,9 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         components={{
           code: CodeRender,
           a: LinkRenderer,
-          p: ({ children }) => <p className="m-4">{children}</p>,
-          h2: ({ children }) => <h2 className="m-4">{children}</h2>
+          p: ({ children }) => <p className="mt-6 mb-6">{children}</p>,
+          h2: ({ children }) => <h2 className="mt-8 mb-8">{children}</h2>,
+          img: ({ children, ...props }) => <span className='flex justify-center'><img {...props} className="mt-4 mb-4 lg:max-w-[700px]">{children}</img></span>
         }}
       >
         {content}

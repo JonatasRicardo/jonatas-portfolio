@@ -1,9 +1,9 @@
 "use client"
 
-import React from 'react';
+import { ArrowLeft } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import React from 'react';
 
 interface HeaderProps {
     title?: string,

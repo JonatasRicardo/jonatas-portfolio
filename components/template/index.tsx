@@ -1,14 +1,14 @@
 "use client"
 
-import React from 'react';
 import { motion } from 'motion/react';
+import React from 'react';
 
-import Sidebar from 'components/sidebar';
 import Chat from 'components/chat';
+import Sidebar from 'components/sidebar';
 
 export default function Template({
   children
-}) {
+}: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/20">
       <div className="container mx-auto px-4 py-8">

@@ -17,7 +17,6 @@ vi.mock('@ai-sdk/react', () => {
 });
 
 import { useChat } from '@ai-sdk/react'; 
-import { ChatRequestOptions } from 'ai';
 import React from 'react';
 
 vi.mock('lucide-react', () => ({
@@ -82,10 +81,10 @@ describe('Chat Component', () => {
         regenerate: function (): Promise<void> {
             throw new Error('Function not implemented.');
         },
-        resumeStream: function (options?: ChatRequestOptions): Promise<void> {
+        resumeStream: function (): Promise<void> {
             throw new Error('Function not implemented.');
         },
-        addToolResult: function <TOOL extends string>({ state, tool, toolCallId, output, errorText, }: { state?: 'output-available'; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: 'output-error'; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
+        addToolResult: function <TOOL extends string>({ }: { state?: 'output-available'; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: 'output-error'; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
             throw new Error('Function not implemented.');
         },
         clearError: function (): void {
@@ -119,10 +118,10 @@ describe('Chat Component', () => {
         stop: function (): Promise<void> {
             throw new Error('Function not implemented.');
         },
-        resumeStream: function (options?: ChatRequestOptions): Promise<void> {
+        resumeStream: function (): Promise<void> {
             throw new Error('Function not implemented.');
         },
-        addToolResult: function <TOOL extends string>({ state, tool, toolCallId, output, errorText, }: { state?: 'output-available'; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: 'output-error'; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
+        addToolResult: function <TOOL extends string>({  }: { state?: 'output-available'; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: 'output-error'; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
             throw new Error('Function not implemented.');
         },
         clearError: function (): void {

@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
 import { Briefcase } from 'lucide-react';
+import { motion } from 'motion/react';
+import React from 'react';
 
 interface ExperienceCardProps {
   title: string;

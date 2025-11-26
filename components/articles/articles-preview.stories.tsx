@@ -5,6 +5,7 @@ const meta: Meta<typeof ArticlesPreview> = {
   title: '2 Components/ArticlesPreview',
   component: ArticlesPreview,
   parameters: { layout: 'padded' },
+  tags: ['autodocs'],
   args: {
     articles: Array.from({ length: 4 }).map((_, i) => ({
       slug: `slug-${i + 1}`,

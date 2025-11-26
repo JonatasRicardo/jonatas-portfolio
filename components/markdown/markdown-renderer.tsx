@@ -2,12 +2,9 @@
 
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 import remarkGfm from 'remark-gfm'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dracula, gruvboxLight, gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { cn } from '../base-ui/utils'
-import markdownStyles from "./markdown-styles.module.css";
-
 interface MarkdownRendererProps {
   content: string,
   className?: string
@@ -21,9 +18,9 @@ interface CodeComponentProps {
   [key: string]: any
 }
 
-function CodeRender({ node, inline, className, children, ...props }: CodeComponentProps) {
+function CodeRender({ inline, className, children, ...props }: CodeComponentProps) {
   const match = /language-(\w+)/.exec(className || '')
-  let language = match ? match[1] : '';
+  const language = match ? match[1] : '';
   return !inline && match ? (<SyntaxHighlighter
       style={gruvboxDark}
       language={language}
@@ -46,14 +43,18 @@ function LinkRenderer({ href, children, ...props }: React.AnchorHTMLAttributes<H
   );
 }
 
-export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
+
+export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
-    <div className={cn("prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100", markdownStyles["markdown"])}>
+    <div className="prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
           code: CodeRender,
           a: LinkRenderer,
+          p: ({ children }) => <p className="mt-6 mb-6">{children}</p>,
+          h2: ({ children }) => <h2 className="mt-8 mb-8">{children}</h2>,
+          img: ({ children, ...props }) => <span className='flex justify-center'><img {...props} className="mt-4 mb-4 lg:max-w-[700px]">{children}</img></span>
         }}
       >
         {content}

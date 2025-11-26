@@ -1,12 +1,12 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'motion/react';
-import { ProfileAvatar } from 'components/profile-avatar';
-import { Textarea } from 'components/base-ui/textarea';
-import { ArrowUp, Trash2 } from 'lucide-react';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
+import { ArrowUp, Trash2 } from 'lucide-react';
+import { motion } from 'motion/react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Textarea } from 'components/base-ui/textarea';
+import { ProfileAvatar } from 'components/profile-avatar';
 
 interface TypingProps {
     size?: 'small' | 'medium' | 'large';
@@ -139,9 +139,9 @@ export function ChatMessageBlock({ children, role }: {
             transition={{ duration: 0.3, delay: .8 }}
             className="mt-6 flex"
         >
-            <ChatSystemAvatar hide={['form', 'user', 'loading'].includes(role)} />
+            <ChatSystemAvatar hide={role ? ['form', 'user', 'loading'].includes(role) : false} />
             <div className="flex-1 lg:w-3/4">
-                <div className={`${talkBoxStyles[role]}  border border-border rounded-xl shadow-lg p-6 space-y-6`}>
+                <div className={`${talkBoxStyles[role ?? 'assistant']}  border border-border rounded-xl shadow-lg p-6 space-y-6`}>
                     {children}
                 </div>
             </div>
@@ -153,7 +153,7 @@ export default function Chat() {
     const [input, setInput] = useState('');
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const { messages, sendMessage, status, error, setMessages } = useChat({
+    const { messages, sendMessage, status, setMessages } = useChat({
         transport: new DefaultChatTransport({
             api: '/api/chat',
         }),
@@ -195,7 +195,7 @@ export default function Chat() {
                     role={message.role}
                 >
                     {message && <p className="text-sm whitespace-pre-wrap">
-                        {message.parts.map((part, index) =>
+                        {message.parts.map((part) =>
                             part.type === 'text' ? part.text : null
                         )}
                     </p>}

@@ -5,6 +5,7 @@ const meta: Meta<typeof ImageWithFallback> = {
   title: '2 Components/ImageWithFallback',
   component: ImageWithFallback,
   parameters: { layout: 'centered' },
+  tags: ['autodocs'],
 };
 export default meta;
 

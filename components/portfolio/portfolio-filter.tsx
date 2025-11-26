@@ -1,13 +1,22 @@
 'use client'
 
-import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PortfolioCard } from './portfolio-card';
 import Link from 'next/link';
+import React from 'react';
+import { PortfolioCard } from './portfolio-card';
+
+type PortfolioItem = {
+    id: string;
+    slug: string;
+    title: string;
+    description: string;
+    image: string;
+    category: string;
+}
 
 export function PortfolioFilter({
     portfolioItems
-}) {
+}: { portfolioItems: PortfolioItem[] }) {
   return (
     <motion.div
       layout

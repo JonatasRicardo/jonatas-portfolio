@@ -9,6 +9,7 @@ const meta: Meta<typeof Input> = {
   parameters: {
     layout: 'centered',
   },
+  tags: ['autodocs'],
   argTypes: {
     disabled: { control: 'boolean' },
     placeholder: { control: 'text' },

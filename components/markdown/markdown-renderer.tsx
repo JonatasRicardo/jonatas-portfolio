@@ -5,9 +5,6 @@ import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { gruvboxDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 import remarkGfm from 'remark-gfm'
-// import markdownStyles from "./markdown-styles.module.css";
-import { cn } from '../base-ui/utils'
-
 interface MarkdownRendererProps {
   content: string,
   className?: string
@@ -21,9 +18,9 @@ interface CodeComponentProps {
   [key: string]: any
 }
 
-function CodeRender({ node, inline, className, children, ...props }: CodeComponentProps) {
+function CodeRender({ inline, className, children, ...props }: CodeComponentProps) {
   const match = /language-(\w+)/.exec(className || '')
-  let language = match ? match[1] : '';
+  const language = match ? match[1] : '';
   return !inline && match ? (<SyntaxHighlighter
       style={gruvboxDark}
       language={language}
@@ -47,7 +44,7 @@ function LinkRenderer({ href, children, ...props }: React.AnchorHTMLAttributes<H
 }
 
 
-export function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
+export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="prose prose-sm dark:prose-invert max-w-none prose-pre:bg-indigo-950 prose-pre:text-gray-100">
       <ReactMarkdown

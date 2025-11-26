@@ -1,10 +1,10 @@
 "use client"
 
-import React from 'react';
 import { motion } from 'motion/react';
+import React from 'react';
 
-import Sidebar from 'components/sidebar';
 import Chat from 'components/chat';
+import Sidebar from 'components/sidebar';
 
 export default function Template({
   children

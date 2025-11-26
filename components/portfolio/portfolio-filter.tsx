@@ -1,9 +1,9 @@
 'use client'
 
-import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PortfolioCard } from './portfolio-card';
 import Link from 'next/link';
+import React from 'react';
+import { PortfolioCard } from './portfolio-card';
 
 type PortfolioItem = {
     id: string;

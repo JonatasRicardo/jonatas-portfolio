@@ -4,7 +4,6 @@ import path from "node:path";
 
 // === RAG load ===
 type Doc = { id: string; url: string; title: string; text: string; embedding: number[] };
-type Index = { docs: Doc[] };
 const ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const EMBED_MODEL = "text-embedding-3-large";
 const RAG_PATH = path.join(process.cwd(), "rag", "site-index.json");

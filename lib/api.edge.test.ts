@@ -13,7 +13,7 @@ vi.mock('gray-matter', () => ({
 
 import fs from 'fs'
 import matter from 'gray-matter'
-import { getAllPosts, getPostBySlug, getPostSlugs } from './api'
+import { getAllPosts, getPostBySlug } from './api'
 
 describe('lib/api edge cases', () => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'motion/react';
 import { GraduationCap } from 'lucide-react';
+import { motion } from 'motion/react';
+import React from 'react';
 
 interface EducationCardProps {
   degree: string;

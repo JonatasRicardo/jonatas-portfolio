@@ -1,5 +1,5 @@
-import { streamText, convertToModelMessages, UIMessage } from 'ai';
 import { openai } from '@ai-sdk/openai';
+import { streamText, convertToModelMessages, UIMessage } from 'ai';
 import { askJonatas } from './jonatas-assistant';
 
 // Allow streaming responses up to 30 seconds

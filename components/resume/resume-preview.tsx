@@ -1,11 +1,11 @@
 "use client"
 
-import React from 'react';
-import { motion } from 'motion/react';
-import { ExperienceCard } from 'components/resume/experience-card';
-import { EducationCard } from 'components/resume/education-card';
-import Link from 'next/link';
 import { ArrowRight, Briefcase, GraduationCap } from 'lucide-react';
+import { motion } from 'motion/react';
+import Link from 'next/link';
+import React from 'react';
+import { EducationCard } from 'components/resume/education-card';
+import { ExperienceCard } from 'components/resume/experience-card';
 import { education, experiences } from './resume-data';
 
 export function ResumePreview() {

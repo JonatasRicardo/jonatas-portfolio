@@ -1,0 +1,32 @@
+---
+alwaysApply: false
+globs: **/e2e/**/*.ts,**/e2e/**/*.tsx
+---
+
+# E2E Testing Rules
+
+## Paradigm: Screenplay only
+
+- **Required:** `actor`, **tasks** (`attemptsTo`), **questions** (`asks`), and `e2e/fixtures/types.ts` factories.
+- **Forbidden:** page-object classes, "base page" hierarchies, and **raw locator chains in specs** except for trivial one-offs — express UI through tasks/questions instead.
+
+Use the **e2e-screenplay** skill (`.cursor/skills/e2e-screenplay/SKILL.md`) and the screenplay guide at `.cursor/skills/e2e-screenplay/screenplay-guide.md`.
+
+## Critical constraints
+
+- **Parallelism:** No `mode: 'serial'` unless explicitly required.
+- **Waits:** Never `page.waitForTimeout`. Use explicit condition-based waits (`locator.waitFor`, `page.waitForResponse`, `page.waitForLoadState`).
+- **Selectors:** Prefer `data-testid`, ARIA roles, and semantic locators. Never XPath or positional selectors.
+
+## Commands
+
+```bash
+pnpm e2e:headless
+pnpm e2e:ui
+```
+
+## Flaky anti-patterns
+
+- Register response listeners **before** the triggering action.
+- Do not use `.first()` to mask ambiguous locators — narrow the locator in a task/question.
+- No arbitrary sleeps.

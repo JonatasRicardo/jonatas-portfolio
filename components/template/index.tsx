@@ -20,7 +20,7 @@ export default function Template({
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="relative bg-card border min-h-36 border-border rounded-xl shadow-lg p-6 space-y-6"
+              className="relative bg-card border min-h-48 border-border rounded-xl shadow-lg p-6 space-y-6"
             >
               {children}
             </motion.div>

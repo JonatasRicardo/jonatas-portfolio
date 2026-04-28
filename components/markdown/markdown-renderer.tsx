@@ -3,10 +3,23 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { dracula, gruvboxLight, gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
+import js from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
+import ts from 'react-syntax-highlighter/dist/esm/languages/prism/typescript'
+import bash from 'react-syntax-highlighter/dist/esm/languages/prism/bash'
+import css from 'react-syntax-highlighter/dist/esm/languages/prism/css'
+import json from 'react-syntax-highlighter/dist/esm/languages/prism/json'
+import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown'
+import { gruvboxDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { cn } from '../base-ui/utils'
 import markdownStyles from "./markdown-styles.module.css";
+
+SyntaxHighlighter.registerLanguage('javascript', js)
+SyntaxHighlighter.registerLanguage('typescript', ts)
+SyntaxHighlighter.registerLanguage('bash', bash)
+SyntaxHighlighter.registerLanguage('css', css)
+SyntaxHighlighter.registerLanguage('json', json)
+SyntaxHighlighter.registerLanguage('markdown', markdown)
 
 interface MarkdownRendererProps {
   content: string,
@@ -60,4 +73,4 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       </ReactMarkdown>
     </div>
   )
-} 
+}

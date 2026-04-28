@@ -41,57 +41,49 @@ type Story = StoryObj<typeof meta>;
 export const Assistant: Story = {
   args: {
     role: "assistant",
-  },
-  render: (args) => (
-    <ChatMessageBlock {...args}>
+    children: (
       <p className="text-sm">
         Hello, I am Jonatas&apos;s assistant. How can I help you today?
       </p>
-    </ChatMessageBlock>
-  ),
+    ),
+  },
+  render: (args) => <ChatMessageBlock {...args} />,
 };
 
 export const User: Story = {
   args: {
     role: "user",
-  },
-  render: (args) => (
-    <ChatMessageBlock {...args}>
+    children: (
       <p className="text-sm">Tell me more about your recent frontend projects.</p>
-    </ChatMessageBlock>
-  ),
+    ),
+  },
+  render: (args) => <ChatMessageBlock {...args} />,
 };
 
 export const System: Story = {
   args: {
     role: "system",
-  },
-  render: (args) => (
-    <ChatMessageBlock {...args}>
+    children: (
       <p className="text-sm">
         Context loaded: portfolio knowledge base and resume highlights are available.
       </p>
-    </ChatMessageBlock>
-  ),
+    ),
+  },
+  render: (args) => <ChatMessageBlock {...args} />,
 };
 
 export const Loading: Story = {
   args: {
     role: "loading",
+    children: <Typing size="small" />,
   },
-  render: (args) => (
-    <ChatMessageBlock {...args}>
-      <Typing size="small" />
-    </ChatMessageBlock>
-  ),
+  render: (args) => <ChatMessageBlock {...args} />,
 };
 
 export const FormContainer: Story = {
   args: {
     role: "form",
-  },
-  render: (args) => (
-    <ChatMessageBlock {...args}>
+    children: (
       <form className="flex gap-2">
         <textarea
           className="min-h-[60px] w-full resize-none rounded-md border border-border bg-transparent p-2 text-sm"
@@ -104,6 +96,7 @@ export const FormContainer: Story = {
           Send
         </button>
       </form>
-    </ChatMessageBlock>
-  ),
+    ),
+  },
+  render: (args) => <ChatMessageBlock {...args} />,
 };

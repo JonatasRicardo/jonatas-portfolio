@@ -156,7 +156,6 @@ type Story = StoryObj<typeof meta>;
 export const Overview: Story = {};
 
 export const EmbeddedChat: Story = {
-  name: "Embedded Chat",
   render: () => (
     <div className="mx-auto w-full max-w-4xl p-6">
       <Chat />

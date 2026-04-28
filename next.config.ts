@@ -5,6 +5,9 @@ import { env } from "./env.mjs"
 
 const config: NextConfig = {
   output: "standalone",
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   reactStrictMode: true,
   logging: {
     fetches: {

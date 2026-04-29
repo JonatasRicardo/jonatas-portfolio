@@ -7,6 +7,10 @@
     "dev": "cross-env FORCE_COLOR=1 next dev --turbo",
     "build": "next build",
     "start": "next start",
+    "docker:build": "docker build -t jonatas-portfolio .",
+    "docker:run": "docker run --rm -p 8080:8080 jonatas-portfolio",
+    "docker:run:env": "docker run --rm -p 8080:8080 --env-file .env jonatas-portfolio",
+    "docker:clean": "docker image rm jonatas-portfolio",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
@@ -23,7 +27,7 @@
     "e2e:ui": "playwright test --ui",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "postinstall": "npx patch-package -y",
-    "rulesync": "rulesync generate"
+    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.53",
@@ -129,7 +133,6 @@
     "@vitest/coverage-v8": "3.2.4",
     "@vitest/ui": "^3.2.4",
     "all-contributors-cli": "^6.26.1",
-    "chromatic": "^13.3.4",
     "cross-env": "^7.0.3",
     "dotenv": "^17.2.3",
     "eslint": "^9.26.0",
@@ -161,7 +164,7 @@
     "webpack": "5.94.0"
   },
   "engines": {
-    "node": ">=24.11.0"
+    "node": ">=20.0.0"
   },
   "packageManager": "pnpm@10.0.0"
 }

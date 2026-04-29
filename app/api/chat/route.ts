@@ -6,6 +6,13 @@ import { askJonatas } from './jonatas-assistant';
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
+  if (!process.env.OPENAI_API_KEY) {
+    return Response.json(
+      { error: "OPENAI_API_KEY is not configured." },
+      { status: 500 },
+    );
+  }
+
   const body = (await req.json()) as { messages: UIMessage[] };
   const { messages } = body;
 

@@ -4,9 +4,16 @@ import path from "node:path";
 
 // === RAG load ===
 type Doc = { id: string; url: string; title: string; text: string; embedding: number[] };
-const ai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const EMBED_MODEL = "text-embedding-3-large";
 const RAG_PATH = path.join(process.cwd(), "rag", "site-index.json");
+
+function getEmbeddingClient() {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return null;
+  }
+  return new OpenAI({ apiKey });
+}
 
 // cosine
 function cosine(a: number[], b: number[]) {
@@ -23,6 +30,10 @@ function cosine(a: number[], b: number[]) {
 }
 
 async function embedOnce(text: string) {
+  const ai = getEmbeddingClient();
+  if (!ai) {
+    return [];
+  }
   const e = await ai.embeddings.create({ model: EMBED_MODEL, input: text });
   return (e.data?.[0]?.embedding ?? []) as number[];
 }
@@ -32,6 +43,7 @@ async function retrieve(query: string, k = 4): Promise<Doc[]> {
   const idx = JSON.parse(raw || "{}") as { docs?: Doc[] };
   if (!idx.docs || idx.docs.length === 0) return [];
   const q = await embedOnce(query);
+  if (q.length === 0) return [];
   const scored = idx.docs
     .map(d => ({ d, score: cosine(q, d.embedding) }))
     .sort((a, b) => b.score - a.score)

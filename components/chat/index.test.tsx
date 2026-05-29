@@ -48,6 +48,12 @@ vi.mock('components/base-ui/textarea', () => ({
   ),
 }));
 
+vi.mock('./booking-widget', () => ({
+  BookingWidget: ({ reason }: { reason: string }) => (
+    <div data-testid="booking-widget">{reason}</div>
+  ),
+}));
+
 // Chat Component Tests
 describe('Chat Component', () => {
   beforeEach(() => {
@@ -101,6 +107,49 @@ describe('Chat Component', () => {
     await waitFor(() => {
       expect(sendMessageMock).toHaveBeenCalledWith({ text: 'Hello' });
     });
+  });
+
+  it("should render booking widget for tool parts", async () => {
+    vi.mocked(useChat).mockReturnValue({
+        messages: [{
+          id: "2",
+          role: "assistant",
+          parts: [{
+            type: "tool-showBookingWidget",
+            toolCallId: "call-1",
+            state: "output-available",
+            input: { reason: "Vamos agendar" },
+            output: {
+              calLink: "jonatas/consultoria-30min",
+              eventType: "consultoria-30min",
+              reason: "Vamos agendar",
+            },
+          }],
+        }],
+        sendMessage: vi.fn(),
+        status: "ready",
+        setMessages: vi.fn(),
+        error: undefined,
+        id: "",
+        regenerate: function (): Promise<void> {
+            throw new Error("Function not implemented.");
+        },
+        stop: function (): Promise<void> {
+            throw new Error("Function not implemented.");
+        },
+        resumeStream: function (): Promise<void> {
+            throw new Error("Function not implemented.");
+        },
+        addToolResult: function <TOOL extends string>({  }: { state?: "output-available"; tool: TOOL; toolCallId: string; output: unknown; errorText?: never; } | { state: "output-error"; tool: TOOL; toolCallId: string; output?: never; errorText: string; }): Promise<void> {
+            throw new Error("Function not implemented.");
+        },
+        clearError: function (): void {
+            throw new Error("Function not implemented.");
+        }
+    });
+
+    render(<Chat />);
+    expect(screen.getByTestId("booking-widget")).toHaveTextContent("Vamos agendar");
   });
 
   it('should allow clearing messages', async () => {

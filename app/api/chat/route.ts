@@ -1,6 +1,10 @@
-import { openai } from '@ai-sdk/openai';
-import { streamText, convertToModelMessages, UIMessage } from 'ai';
-import { askJonatas } from './jonatas-assistant';
+import { openai } from "@ai-sdk/openai";
+import { streamText, convertToModelMessages, UIMessage, stepCountIs } from "ai";
+
+import { askJonatas } from "./jonatas-assistant";
+import { consultoriaSystemPrompt } from "./prompts/consultoria";
+import { bookingTools } from "./tools/booking";
+import type { ChatContext } from "./types";
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -13,18 +17,27 @@ export async function POST(req: Request) {
     );
   }
 
-  const body = (await req.json()) as { messages: UIMessage[] };
-  const { messages } = body;
+  const body = (await req.json()) as { messages: UIMessage[]; context?: ChatContext };
+  const { messages, context = "portfolio" } = body;
 
   const modelMessages = convertToModelMessages(messages);
   const lastMessage = String(modelMessages.at(-1)?.content ?? "");
 
-  const { prompt } = await askJonatas(lastMessage);
+  const system =
+    context === "consultoria"
+      ? consultoriaSystemPrompt
+      : (await askJonatas(lastMessage)).prompt;
 
   const result = streamText({
-    model: openai('gpt-4.1-mini'),
-    system: prompt,
+    model: openai("gpt-4.1-mini"),
+    system,
     messages: convertToModelMessages(messages),
+    ...(context === "consultoria"
+      ? {
+          tools: bookingTools,
+          stopWhen: stepCountIs(5),
+        }
+      : {}),
   });
 
   return result.toUIMessageStreamResponse();

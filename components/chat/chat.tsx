@@ -1,21 +1,74 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { DefaultChatTransport, type UIMessage } from "ai";
 import { ArrowUp, Trash2 } from "lucide-react";
+
+import type { ChatContext } from "app/api/chat/types";
 import { Textarea } from "components/base-ui/textarea";
+
+import { BookingWidget } from "./booking-widget";
 import { ChatMessageBlock } from "./chat-message-block";
 import { Typing } from "./typing";
 
-export default function Chat() {
+const DEFAULT_PLACEHOLDER = "Hi, I'm Jonatas. What do you want to ask me?";
+
+export interface ChatProps {
+  context?: ChatContext;
+  placeholder?: string;
+  whatsappFallbackUrl?: string;
+}
+
+function renderMessagePart(
+  part: UIMessage["parts"][number],
+  index: number,
+  whatsappFallbackUrl?: string,
+) {
+  if (part.type === "text") {
+    return (
+      <p className="text-sm whitespace-pre-wrap" key={`text-${index}`}>
+        {part.text}
+      </p>
+    );
+  }
+
+  if (part.type === "tool-showBookingWidget") {
+    if (part.state === "output-available") {
+      return (
+        <BookingWidget
+          key={`booking-${index}`}
+          whatsappUrl={whatsappFallbackUrl}
+          {...part.output}
+        />
+      );
+    }
+
+    return <Typing key={`booking-loading-${index}`} size="small" />;
+  }
+
+  return null;
+}
+
+export default function Chat({
+  context = "portfolio",
+  placeholder = DEFAULT_PLACEHOLDER,
+  whatsappFallbackUrl,
+}: ChatProps) {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const transport = useMemo(
+    () =>
+      new DefaultChatTransport({
+        api: "/api/chat",
+        body: { context },
+      }),
+    [context],
+  );
+
   const { messages, sendMessage, status, setMessages } = useChat({
-    transport: new DefaultChatTransport({
-      api: "/api/chat",
-    }),
+    transport,
   });
 
   const scrollToBottom = () => {
@@ -49,12 +102,12 @@ export default function Chat() {
   return (
     <>
       {messages.map((message) => (
-        <ChatMessageBlock key={message.id} role={message.role}>
-          {message && (
-            <p className="text-sm whitespace-pre-wrap">
-              {message.parts.map((part) => (part.type === "text" ? part.text : null))}
-            </p>
-          )}
+        <ChatMessageBlock key={message.id} role={message.role === "user" ? "user" : "assistant"}>
+          <div className="space-y-4">
+            {message.parts.map((part, index) =>
+              renderMessagePart(part, index, whatsappFallbackUrl),
+            )}
+          </div>
         </ChatMessageBlock>
       ))}
 
@@ -67,7 +120,7 @@ export default function Chat() {
       <ChatMessageBlock role="form">
         <form onSubmit={handleSubmit} className="flex space-x-2">
           <Textarea
-            placeholder="Hi, I'm Jonatas. What do you want to ask me?"
+            placeholder={placeholder}
             className="flex-1 min-h-[60px] p-0 resize-none bg-transparent border-0"
             value={input}
             onChange={(event) => setInput(event.target.value)}

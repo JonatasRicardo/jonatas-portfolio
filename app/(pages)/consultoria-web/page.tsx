@@ -35,6 +35,18 @@ const serviceCards = [
   },
 ] as const;
 
+const clientBrandLogos = [
+  {
+    name: "Calvin Klein",
+    src: "/consultoria/logos/calvin-klein.png",
+    containerClassName: "px-1.5 py-1",
+  },
+  { name: "Walmart", src: "/consultoria/logos/walmart.png" },
+  { name: "Havaianas", src: "/consultoria/logos/havaianas.png" },
+  { name: "Riachuelo", src: "/consultoria/logos/riachuelo.png" },
+  { name: "C&A", src: "/consultoria/logos/cea.png" },
+] as const;
+
 const faqs = [
   {
     question: "Meu negócio é pequeno. Isso funciona para mim?",
@@ -178,32 +190,57 @@ function HeroDesktopProfile() {
       </div>
 
       <h2 className="mt-5 text-xl font-semibold text-[#37312d]">Jonatas Ricardo S. Santos</h2>
-      <p className="mt-0.5 text-base font-semibold text-[#37312d]">Fullstack Software Engineer</p>
+      <p className="mt-0.5 text-base font-semibold text-[#37312d]">Especialista em Web para Negócios</p>
     </div>
   );
 }
 
-function DesktopIntroPreview() {
+function HeroIntroPreview() {
   return (
-    <div className="absolute top-[29.5rem] left-[23.5rem] w-[42.5rem]">
-      <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+    <>
+      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24] lg:max-w-[42.25rem]">
         Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
-        projetos para marcas como Calvin Klein, Walmart, Havaianas, Riachuelo e C&A.
+        projetos para marcas como:
       </p>
-      <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+      <div
+        aria-label="Marcas com as quais já trabalhei"
+        className="mt-3 flex w-full max-w-[42.25rem] flex-row flex-nowrap items-center justify-between gap-2 sm:gap-3"
+        role="list"
+      >
+        {clientBrandLogos.map(({ name, src, containerClassName }) => (
+          <div
+            className={cn(
+              "flex min-w-0 flex-1 items-center justify-center",
+              containerClassName,
+            )}
+            key={name}
+            role="listitem"
+          >
+            <img
+              alt={name}
+              className="h-9 w-full max-h-12 object-contain object-center sm:h-10 lg:h-11"
+              src={src}
+            />
+          </div>
+        ))}
+      </div>
+      <p className="text-[0.9375rem] leading-[1.75] font-medium mt-2  text-[#011a24] lg:max-w-[42.25rem]">
         Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar.
       </p>
-      <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+      <p className="text-[0.9375rem] leading-[1.75] font-medium  mt-2 text-[#011a24] lg:max-w-[42.25rem]">
         Hoje uso esse conhecimento para ajudar empreendedores brasileiros a vender mais — com sites, aplicativos,
         automações e inteligência artificial.
       </p>
-      <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+      <p className="text-[0.9375rem] leading-[1.75] font-medium  mt-2 text-[#011a24] lg:max-w-[42.25rem]">
         Sem complicação, sem papo técnico. Só resultado.
       </p>
 
-      <div className="mt-6 grid grid-cols-3 gap-4">
+      <div className="-mx-7 mt-6 flex gap-4 overflow-x-auto px-7 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
         {serviceCards.map(({ title, description, image }) => (
-          <div className="flex flex-col overflow-hidden rounded-2xl bg-white" key={title}>
+          <div
+            className="flex w-[17rem] shrink-0 flex-col overflow-hidden rounded-2xl bg-white lg:w-auto lg:shrink"
+            key={title}
+          >
             <img alt={title} className="aspect-square w-full object-cover" src={image} />
             <div className="flex flex-col gap-1.5 p-3.5">
               <p className="text-sm leading-snug font-bold text-gray-900">{title}</p>
@@ -212,57 +249,10 @@ function DesktopIntroPreview() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 
-function MobileHero() {
-  return (
-    <div className="relative mx-auto min-h-[100.375rem] max-w-[24.5625rem] px-7 lg:hidden">
-      <HeroHeadline className="pt-6" />
-
-      <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30" />
-
-      <div className="absolute top-[12.25rem] left-[9.75rem] z-20 w-[14.0625rem]">
-        <Image
-          alt="Ilustração de loja digital no celular com produtos e redes sociais"
-          className="h-auto w-full object-contain object-bottom"
-          priority
-          src={heroIllustration}
-        />
-      </div>
-
-      <div className="absolute top-[21.875rem] left-[3.375rem] z-40">
-        <HeroMobileAvatar />
-      </div>
-    </div>
-  );
-}
-
-function DesktopHero() {
-  return (
-    <div className="relative mx-auto hidden min-h-[69.8125rem] w-full max-w-[66.75rem] lg:block">
-      <HeroHeadline className="absolute top-[4.25rem] left-0 w-[40.75rem]" />
-
-      <HeroSpeechBubble className="absolute top-[15.375rem] left-0 z-30" />
-
-      <div className="absolute top-[-1.25rem] right-[-3.125rem] z-20 w-[29.25rem]">
-        <Image
-          alt="Ilustração de loja digital no celular com produtos e redes sociais"
-          className="h-auto w-full object-contain object-bottom"
-          priority
-          src={heroIllustration}
-        />
-      </div>
-
-      <div className="absolute top-[29.75rem] left-2 z-20 w-[17rem]">
-        <HeroDesktopProfile />
-      </div>
-
-      <DesktopIntroPreview />
-    </div>
-  );
-}
 
 function SectionLabel({
   children,
@@ -282,88 +272,146 @@ export default function ConsultoriaWebPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#fdf7ed]">
-      <section className="relative min-h-[100.375rem] overflow-hidden bg-[#fdf7ed] lg:min-h-[69.8125rem]">
+    <div className="min-h-screen bg-[#fdf7ed] pb-24 lg:pb-28">
+      <section className="relative overflow-hidden bg-[#fdf7ed] lg:min-h-[69.8125rem]">
         <div aria-hidden="true" className="absolute inset-0">
           <div className="h-[22.9375rem] bg-[#fce2bd] lg:h-[23.375rem]" />
           <div className="h-[calc(100%-22.9375rem)] bg-[#fdf7ed] lg:h-[calc(100%-23.375rem)]" />
         </div>
 
-        <MobileHero />
-        <DesktopHero />
-      </section>
+        <div className="relative mx-auto max-w-[24.5625rem] px-7 pb-8 lg:min-h-[69.8125rem] lg:w-full lg:max-w-[66.75rem] lg:px-0 lg:pb-0">
+          <HeroHeadline className="pt-6 lg:absolute lg:top-[4.25rem] lg:left-0 lg:w-[40.75rem] lg:pt-0" />
 
-      <div className="mx-auto max-w-none space-y-8 px-4 py-8 lg:grid lg:max-w-[93.75rem] lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-20 lg:space-y-0 lg:px-10 lg:pt-0 xl:grid-cols-[23rem_minmax(0,1fr)] xl:gap-16">
-        <main className="min-w-0 overflow-hidden lg:col-start-2">
-          <ContentStack className="space-y-8">
-            <ContentBlock delay={1.15} className={blockClass}>
-              <SectionLabel className={p.text.orange}>Como funciona</SectionLabel>
-              <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>
-                Do jeito que é hoje até o negócio rodando sozinho — em 4 passos
-              </h2>
+          <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30 lg:top-[15.375rem] lg:left-0" />
 
-              <div className="flex flex-col">
-                {steps.map(({ number, title, description }, i) => (
-                  <div className="relative flex gap-4" key={number}>
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={cn(
-                          "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
-                          p.bg.orange,
-                          p.text.white,
-                        )}
-                      >
-                        {number}
+          <div className="absolute top-[12.25rem] left-[9.75rem] z-20 w-[14.0625rem] lg:top-[-1.25rem] lg:right-[-3.125rem] lg:left-auto lg:w-[29.25rem]">
+            <Image
+              alt="Ilustração de loja digital no celular com produtos e redes sociais"
+              className="h-auto w-full object-contain object-bottom"
+              priority
+              src={heroIllustration}
+            />
+          </div>
+
+          <div className="absolute top-[21.875rem] left-[3.375rem] z-40 lg:hidden">
+            <HeroMobileAvatar />
+          </div>
+
+          <div className="absolute top-[29.75rem] left-2 z-20 hidden w-[17rem] lg:block">
+            <HeroDesktopProfile />
+          </div>
+
+          <div className="relative mt-[20rem] max-w-[42.25rem] lg:absolute lg:mt-0 lg:top-[29.5rem] lg:left-[23.5rem]">
+            <HeroIntroPreview />
+            <ContentStack className="space-y-8 mt-6">
+              <ContentBlock delay={1.15} className={blockClass}>
+                <SectionLabel className={p.text.orange}>Como funciona</SectionLabel>
+                <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>
+                  Do jeito que é hoje até o negócio rodando sozinho — em 4 passos
+                </h2>
+
+                <div className="flex flex-col">
+                  {steps.map(({ number, title, description }, i) => (
+                    <div className="relative flex gap-4" key={number}>
+                      <div className="flex flex-col items-center">
+                        <div
+                          className={cn(
+                            "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
+                            p.bg.orange,
+                            p.text.white,
+                          )}
+                        >
+                          {number}
+                        </div>
+                        {i < steps.length - 1 && <div className={cn("mt-1 w-px grow", "bg-[#ff8000]/25")} />}
                       </div>
-                      {i < steps.length - 1 && <div className={cn("mt-1 w-px grow", "bg-[#ff8000]/25")} />}
+                      <div className={cn("pb-6", i === steps.length - 1 && "pb-0")}>
+                        <h3 className={cn("font-medium", p.text.navyDark)}>{title}</h3>
+                        <p className={cn("mt-1 text-sm leading-relaxed", p.text.body)}>{description}</p>
+                      </div>
                     </div>
-                    <div className={cn("pb-6", i === steps.length - 1 && "pb-0")}>
-                      <h3 className={cn("font-medium", p.text.navyDark)}>{title}</h3>
-                      <p className={cn("mt-1 text-sm leading-relaxed", p.text.body)}>{description}</p>
+                  ))}
+                </div>
+              </ContentBlock>
+
+              <ContentBlock delay={1.25} className={blockClass}>
+                <SectionLabel className={p.text.blue}>Perguntas frequentes</SectionLabel>
+                <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>Ficou alguma dúvida?</h2>
+
+                <div className="divide-y divide-[#003144]/10">
+                  {faqs.map(({ question, answer }) => (
+                    <div className="py-4" key={question}>
+                      <h3 className={cn("font-medium", p.text.navyDark)}>{question}</h3>
+                      <p className={cn("mt-2 text-sm leading-relaxed", p.text.body)}>{answer}</p>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </ContentBlock>
+
+              <div className={cn("rounded-2xl p-6 text-center", "bg-[#1a1a1a]")}>
+                <h2 className="text-xl font-semibold text-white">Pronto para parar de fazer tudo sozinho?</h2>
+                <p className="mt-3 text-sm leading-relaxed text-white/55">
+                  Uma conversa de 30 minutos já é suficiente para eu entender o seu caso e te mostrar o que é possível
+                  fazer. Sem compromisso.
+                </p>
+                <Button
+                  asChild
+                  className={cn(
+                    "mt-6 h-auto w-full rounded-full px-6 py-4 text-base font-semibold hover:opacity-90",
+                    p.bg.orange,
+                    p.text.white,
+                  )}
+                >
+                  <a href={whatsappUrl} rel="noreferrer" target="_blank">
+                    Quero conversar com o Jonatas
+                  </a>
+                </Button>
+                <p className="mt-3 text-xs text-white/40">Atendimento personalizado — poucas vagas por mês.</p>
               </div>
-            </ContentBlock>
+            </ContentStack>
 
-            <ContentBlock delay={1.25} className={blockClass}>
-              <SectionLabel className={p.text.blue}>Perguntas frequentes</SectionLabel>
-              <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>Ficou alguma dúvida?</h2>
+          </div>
 
-              <div className="divide-y divide-[#003144]/10">
-                {faqs.map(({ question, answer }) => (
-                  <div className="py-4" key={question}>
-                    <h3 className={cn("font-medium", p.text.navyDark)}>{question}</h3>
-                    <p className={cn("mt-2 text-sm leading-relaxed", p.text.body)}>{answer}</p>
-                  </div>
-                ))}
-              </div>
-            </ContentBlock>
 
-            <div className={cn("rounded-2xl p-6 text-center", "bg-[#1a1a1a]")}>
-              <h2 className="text-xl font-semibold text-white">Pronto para parar de fazer tudo sozinho?</h2>
-              <p className="mt-3 text-sm leading-relaxed text-white/55">
-                Uma conversa de 30 minutos já é suficiente para eu entender o seu caso e te mostrar o que é possível
-                fazer. Sem compromisso.
-              </p>
-              <Button
-                asChild
-                className={cn(
-                  "mt-6 h-auto w-full rounded-full px-6 py-4 text-base font-semibold hover:opacity-90",
-                  p.bg.orange,
-                  p.text.white,
-                )}
-              >
-                <a href={whatsappUrl} rel="noreferrer" target="_blank">
-                  Quero conversar com o Jonatas
-                </a>
-              </Button>
-              <p className="mt-3 text-xs text-white/40">Atendimento personalizado — poucas vagas por mês.</p>
-            </div>
-          </ContentStack>
-        </main>
+          <div className="mx-auto max-w-none space-y-8 px-4 py-8 lg:grid lg:max-w-[93.75rem] lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-20 lg:space-y-0 lg:px-10 lg:pt-0 xl:grid-cols-[23rem_minmax(0,1fr)] xl:gap-16">
+            <main className="min-w-0 overflow-hidden lg:col-start-2">
 
-        <Chat />
+            </main>
+
+
+          </div>
+
+
+
+
+        </div>
+      </section>
+      <div className="p-4">
+
+          <Chat
+              context="consultoria"
+              placeholder="Oi, sou o Jonatas. Me conta sobre o seu negócio."
+              whatsappFallbackUrl={whatsappUrl}
+            />
+      </div>
+      <div
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 border-t border-[#011a24]/8 px-4 py-3 backdrop-blur-sm",
+          "bg-[#fdf7ed]/95 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
+        )}
+      >
+        <Button
+          asChild
+          className={cn(
+            "mx-auto flex h-auto w-full max-w-[24.5625rem] rounded-full px-6 py-3.5 text-base font-semibold shadow-[0_8px_24px_rgba(255,128,0,0.35)] hover:opacity-90 lg:max-w-[42.25rem]",
+            p.bg.orange,
+            p.text.white,
+          )}
+        >
+          <a href={whatsappUrl} rel="noreferrer" target="_blank">
+            Quero conversar
+          </a>
+        </Button>
       </div>
     </div>
   );

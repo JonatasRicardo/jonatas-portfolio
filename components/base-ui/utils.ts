@@ -1,10 +1,8 @@
-import { type ClassValue, clsx } from "clsx";
-import { useEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
+"use client";
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { useEffect, useState } from "react";
+
+export { cn } from "./cn";
 
 const MOBILE_BREAKPOINT = 768;
 
@@ -25,4 +23,3 @@ export function useIsMobile() {
 
   return !!isMobile;
 }
-

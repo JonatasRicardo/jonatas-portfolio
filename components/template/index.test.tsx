@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import Template from './index';
 
+vi.mock('next/navigation', () => ({
+  usePathname: () => '/',
+}));
+
 // Mock de subcomponentes
 vi.mock('components/sidebar', () => ({
   __esModule: true,

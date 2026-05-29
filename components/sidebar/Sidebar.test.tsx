@@ -18,6 +18,11 @@ describe("Sidebar", () => {
     expect(screen.getByText("Fullstack Software Engineer")).toBeInTheDocument();
   });
 
+  it("hides the triangle when showTriangle is false", () => {
+    const { container } = render(<Sidebar showTriangle={false} />);
+    expect(container.querySelector("#triangle")).not.toBeInTheDocument();
+  });
+
 });
 
 

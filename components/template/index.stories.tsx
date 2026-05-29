@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ContentBlock } from 'components/content-block';
 import Template from '.';
 
 const meta: Meta<typeof Template> = {
@@ -14,10 +15,12 @@ type Story = StoryObj<typeof Template>;
 export const Default: Story = {
   render: () => (
     <Template>
-      <div className="space-y-4">
-        <h1 className="text-2xl font-bold">Page Title</h1>
-        <p className="text-muted-foreground">This is an example content inside the Template layout.</p>
-      </div>
+      <ContentBlock isFirst>
+        <div className="space-y-4">
+          <h1 className="text-2xl font-bold">Page Title</h1>
+          <p className="text-muted-foreground">This is an example content inside the Template layout.</p>
+        </div>
+      </ContentBlock>
     </Template>
   ),
 };

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ArticlesPreview } from 'components/articles/articles-preview';
 import Content from 'components/content';
+import { ContentBlock } from 'components/content-block';
 import { ResumePreview } from 'components/resume/resume-preview';
 import { getAllPosts } from 'lib/api';
 
@@ -9,7 +10,7 @@ export default function HomePage() {
   const articles = getAllPosts();
 
   return (
-    <>
+    <ContentBlock isFirst>
       {/* Presentation Area */}
       <Content
         initial={{ opacity: 0, y: 20 }}
@@ -40,7 +41,6 @@ export default function HomePage() {
         {/* Resume Preview */}
         <ResumePreview />
       </div>
-
-    </>
+    </ContentBlock>
   );
 }

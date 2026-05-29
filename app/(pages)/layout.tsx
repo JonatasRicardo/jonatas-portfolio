@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 import 'styles/tailwind.css'
 
 import favicon from 'assets/imgs/jonatas-ricardo-santos-frontend-icon.png'
-import Template from 'components/template'
+import { PagesLayout } from 'components/template/pages-layout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -74,9 +74,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <Template>
+        <PagesLayout>
           {children}
-        </Template>
+        </PagesLayout>
         <Analytics />
       </body>
     </html>

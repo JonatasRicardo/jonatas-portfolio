@@ -6,13 +6,14 @@ import Link from 'next/link';
 import React from 'react';
 import { Badge } from 'components/base-ui/badge';
 import { Button } from 'components/base-ui/button';
+import { ContentBlock } from 'components/content-block';
 import { EducationCard } from 'components/resume/education-card';
 import { ExperienceCard } from 'components/resume/experience-card';
 import { education, experiences, skills } from 'components/resume/resume-data';
 
 export default function ResumePage() {
     return (
-        <>
+        <ContentBlock isFirst>
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -216,6 +217,6 @@ export default function ResumePage() {
                     </motion.div>
                 </div>
             </motion.div>
-        </>
+        </ContentBlock>
     );
 }

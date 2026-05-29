@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "components/base-ui/utils";
+import { cn } from "components/base-ui/cn";
 
 type Props = {
   title: string;

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PostBody } from "components/articles/post-body";
 import Header from "components/header";
+import { ContentBlock } from "components/content-block";
 import { getAllPosts, getPostBySlug } from "lib/api";
 
 export default async function Post(props: Params) {
@@ -13,14 +14,16 @@ export default async function Post(props: Params) {
     }
 
     return (
-        <article className="mb-32">
-            <Header
-                title={post.title}
-                description={post.description}
-            />
-                       
-            <PostBody image={post.image} content={post.content} />
-        </article>
+        <ContentBlock isFirst>
+            <article className="mb-32">
+                <Header
+                    title={post.title}
+                    description={post.description}
+                />
+
+                <PostBody image={post.image} content={post.content} />
+            </article>
+        </ContentBlock>
     );
 }
 

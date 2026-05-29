@@ -40,19 +40,3 @@ export const WithoutCalLink: Story = {
   },
 };
 
-export const Confirmed: Story = {
-  args: {
-    calLink: "",
-    eventType: "consultoria-30min",
-    reason: "Agendamento confirmado (demo estático).",
-  },
-  render: (args) => (
-    <div className="space-y-2">
-      <p className="text-sm font-semibold text-[#011a24]">Agendamento confirmado!</p>
-      <p className="text-sm leading-relaxed text-[#37312d]/80">
-        Você receberá um e-mail com os detalhes. Até lá!
-      </p>
-      <p className="text-xs text-muted-foreground">{args.reason}</p>
-    </div>
-  ),
-};

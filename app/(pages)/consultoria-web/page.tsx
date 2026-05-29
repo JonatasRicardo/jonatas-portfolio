@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 import profileImg from "assets/imgs/jonatas-ricardo-santos-frontend-avatar.png";
 import heroIllustration from "assets/imgs/consultoria-hero-shelves.png";
 import { Button } from "components/base-ui/button";
 import { cn } from "components/base-ui/cn";
-import Chat from "components/chat";
+import Chat, { type ChatHandle } from "components/chat";
 import { consultoriaPalette as p } from "components/consultoria-web/consultoria-palette";
 import { ContentBlock, ContentStack } from "components/content-block";
 
@@ -267,9 +267,15 @@ function SectionLabel({
 }
 
 export default function ConsultoriaWebPage() {
+  const chatRef = useRef<ChatHandle>(null);
+
   const whatsappUrl = useMemo(() => {
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
   }, []);
+
+  const handleStartConversation = () => {
+    chatRef.current?.startConversation(defaultMessage);
+  };
 
   return (
     <div className="min-h-screen bg-[#fdf7ed] pb-24 lg:pb-28">
@@ -355,16 +361,15 @@ export default function ConsultoriaWebPage() {
                   fazer. Sem compromisso.
                 </p>
                 <Button
-                  asChild
                   className={cn(
                     "mt-6 h-auto w-full rounded-full px-6 py-4 text-base font-semibold hover:opacity-90",
                     p.bg.orange,
                     p.text.white,
                   )}
+                  onClick={handleStartConversation}
+                  type="button"
                 >
-                  <a href={whatsappUrl} rel="noreferrer" target="_blank">
-                    Quero conversar com o Jonatas
-                  </a>
+                  Quero conversar com o Jonatas
                 </Button>
                 <p className="mt-3 text-xs text-white/40">Atendimento personalizado — poucas vagas por mês.</p>
               </div>
@@ -386,13 +391,14 @@ export default function ConsultoriaWebPage() {
 
         </div>
       </section>
-      <div className="p-4">
+      <div className="w-full px-0 lg:px-4 lg:py-4 px-4">
 
           <Chat
-              context="consultoria"
-              placeholder="Oi, sou o Jonatas. Me conta sobre o seu negócio."
-              whatsappFallbackUrl={whatsappUrl}
-            />
+            ref={chatRef}
+            context="consultoria"
+            placeholder="Oi, sou o Jonatas. Me conta sobre o seu negócio."
+            whatsappFallbackUrl={whatsappUrl}
+          />
       </div>
       <div
         className={cn(
@@ -401,16 +407,15 @@ export default function ConsultoriaWebPage() {
         )}
       >
         <Button
-          asChild
           className={cn(
             "mx-auto flex h-auto w-full max-w-[24.5625rem] rounded-full px-6 py-3.5 text-base font-semibold shadow-[0_8px_24px_rgba(255,128,0,0.35)] hover:opacity-90 lg:max-w-[42.25rem]",
             p.bg.orange,
             p.text.white,
           )}
+          onClick={handleStartConversation}
+          type="button"
         >
-          <a href={whatsappUrl} rel="noreferrer" target="_blank">
-            Quero conversar
-          </a>
+          Quero conversar
         </Button>
       </div>
     </div>

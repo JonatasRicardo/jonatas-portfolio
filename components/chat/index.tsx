@@ -1,7 +1,7 @@
 "use client";
 
 export { default } from "./chat";
-export type { ChatProps } from "./chat";
+export type { ChatHandle, ChatProps } from "./chat";
 export { BookingWidget } from "./booking-widget";
 export type { BookingWidgetProps } from "./booking-widget";
 export { ChatMessageBlock } from "./chat-message-block";

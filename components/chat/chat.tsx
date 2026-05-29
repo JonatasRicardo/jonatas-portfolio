@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { ArrowUp, Trash2 } from "lucide-react";
@@ -18,6 +18,10 @@ export interface ChatProps {
   context?: ChatContext;
   placeholder?: string;
   whatsappFallbackUrl?: string;
+}
+
+export interface ChatHandle {
+  startConversation: (message: string) => void;
 }
 
 function renderMessagePart(
@@ -50,13 +54,18 @@ function renderMessagePart(
   return null;
 }
 
-export default function Chat({
-  context = "portfolio",
-  placeholder = DEFAULT_PLACEHOLDER,
-  whatsappFallbackUrl,
-}: ChatProps) {
+const Chat = forwardRef<ChatHandle, ChatProps>(function Chat(
+  {
+    context = "portfolio",
+    placeholder = DEFAULT_PLACEHOLDER,
+    whatsappFallbackUrl,
+  },
+  ref,
+) {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pendingMessageRef = useRef<string | null>(null);
 
   const transport = useMemo(
     () =>
@@ -74,6 +83,37 @@ export default function Chat({
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const scrollToChat = () => {
+    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      startConversation: (message: string) => {
+        scrollToChat();
+
+        if (status === "ready") {
+          sendMessage({ text: message });
+          return;
+        }
+
+        pendingMessageRef.current = message;
+      },
+    }),
+    [sendMessage, status],
+  );
+
+  useEffect(() => {
+    if (status !== "ready" || !pendingMessageRef.current) {
+      return;
+    }
+
+    const message = pendingMessageRef.current;
+    pendingMessageRef.current = null;
+    sendMessage({ text: message });
+  }, [sendMessage, status]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -100,7 +140,7 @@ export default function Chat({
   }, [messages.length]);
 
   return (
-    <>
+    <div ref={containerRef} id="consultoria-chat" className="w-full">
       {messages.map((message) => (
         <ChatMessageBlock key={message.id} role={message.role === "user" ? "user" : "assistant"}>
           <div className="space-y-4">
@@ -118,10 +158,10 @@ export default function Chat({
       )}
 
       <ChatMessageBlock role="form">
-        <form onSubmit={handleSubmit} className="flex space-x-2">
+        <form onSubmit={handleSubmit} className="flex w-full gap-2">
           <Textarea
             placeholder={placeholder}
-            className="flex-1 min-h-[60px] p-0 resize-none bg-transparent border-0"
+            className="min-h-[60px] w-full min-w-0 flex-1 resize-none border-0 bg-transparent p-0"
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={handleKeyDown}
@@ -150,6 +190,8 @@ export default function Chat({
       </ChatMessageBlock>
 
       <div ref={messagesEndRef} />
-    </>
+    </div>
   );
-}
+});
+
+export default Chat;

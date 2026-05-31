@@ -446,7 +446,6 @@ export default function ConsultoriaWebPage() {
       <div className="mx-auto max-w-[24.5625rem] px-7 py-8 lg:max-w-[66.75rem] lg:px-0 lg:py-10">
         <div className="space-y-8 lg:ml-[23.5rem] lg:max-w-[42.25rem]">
           <SalesSections onStartConversation={handleStartConversation} />
-
           <Chat
             ref={chatRef}
             context="consultoria"

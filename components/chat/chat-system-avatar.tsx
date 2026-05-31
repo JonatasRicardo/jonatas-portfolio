@@ -13,7 +13,7 @@ export function ChatSystemAvatar({ hide = false }: ChatSystemAvatarProps) {
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, delay: 0.5 }}
-      className="w-16 md:w-1/4"
+      className="w-16"
     >
       <div className="sticky top-[2rem] z-10">
         {!hide && (

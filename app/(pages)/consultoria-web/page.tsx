@@ -195,50 +195,87 @@ function HeroDesktopProfile() {
   );
 }
 
-function HeroIntroPreview() {
+function BrandLogos() {
   return (
-    <>
-      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24] lg:max-w-[42.25rem]">
+    <div
+      aria-label="Marcas com as quais já trabalhei"
+      className="mt-3 flex w-full flex-row flex-nowrap items-center justify-between gap-2 sm:gap-3"
+      role="list"
+    >
+      {clientBrandLogos.map(({ name, src, containerClassName }) => (
+        <div
+          className={cn("flex min-w-0 flex-1 items-center justify-center", containerClassName)}
+          key={name}
+          role="listitem"
+        >
+          <img
+            alt={name}
+            className="h-9 w-full max-h-12 object-contain object-center sm:h-10 lg:h-11"
+            src={src}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DesktopIntroPreview() {
+  return (
+    <div className="absolute top-[29.5rem] left-[23.5rem] w-[42.5rem]">
+      <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
         Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
         projetos para marcas como:
       </p>
-      <div
-        aria-label="Marcas com as quais já trabalhei"
-        className="mt-3 flex w-full max-w-[42.25rem] flex-row flex-nowrap items-center justify-between gap-2 sm:gap-3"
-        role="list"
-      >
-        {clientBrandLogos.map(({ name, src, containerClassName }) => (
-          <div
-            className={cn(
-              "flex min-w-0 flex-1 items-center justify-center",
-              containerClassName,
-            )}
-            key={name}
-            role="listitem"
-          >
-            <img
-              alt={name}
-              className="h-9 w-full max-h-12 object-contain object-center sm:h-10 lg:h-11"
-              src={src}
-            />
-          </div>
-        ))}
-      </div>
-      <p className="text-[0.9375rem] leading-[1.75] font-medium mt-2  text-[#011a24] lg:max-w-[42.25rem]">
+      <BrandLogos />
+      <p className="mt-2 max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
         Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar.
       </p>
-      <p className="text-[0.9375rem] leading-[1.75] font-medium  mt-2 text-[#011a24] lg:max-w-[42.25rem]">
+      <p className="mt-2 max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
         Hoje uso esse conhecimento para ajudar empreendedores brasileiros a vender mais — com sites, aplicativos,
         automações e inteligência artificial.
       </p>
-      <p className="text-[0.9375rem] leading-[1.75] font-medium  mt-2 text-[#011a24] lg:max-w-[42.25rem]">
+      <p className="mt-2 max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
         Sem complicação, sem papo técnico. Só resultado.
       </p>
 
-      <div className="-mx-7 mt-6 flex gap-4 overflow-x-auto px-7 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
+      <div className="mt-6 grid grid-cols-3 gap-4">
+        {serviceCards.map(({ title, description, image }) => (
+          <div className="flex flex-col overflow-hidden rounded-2xl bg-white" key={title}>
+            <img alt={title} className="aspect-square w-full object-cover" src={image} />
+            <div className="flex flex-col gap-1.5 p-3.5">
+              <p className="text-sm leading-snug font-bold text-gray-900">{title}</p>
+              <p className="text-xs leading-relaxed text-gray-500">{description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileIntroPreview() {
+  return (
+    <div className="relative mt-[20rem] space-y-2">
+      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+        Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
+        projetos para marcas como:
+      </p>
+      <BrandLogos />
+      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+        Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar.
+      </p>
+      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+        Hoje uso esse conhecimento para ajudar empreendedores brasileiros a vender mais — com sites, aplicativos,
+        automações e inteligência artificial.
+      </p>
+      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
+        Sem complicação, sem papo técnico. Só resultado.
+      </p>
+
+      <div className="-mx-7 mt-6 flex gap-4 overflow-x-auto px-7">
         {serviceCards.map(({ title, description, image }) => (
           <div
-            className="flex w-[17rem] shrink-0 flex-col overflow-hidden rounded-2xl bg-white lg:w-auto lg:shrink"
+            className="flex w-[17rem] shrink-0 flex-col overflow-hidden rounded-2xl bg-white"
             key={title}
           >
             <img alt={title} className="aspect-square w-full object-cover" src={image} />
@@ -249,10 +286,57 @@ function HeroIntroPreview() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
+function MobileHero() {
+  return (
+    <div className="relative mx-auto min-h-[100.375rem] max-w-[24.5625rem] px-7 pb-8 lg:hidden">
+      <HeroHeadline className="pt-6" />
+      <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30" />
+
+      <div className="absolute top-[12.25rem] left-[9.75rem] z-20 w-[14.0625rem]">
+        <Image
+          alt="Ilustração de loja digital no celular com produtos e redes sociais"
+          className="h-auto w-full object-contain object-bottom"
+          priority
+          src={heroIllustration}
+        />
+      </div>
+
+      <div className="absolute top-[21.875rem] left-[3.375rem] z-40">
+        <HeroMobileAvatar />
+      </div>
+
+      <MobileIntroPreview />
+    </div>
+  );
+}
+
+function DesktopHero() {
+  return (
+    <div className="relative mx-auto hidden min-h-[69.8125rem] w-full max-w-[66.75rem] lg:block">
+      <HeroHeadline className="absolute top-[4.25rem] left-0 w-[40.75rem]" />
+      <HeroSpeechBubble className="absolute top-[15.375rem] left-0 z-30" />
+
+      <div className="absolute top-[-1.25rem] right-[-3.125rem] z-20 w-[29.25rem]">
+        <Image
+          alt="Ilustração de loja digital no celular com produtos e redes sociais"
+          className="h-auto w-full object-contain object-bottom"
+          priority
+          src={heroIllustration}
+        />
+      </div>
+
+      <div className="absolute top-[29.75rem] left-2 z-20 w-[17rem]">
+        <HeroDesktopProfile />
+      </div>
+
+      <DesktopIntroPreview />
+    </div>
+  );
+}
 
 function SectionLabel({
   children,
@@ -263,6 +347,76 @@ function SectionLabel({
 }) {
   return (
     <p className={cn("text-xs font-semibold tracking-[0.08em] uppercase", className)}>{children}</p>
+  );
+}
+
+function SalesSections({ onStartConversation }: { onStartConversation: () => void }) {
+  return (
+    <ContentStack className="space-y-8">
+      <ContentBlock delay={1.15} className={blockClass}>
+        <SectionLabel className={p.text.orange}>Como funciona</SectionLabel>
+        <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>
+          Do jeito que é hoje até o negócio rodando sozinho — em 4 passos
+        </h2>
+
+        <div className="flex flex-col">
+          {steps.map(({ number, title, description }, i) => (
+            <div className="relative flex gap-4" key={number}>
+              <div className="flex flex-col items-center">
+                <div
+                  className={cn(
+                    "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
+                    p.bg.orange,
+                    p.text.white,
+                  )}
+                >
+                  {number}
+                </div>
+                {i < steps.length - 1 && <div className={cn("mt-1 w-px grow", "bg-[#ff8000]/25")} />}
+              </div>
+              <div className={cn("pb-6", i === steps.length - 1 && "pb-0")}>
+                <h3 className={cn("font-medium", p.text.navyDark)}>{title}</h3>
+                <p className={cn("mt-1 text-sm leading-relaxed", p.text.body)}>{description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </ContentBlock>
+
+      <ContentBlock delay={1.25} className={blockClass}>
+        <SectionLabel className={p.text.blue}>Perguntas frequentes</SectionLabel>
+        <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>Ficou alguma dúvida?</h2>
+
+        <div className="divide-y divide-[#003144]/10">
+          {faqs.map(({ question, answer }) => (
+            <div className="py-4" key={question}>
+              <h3 className={cn("font-medium", p.text.navyDark)}>{question}</h3>
+              <p className={cn("mt-2 text-sm leading-relaxed", p.text.body)}>{answer}</p>
+            </div>
+          ))}
+        </div>
+      </ContentBlock>
+
+      <div className={cn("rounded-2xl p-6 text-center", "bg-[#1a1a1a]")}>
+        <h2 className="text-xl font-semibold text-white">Pronto para parar de fazer tudo sozinho?</h2>
+        <p className="mt-3 text-sm leading-relaxed text-white/55">
+          Uma conversa de 30 minutos já é suficiente para eu entender o seu caso e te mostrar o que é possível fazer.
+          Sem compromisso.
+        </p>
+        <Button
+          className={cn(
+            "mt-6 h-auto w-full rounded-full px-6 py-4 text-base font-semibold hover:opacity-90",
+            p.bg.orange,
+            p.text.white,
+          )}
+          onClick={onStartConversation}
+          type="button"
+        >
+          Quero conversar com o Jonatas
+        </Button>
+        <p className="mt-3 text-xs text-white/40">Atendimento personalizado — poucas vagas por mês.</p>
+      </div>
+    </ContentStack>
   );
 }
 
@@ -285,113 +439,13 @@ export default function ConsultoriaWebPage() {
           <div className="h-[calc(100%-22.9375rem)] bg-[#fdf7ed] lg:h-[calc(100%-23.375rem)]" />
         </div>
 
-        <div className="relative mx-auto max-w-[24.5625rem] px-7 pb-8 lg:min-h-[69.8125rem] lg:w-full lg:max-w-[66.75rem] lg:px-0 lg:pb-0">
-          <HeroHeadline className="pt-6 lg:absolute lg:top-[4.25rem] lg:left-0 lg:w-[40.75rem] lg:pt-0" />
-
-          <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30 lg:top-[15.375rem] lg:left-0" />
-
-          <div className="absolute top-[12.25rem] left-[9.75rem] z-20 w-[14.0625rem] lg:top-[-1.25rem] lg:right-[-3.125rem] lg:left-auto lg:w-[29.25rem]">
-            <Image
-              alt="Ilustração de loja digital no celular com produtos e redes sociais"
-              className="h-auto w-full object-contain object-bottom"
-              priority
-              src={heroIllustration}
-            />
-          </div>
-
-          <div className="absolute top-[21.875rem] left-[3.375rem] z-40 lg:hidden">
-            <HeroMobileAvatar />
-          </div>
-
-          <div className="absolute top-[29.75rem] left-2 z-20 hidden w-[17rem] lg:block">
-            <HeroDesktopProfile />
-          </div>
-
-          <div className="relative mt-[20rem] max-w-[42.25rem] lg:absolute lg:mt-0 lg:top-[29.5rem] lg:left-[23.5rem]">
-            <HeroIntroPreview />
-            <ContentStack className="space-y-8 mt-6">
-              <ContentBlock delay={1.15} className={blockClass}>
-                <SectionLabel className={p.text.orange}>Como funciona</SectionLabel>
-                <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>
-                  Do jeito que é hoje até o negócio rodando sozinho — em 4 passos
-                </h2>
-
-                <div className="flex flex-col">
-                  {steps.map(({ number, title, description }, i) => (
-                    <div className="relative flex gap-4" key={number}>
-                      <div className="flex flex-col items-center">
-                        <div
-                          className={cn(
-                            "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
-                            p.bg.orange,
-                            p.text.white,
-                          )}
-                        >
-                          {number}
-                        </div>
-                        {i < steps.length - 1 && <div className={cn("mt-1 w-px grow", "bg-[#ff8000]/25")} />}
-                      </div>
-                      <div className={cn("pb-6", i === steps.length - 1 && "pb-0")}>
-                        <h3 className={cn("font-medium", p.text.navyDark)}>{title}</h3>
-                        <p className={cn("mt-1 text-sm leading-relaxed", p.text.body)}>{description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </ContentBlock>
-
-              <ContentBlock delay={1.25} className={blockClass}>
-                <SectionLabel className={p.text.blue}>Perguntas frequentes</SectionLabel>
-                <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>Ficou alguma dúvida?</h2>
-
-                <div className="divide-y divide-[#003144]/10">
-                  {faqs.map(({ question, answer }) => (
-                    <div className="py-4" key={question}>
-                      <h3 className={cn("font-medium", p.text.navyDark)}>{question}</h3>
-                      <p className={cn("mt-2 text-sm leading-relaxed", p.text.body)}>{answer}</p>
-                    </div>
-                  ))}
-                </div>
-              </ContentBlock>
-
-              <div className={cn("rounded-2xl p-6 text-center", "bg-[#1a1a1a]")}>
-                <h2 className="text-xl font-semibold text-white">Pronto para parar de fazer tudo sozinho?</h2>
-                <p className="mt-3 text-sm leading-relaxed text-white/55">
-                  Uma conversa de 30 minutos já é suficiente para eu entender o seu caso e te mostrar o que é possível
-                  fazer. Sem compromisso.
-                </p>
-                <Button
-                  className={cn(
-                    "mt-6 h-auto w-full rounded-full px-6 py-4 text-base font-semibold hover:opacity-90",
-                    p.bg.orange,
-                    p.text.white,
-                  )}
-                  onClick={handleStartConversation}
-                  type="button"
-                >
-                  Quero conversar com o Jonatas
-                </Button>
-                <p className="mt-3 text-xs text-white/40">Atendimento personalizado — poucas vagas por mês.</p>
-              </div>
-            </ContentStack>
-
-          </div>
-
-
-          <div className="mx-auto max-w-none space-y-8 px-4 py-8 lg:grid lg:max-w-[93.75rem] lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-20 lg:space-y-0 lg:px-10 lg:pt-0 xl:grid-cols-[23rem_minmax(0,1fr)] xl:gap-16">
-            <main className="min-w-0 overflow-hidden lg:col-start-2">
-
-            </main>
-
-
-          </div>
-
-
-
-
-        </div>
+        <MobileHero />
+        <DesktopHero />
       </section>
-      <div className="w-full px-0 lg:px-4 lg:py-4 px-4">
+
+      <div className="mx-auto max-w-[24.5625rem] px-7 py-8 lg:max-w-[66.75rem] lg:px-0 lg:py-10">
+        <div className="space-y-8 lg:ml-[23.5rem] lg:max-w-[42.25rem]">
+          <SalesSections onStartConversation={handleStartConversation} />
 
           <Chat
             ref={chatRef}
@@ -399,7 +453,9 @@ export default function ConsultoriaWebPage() {
             placeholder="Oi, sou o Jonatas. Me conta sobre o seu negócio."
             whatsappFallbackUrl={whatsappUrl}
           />
+        </div>
       </div>
+
       <div
         className={cn(
           "fixed inset-x-0 bottom-0 z-50 border-t border-[#011a24]/8 px-4 py-3 backdrop-blur-sm",

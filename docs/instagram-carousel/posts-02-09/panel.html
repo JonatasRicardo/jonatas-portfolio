@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Painel da grade · jonatas.web</title>
+    <style>
+      :root {
+        --screen: #f5f3ec;
+        --line: #bdbdb9;
+        --soft-line: #dad9d2;
+        --ink: #111111;
+        --muted: #3d3b37;
+        --blue: #2f65b3;
+        --blue-bg: #d7e6f6;
+        --proof-bg: #d6e6f8;
+        --proof-text: #2f65b3;
+        --pain-bg: #f6e8e8;
+        --pain-text: #8a2e2e;
+        --education-bg: #e9f4df;
+        --education-text: #24661f;
+        --fixed-bg: #f2f1ea;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--screen);
+        color: var(--ink);
+        font-family: Inter, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .panel-page {
+        display: grid;
+        justify-items: center;
+        min-height: 100vh;
+        padding: 40px 24px 28px;
+      }
+
+      .phone {
+        width: 720px;
+        overflow: hidden;
+        background: #ffffff;
+        border: 2px solid var(--line);
+        border-radius: 24px;
+      }
+
+      .top-bar {
+        display: grid;
+        grid-template-columns: 80px 1fr 80px;
+        align-items: center;
+        height: 90px;
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .top-icon {
+        width: 28px;
+        height: 28px;
+        margin: 0 auto;
+        border: 4px solid var(--ink);
+      }
+
+      .username {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 30px;
+        font-weight: 850;
+        letter-spacing: 0;
+      }
+
+      .verified {
+        width: 20px;
+        height: 20px;
+        border: 3px solid var(--blue);
+      }
+
+      .profile {
+        padding: 32px 28px 26px;
+      }
+
+      .profile-row {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        align-items: center;
+        gap: 28px;
+      }
+
+      .avatar {
+        display: grid;
+        place-items: center;
+        width: 148px;
+        height: 148px;
+        margin: 0 auto;
+        background: #d4e3f7;
+        border-radius: 50%;
+        color: var(--blue);
+        font-size: 46px;
+        font-weight: 850;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        text-align: center;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 34px;
+        line-height: 1;
+      }
+
+      .stat span {
+        display: block;
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 25px;
+        line-height: 1.08;
+      }
+
+      .bio {
+        margin-top: 28px;
+        font-size: 27px;
+        line-height: 1.36;
+      }
+
+      .bio strong,
+      .bio span,
+      .bio a {
+        display: block;
+      }
+
+      .bio strong {
+        font-size: 29px;
+        line-height: 1.18;
+      }
+
+      .bio .muted {
+        color: var(--muted);
+      }
+
+      .bio a {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 14px;
+        color: var(--blue);
+      }
+
+      .bio a::before {
+        width: 19px;
+        height: 19px;
+        border: 3px solid currentcolor;
+        content: "";
+      }
+
+      .profile-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .profile-actions button {
+        height: 64px;
+        background: #ffffff;
+        border: 2px solid var(--line);
+        border-radius: 16px;
+        color: var(--ink);
+        font: inherit;
+        font-size: 27px;
+      }
+
+      .profile-actions button:first-child {
+        background: #d5e5f7;
+        border-color: #d5e5f7;
+        color: var(--blue);
+        font-weight: 800;
+      }
+
+      .highlights {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-top: 36px;
+        text-align: center;
+      }
+
+      .highlight {
+        display: grid;
+        justify-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+
+      .highlight-icon {
+        display: grid;
+        place-items: center;
+        width: 112px;
+        height: 112px;
+        border: 2px solid var(--line);
+        border-radius: 50%;
+        background: var(--screen);
+      }
+
+      .highlight-icon::before {
+        width: 28px;
+        height: 28px;
+        border: 4px solid #4b4a45;
+        content: "";
+      }
+
+      .highlight span {
+        font-size: 23px;
+        line-height: 1.12;
+      }
+
+      .tabs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        height: 86px;
+        border-top: 1px solid var(--soft-line);
+        border-bottom: 1px solid var(--soft-line);
+      }
+
+      .tab {
+        position: relative;
+        display: grid;
+        place-items: center;
+      }
+
+      .tab:first-child::before {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--ink);
+        content: "";
+      }
+
+      .tab-icon {
+        width: 28px;
+        height: 28px;
+        border: 4px solid currentcolor;
+      }
+
+      .tab:nth-child(2),
+      .tab:nth-child(3) {
+        color: #77756e;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3px;
+        background: #ffffff;
+      }
+
+      .tile {
+        position: relative;
+        display: grid;
+        place-items: center;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        background: var(--fixed-bg);
+        text-align: center;
+      }
+
+      .tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .tile-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
+      .tile::before {
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgb(0 0 0 / 8%);
+        content: "";
+        pointer-events: none;
+      }
+
+      .tile:hover img {
+        transform: scale(1.025);
+      }
+
+      .tile img {
+        transition: transform 180ms ease;
+      }
+
+      .tile span {
+        max-width: 190px;
+        font-size: 23px;
+        font-weight: 850;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .tile::after {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 19px;
+        height: 19px;
+        border: 3px solid currentcolor;
+        background: rgb(255 255 255 / 62%);
+        content: "";
+      }
+
+      .tile-fixed {
+        color: var(--ink);
+      }
+
+      .tile-pain {
+        color: var(--pain-text);
+      }
+
+      .tile-proof {
+        color: var(--proof-text);
+      }
+
+      .tile-education {
+        color: var(--education-text);
+      }
+
+      .legacy-tile {
+        min-height: 238px;
+        padding: 30px 22px;
+        text-align: center;
+      }
+
+      .legacy-tile span {
+        max-width: 190px;
+        font-size: 23px;
+        font-weight: 850;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .legacy-tile::after {
+        position: absolute;
+        top: 18px;
+        right: 26px;
+        width: 19px;
+        height: 19px;
+        border: 3px solid currentcolor;
+        content: "";
+      }
+
+      .legacy-tile.tile-fixed {
+        background: var(--fixed-bg);
+        color: var(--ink);
+      }
+
+      .legacy-tile.tile-pain {
+        background: var(--pain-bg);
+        color: var(--pain-text);
+      }
+
+      .legacy-tile.tile-proof {
+        background: var(--proof-bg);
+        color: var(--proof-text);
+      }
+
+      .legacy-tile.tile-education {
+        background: var(--education-bg);
+        color: var(--education-text);
+      }
+
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 22px;
+        width: min(900px, 100%);
+        margin-top: 18px;
+        color: #3b3934;
+        font-size: 23px;
+      }
+
+      .legend-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .legend-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+      }
+
+      .legend-dot-fixed {
+        background: var(--ink);
+      }
+
+      .legend-dot-pain {
+        background: var(--pain-text);
+      }
+
+      .legend-dot-proof {
+        background: var(--proof-text);
+      }
+
+      .legend-dot-education {
+        background: var(--education-text);
+      }
+
+      @media (max-width: 780px) {
+        .panel-page {
+          align-items: start;
+          padding: 0;
+        }
+
+        .phone,
+        .legend {
+          width: 100%;
+          border-right: 0;
+          border-left: 0;
+          border-radius: 0;
+        }
+
+        .profile-row {
+          grid-template-columns: 140px 1fr;
+        }
+
+        .avatar {
+          width: 116px;
+          height: 116px;
+          font-size: 38px;
+        }
+
+        .tile {
+          aspect-ratio: 4 / 5;
+        }
+
+        .legacy-tile {
+          min-height: 190px;
+          padding: 24px 14px;
+        }
+
+        .legacy-tile span {
+          font-size: 19px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="panel-page">
+      <section class="phone" aria-label="Painel visual da grade do Instagram">
+        <header class="top-bar">
+          <div class="top-icon" aria-hidden="true"></div>
+          <div class="username">
+            <span>jonatas.web</span>
+            <span class="verified" aria-hidden="true"></span>
+          </div>
+          <div class="top-icon" aria-hidden="true"></div>
+        </header>
+
+        <section class="profile">
+          <div class="profile-row">
+            <div class="avatar" aria-label="Avatar JR">JR</div>
+            <div class="stats">
+              <div class="stat"><strong>9</strong><span>posts</span></div>
+              <div class="stat"><strong>86</strong><span>seguidores</span></div>
+              <div class="stat"><strong>153</strong><span>seguindo</span></div>
+            </div>
+          </div>
+
+          <div class="bio">
+            <strong>Jonatas · sites, lojas e automação</strong>
+            <span class="muted">Web pra quem vende no Insta e no WhatsApp</span>
+            <br />
+            <span>Ajudo quem vende nas redes a vender mais sem viver grudado no celular.</span>
+            <span>Sites · apps · loja online · automação com IA</span>
+            <span>15 anos · Brasil + EUA</span>
+            <a href="https://jonatassantos.com">jonatassantos.com</a>
+          </div>
+
+          <div class="profile-actions" aria-label="Ações do perfil">
+            <button type="button">Seguir</button>
+            <button type="button">Mensagem</button>
+          </div>
+
+          <div class="highlights" aria-label="Destaques">
+            
+                  <div class="highlight">
+                    <div class="highlight-icon" aria-hidden="true"></div>
+                    <span>Como funciona</span>
+                  </div>
+                
+                  <div class="highlight">
+                    <div class="highlight-icon" aria-hidden="true"></div>
+                    <span>O que faço</span>
+                  </div>
+                
+                  <div class="highlight">
+                    <div class="highlight-icon" aria-hidden="true"></div>
+                    <span>Resultados</span>
+                  </div>
+                
+                  <div class="highlight">
+                    <div class="highlight-icon" aria-hidden="true"></div>
+                    <span>Quem sou eu</span>
+                  </div>
+                
+          </div>
+        </section>
+
+        <nav class="tabs" aria-label="Abas do perfil">
+          <div class="tab"><span class="tab-icon" aria-hidden="true"></span></div>
+          <div class="tab"><span class="tab-icon" aria-hidden="true"></span></div>
+          <div class="tab"><span class="tab-icon" aria-hidden="true"></span></div>
+        </nav>
+
+        <section class="grid" aria-label="Grade de posts">
+          
+                <a class="tile tile-fixed" href="../vendas-insta-whatsapp/out/slide-01.png" aria-label="Site, loja e automação pra quem vende nas redes — começa aqui">
+                  <img src="../vendas-insta-whatsapp/out/slide-01.png" alt="" />
+                  <span class="tile-label">Site, loja e automação pra quem vende nas redes — começa aqui</span>
+                </a>
+              
+                <a class="tile tile-pain" href="out/post-02/slide-01.png" aria-label="&quot;Tá no link da bio&quot; — e o cliente some no caminho?">
+                  <img src="out/post-02/slide-01.png" alt="" />
+                  <span class="tile-label">&quot;Tá no link da bio&quot; — e o cliente some no caminho?</span>
+                </a>
+              
+                <a class="tile tile-education" href="out/post-03/slide-01.png" aria-label="Não precisa de site bonito. Precisa de um que vende">
+                  <img src="out/post-03/slide-01.png" alt="" />
+                  <span class="tile-label">Não precisa de site bonito. Precisa de um que vende</span>
+                </a>
+              
+                <a class="tile tile-proof" href="out/post-04/slide-01.png" aria-label="15 anos construindo na internet. Brasil + EUA">
+                  <img src="out/post-04/slide-01.png" alt="" />
+                  <span class="tile-label">15 anos construindo na internet. Brasil + EUA</span>
+                </a>
+              
+                <a class="tile tile-pain" href="out/post-05/slide-01.png" aria-label="Seu negócio não pode parar quando você para">
+                  <img src="out/post-05/slide-01.png" alt="" />
+                  <span class="tile-label">Seu negócio não pode parar quando você para</span>
+                </a>
+              
+                <a class="tile tile-education" href="out/post-06/slide-01.png" aria-label="Link da bio não é loja. Veja a diferença que faz">
+                  <img src="out/post-06/slide-01.png" alt="" />
+                  <span class="tile-label">Link da bio não é loja. Veja a diferença que faz</span>
+                </a>
+              
+                <a class="tile tile-education" href="out/post-07/slide-01.png" aria-label="IA no atendimento não é robô — responde com a sua voz">
+                  <img src="out/post-07/slide-01.png" alt="" />
+                  <span class="tile-label">IA no atendimento não é robô — responde com a sua voz</span>
+                </a>
+              
+                <a class="tile tile-proof" href="reel/post-08-roteiro.md" aria-label="Antes: catálogo no story. Depois: loja vendendo sozinha">
+                  <img src="out/post-08/cover.png" alt="" />
+                  <span class="tile-label">Antes: catálogo no story. Depois: loja vendendo sozinha</span>
+                </a>
+              
+                <a class="tile tile-pain" href="out/post-09/slide-01.png" aria-label="Pedido no caderno, pagamento no print, controle na cabeça?">
+                  <img src="out/post-09/slide-01.png" alt="" />
+                  <span class="tile-label">Pedido no caderno, pagamento no print, controle na cabeça?</span>
+                </a>
+              
+        </section>
+      </section>
+
+      <aside class="legend" aria-label="Legenda da grade">
+        
+              <div class="legend-item">
+                <span class="legend-dot legend-dot-fixed" aria-hidden="true"></span>
+                <span>Fixado / boas-vindas</span>
+              </div>
+            
+              <div class="legend-item">
+                <span class="legend-dot legend-dot-pain" aria-hidden="true"></span>
+                <span>Dor</span>
+              </div>
+            
+              <div class="legend-item">
+                <span class="legend-dot legend-dot-proof" aria-hidden="true"></span>
+                <span>Prova / autoridade</span>
+              </div>
+            
+              <div class="legend-item">
+                <span class="legend-dot legend-dot-education" aria-hidden="true"></span>
+                <span>Educação</span>
+              </div>
+            
+      </aside>
+    </main>
+  </body>
+</html>

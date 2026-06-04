@@ -1,18 +1,18 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { useMemo, useRef } from "react";
+import Image from "next/image"
+import { useMemo, useRef } from "react"
 
-import profileImg from "assets/imgs/jonatas-ricardo-santos-frontend-avatar.png";
-import heroIllustration from "assets/imgs/consultoria-hero-shelves.png";
-import { Button } from "components/base-ui/button";
-import { cn } from "components/base-ui/cn";
-import Chat, { type ChatHandle } from "components/chat";
-import { consultoriaPalette as p } from "components/consultoria-web/consultoria-palette";
-import { ContentBlock, ContentStack } from "components/content-block";
+import profileImg from "assets/imgs/jonatas-ricardo-santos-frontend-avatar.png"
+import heroIllustration from "assets/imgs/consultoria-hero-shelves.png"
+import { Button } from "components/base-ui/button"
+import { cn } from "components/base-ui/cn"
+import Chat, { type ChatHandle } from "components/chat"
+import { consultoriaPalette as p } from "components/consultoria-web/consultoria-palette"
+import { ContentBlock, ContentStack } from "components/content-block"
 
-const whatsappNumber = "5521980484957";
-const defaultMessage = "Olá Jonatas, vi sua página e quero conversar sobre minha presença digital.";
+const whatsappNumber = "5521980484957"
+const defaultMessage = "Olá Jonatas, vi sua página e quero conversar sobre minha presença digital."
 
 const serviceCards = [
   {
@@ -33,7 +33,7 @@ const serviceCards = [
       "Um plano claro para vender mais usando a internet — sem depender de post diário, sem precisar estar sempre online.",
     image: "/consultoria/imagem-estrategia.png",
   },
-] as const;
+] as const
 
 const clientBrandLogos = [
   {
@@ -46,10 +46,10 @@ const clientBrandLogos = [
   { name: "Riachuelo", src: "/consultoria/logos/riachuelo.png" },
   { name: "C&A", src: "/consultoria/logos/cea.png" },
 ] satisfies Array<{
-  name: string;
-  src: string;
-  containerClassName?: string;
-}>;
+  name: string
+  src: string
+  containerClassName?: string
+}>
 
 const faqs = [
   {
@@ -59,8 +59,7 @@ const faqs = [
   },
   {
     question: "Preciso entender de tecnologia para usar o que você entrega?",
-    answer:
-      "Não. Tudo é construído para você conseguir usar e manter sem precisar saber programar.",
+    answer: "Não. Tudo é construído para você conseguir usar e manter sem precisar saber programar.",
   },
   {
     question: "Quanto tempo leva para ver resultado?",
@@ -69,14 +68,13 @@ const faqs = [
   },
   {
     question: "Vai custar caro manter as ferramentas depois?",
-    answer:
-      "Não. Sempre priorizo soluções acessíveis. O que muda é a forma como elas trabalham juntas.",
+    answer: "Não. Sempre priorizo soluções acessíveis. O que muda é a forma como elas trabalham juntas.",
   },
   {
     question: "E se não funcionar para o meu negócio?",
     answer: "Devolvo 100% do valor investido. Sem pergunta, sem burocracia.",
   },
-];
+]
 
 const steps = [
   {
@@ -103,9 +101,9 @@ const steps = [
     description:
       "Com tudo funcionando, o negócio passa a rodar com menos depender de você. Mais vendas, mais tempo, mais qualidade de vida. E eu fico por perto por 30 dias para garantir que está tudo certo.",
   },
-];
+]
 
-const blockClass = "space-y-5";
+const blockClass = "space-y-5"
 
 function HeroHeadline({ className }: { className?: string }) {
   return (
@@ -113,20 +111,20 @@ function HeroHeadline({ className }: { className?: string }) {
       className={cn(
         "text-[1.375rem] leading-[1.18] font-bold lg:text-[2.625rem] lg:leading-[1.16] lg:font-normal",
         "text-black",
-        className,
+        className
       )}
     >
       Sabe como a internet pode ajudar seu negócio a{" "}
       <span
         className={cn(
           p.text.green,
-          "underline decoration-[#011a24] decoration-[3px] underline-offset-[4px] lg:no-underline",
+          "underline decoration-[#011a24] decoration-[3px] underline-offset-[4px] lg:no-underline"
         )}
       >
         vender mais com menos esforço?
       </span>
     </h1>
-  );
+  )
 }
 
 function HeroSpeechBubble({ className, tailClassName }: { className?: string; tailClassName?: string }) {
@@ -135,14 +133,14 @@ function HeroSpeechBubble({ className, tailClassName }: { className?: string; ta
       <div
         className={cn(
           "relative w-[15.0625rem] rounded-lg px-[1.125rem] py-5 shadow-[0_10px_24px_rgba(1,26,36,0.18)] lg:w-[38.875rem] lg:rounded-lg lg:px-7 lg:py-6",
-          p.bg.white,
+          p.bg.white
         )}
       >
         <p className={cn("text-[0.875rem] leading-[1.45] lg:text-[1.25rem] lg:leading-[1.5]", p.text.navyDark)}>
           Você já vende pelo WhatsApp, ou Instagram,{" "}
           <strong>
-            mas enquanto você responde mensagem, cria conteúdo e ainda tenta fechar venda, o seu negócio depende 100%
-            de você —{" "}
+            mas enquanto você responde mensagem, cria conteúdo e ainda tenta fechar venda, o seu negócio depende 100% de
+            você —{" "}
           </strong>
           <strong className={p.text.orange}>e você está esgotado. Certo?</strong>
         </p>
@@ -152,12 +150,12 @@ function HeroSpeechBubble({ className, tailClassName }: { className?: string; ta
           className={cn(
             "absolute -bottom-4 left-[2.625rem] size-8 rotate-45 shadow-[3px_3px_6px_rgba(1,26,36,0.06)] lg:-bottom-6 lg:left-[6rem] lg:size-12",
             p.bg.white,
-            tailClassName,
+            tailClassName
           )}
         />
       </div>
     </div>
-  );
+  )
 }
 
 function HeroMobileAvatar() {
@@ -174,7 +172,7 @@ function HeroMobileAvatar() {
         />
       </div>
     </div>
-  );
+  )
 }
 
 function HeroDesktopProfile() {
@@ -196,7 +194,7 @@ function HeroDesktopProfile() {
       <h2 className="mt-5 text-xl font-semibold text-[#37312d]">Jonatas Ricardo S. Santos</h2>
       <p className="mt-0.5 text-base font-semibold text-[#37312d]">Especialista em Web para Negócios</p>
     </div>
-  );
+  )
 }
 
 function BrandLogos() {
@@ -212,15 +210,11 @@ function BrandLogos() {
           key={name}
           role="listitem"
         >
-          <img
-            alt={name}
-            className="h-9 w-full max-h-12 object-contain object-center sm:h-10 lg:h-11"
-            src={src}
-          />
+          <img alt={name} className="h-9 max-h-12 w-full object-contain object-center sm:h-10 lg:h-11" src={src} />
         </div>
       ))}
     </div>
-  );
+  )
 }
 
 function DesktopIntroPreview() {
@@ -254,7 +248,7 @@ function DesktopIntroPreview() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function MobileIntroPreview() {
@@ -278,10 +272,7 @@ function MobileIntroPreview() {
 
       <div className="-mx-7 mt-6 flex gap-4 overflow-x-auto px-7">
         {serviceCards.map(({ title, description, image }) => (
-          <div
-            className="flex w-[17rem] shrink-0 flex-col overflow-hidden rounded-2xl bg-white"
-            key={title}
-          >
+          <div className="flex w-[17rem] shrink-0 flex-col overflow-hidden rounded-2xl bg-white" key={title}>
             <img alt={title} className="aspect-square w-full object-cover" src={image} />
             <div className="flex flex-col gap-1.5 p-3.5">
               <p className="text-sm leading-snug font-bold text-gray-900">{title}</p>
@@ -291,7 +282,7 @@ function MobileIntroPreview() {
         ))}
       </div>
     </div>
-  );
+  )
 }
 
 function MobileHero() {
@@ -315,7 +306,7 @@ function MobileHero() {
 
       <MobileIntroPreview />
     </div>
-  );
+  )
 }
 
 function DesktopHero() {
@@ -339,19 +330,11 @@ function DesktopHero() {
 
       <DesktopIntroPreview />
     </div>
-  );
+  )
 }
 
-function SectionLabel({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <p className={cn("text-xs font-semibold tracking-[0.08em] uppercase", className)}>{children}</p>
-  );
+function SectionLabel({ children, className }: { children: React.ReactNode; className?: string }) {
+  return <p className={cn("text-xs font-semibold tracking-[0.08em] uppercase", className)}>{children}</p>
 }
 
 function SalesSections({ onStartConversation }: { onStartConversation: () => void }) {
@@ -371,7 +354,7 @@ function SalesSections({ onStartConversation }: { onStartConversation: () => voi
                   className={cn(
                     "grid size-8 shrink-0 place-items-center rounded-full text-sm font-bold",
                     p.bg.orange,
-                    p.text.white,
+                    p.text.white
                   )}
                 >
                   {number}
@@ -411,7 +394,7 @@ function SalesSections({ onStartConversation }: { onStartConversation: () => voi
           className={cn(
             "mt-6 h-auto w-full rounded-full px-6 py-4 text-base font-semibold hover:opacity-90",
             p.bg.orange,
-            p.text.white,
+            p.text.white
           )}
           onClick={onStartConversation}
           type="button"
@@ -421,23 +404,25 @@ function SalesSections({ onStartConversation }: { onStartConversation: () => voi
         <p className="mt-3 text-xs text-white/40">Atendimento personalizado — poucas vagas por mês.</p>
       </div>
     </ContentStack>
-  );
+  )
 }
 
 export default function ConsultoriaWebPage() {
-  const chatRef = useRef<ChatHandle>(null);
+  const chatRef = useRef<ChatHandle>(null)
 
   const whatsappUrl = useMemo(() => {
-    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
-  }, []);
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`
+  }, [])
 
   const handleStartConversation = () => {
-    chatRef.current?.startConversation(defaultMessage);
-  };
+    chatRef.current?.startConversation(defaultMessage)
+  }
 
   return (
     <div className="min-h-screen bg-[#fdf7ed] pb-24 lg:pb-28">
       <section className="relative overflow-hidden bg-[#fdf7ed] lg:min-h-[69.8125rem]">
+        <span aria-hidden="true" className="absolute top-[26rem] left-0" id="servicos" />
+
         <div aria-hidden="true" className="absolute inset-0">
           <div className="h-[22.9375rem] bg-[#fce2bd] lg:h-[23.375rem]" />
           <div className="h-[calc(100%-22.9375rem)] bg-[#fdf7ed] lg:h-[calc(100%-23.375rem)]" />
@@ -462,14 +447,14 @@ export default function ConsultoriaWebPage() {
       <div
         className={cn(
           "fixed inset-x-0 bottom-0 z-50 border-t border-[#011a24]/8 px-4 py-3 backdrop-blur-sm",
-          "bg-[#fdf7ed]/95 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
+          "bg-[#fdf7ed]/95 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
         )}
       >
         <Button
           className={cn(
             "mx-auto flex h-auto w-full max-w-[24.5625rem] rounded-full px-6 py-3.5 text-base font-semibold shadow-[0_8px_24px_rgba(255,128,0,0.35)] hover:opacity-90 lg:max-w-[42.25rem]",
             p.bg.orange,
-            p.text.white,
+            p.text.white
           )}
           onClick={handleStartConversation}
           type="button"
@@ -478,5 +463,5 @@ export default function ConsultoriaWebPage() {
         </Button>
       </div>
     </div>
-  );
+  )
 }

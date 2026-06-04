@@ -650,6 +650,18 @@ function coverBackgroundSrc(post: CarouselPost) {
   return `assets/backgrounds/${postSlug(post.id)}-bg.png`;
 }
 
+function panelSlidesForPost(post: CarouselPost) {
+  return Array.from({ length: post.slides.length }, (_, index) => {
+    const slideNumber = String(index + 1).padStart(2, "0");
+
+    return `out/${postSlug(post.id)}/slide-${slideNumber}.png`;
+  });
+}
+
+function safeJsonForHtml(value: unknown) {
+  return JSON.stringify(value).replaceAll("<", "\\u003c");
+}
+
 function renderBrand(post: CarouselPost, slideNumber: number) {
   return `
     <div class="brand">
@@ -1925,62 +1937,90 @@ function renderHtml() {
 }
 
 function renderPanelHtml() {
+  const postById = new Map(carouselPosts.map((post) => [post.id, post]));
+  const carouselSlides = (postId: number) => {
+    const post = postById.get(postId);
+
+    if (!post) {
+      throw new Error(`Post ${postId} not found`);
+    }
+
+    return panelSlidesForPost(post);
+  };
+  const fixedSlides = Array.from({ length: 7 }, (_, index) => {
+    const slideNumber = String(index + 1).padStart(2, "0");
+
+    return `../vendas-insta-whatsapp/out/slide-${slideNumber}.png`;
+  });
   const gridItems = [
     {
       href: "../vendas-insta-whatsapp/out/slide-01.png",
       image: "../vendas-insta-whatsapp/out/slide-01.png",
       marker: "fixed",
+      slides: fixedSlides,
       text: "Site, loja e automação pra quem vende nas redes — começa aqui",
     },
     {
       href: "out/post-02/slide-01.png",
       image: "out/post-02/slide-01.png",
       marker: "pain",
+      slides: carouselSlides(2),
       text: "\"Tá no link da bio\" — e o cliente some no caminho?",
     },
     {
       href: "out/post-03/slide-01.png",
       image: "out/post-03/slide-01.png",
       marker: "education",
+      slides: carouselSlides(3),
       text: "Não precisa de site bonito. Precisa de um que vende",
     },
     {
       href: "out/post-04/slide-01.png",
       image: "out/post-04/slide-01.png",
       marker: "proof",
+      slides: carouselSlides(4),
       text: "15 anos construindo na internet. Brasil + EUA",
     },
     {
       href: "out/post-05/slide-01.png",
       image: "out/post-05/slide-01.png",
       marker: "pain",
+      slides: carouselSlides(5),
       text: "Seu negócio não pode parar quando você para",
     },
     {
       href: "out/post-06/slide-01.png",
       image: "out/post-06/slide-01.png",
       marker: "education",
+      slides: carouselSlides(6),
       text: "Link da bio não é loja. Veja a diferença que faz",
     },
     {
       href: "out/post-07/slide-01.png",
       image: "out/post-07/slide-01.png",
       marker: "education",
+      slides: carouselSlides(7),
       text: "IA no atendimento não é robô — responde com a sua voz",
     },
     {
       href: "reel/post-08-roteiro.md",
       image: "out/post-08/cover.png",
       marker: "proof",
+      slides: ["out/post-08/cover.png"],
       text: "Antes: catálogo no story. Depois: loja vendendo sozinha",
     },
     {
       href: "out/post-09/slide-01.png",
       image: "out/post-09/slide-01.png",
       marker: "pain",
+      slides: carouselSlides(9),
       text: "Pedido no caderno, pagamento no print, controle na cabeça?",
     },
   ];
+  const carouselData = gridItems.map((item) => ({
+    slides: item.slides,
+    title: item.text,
+  }));
 
   const highlights = ["Como funciona", "O que faço", "Resultados", "Quem sou eu"];
   const legendItems = [
@@ -2025,9 +2065,17 @@ function renderPanelHtml() {
         font-family: Inter, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
       }
 
+      body.modal-open {
+        overflow: hidden;
+      }
+
       a {
         color: inherit;
         text-decoration: none;
+      }
+
+      button {
+        font: inherit;
       }
 
       .panel-page {
@@ -2267,7 +2315,14 @@ function renderPanelHtml() {
         aspect-ratio: 4 / 5;
         overflow: hidden;
         background: var(--fixed-bg);
+        cursor: pointer;
         text-align: center;
+      }
+
+      .tile:focus-visible {
+        z-index: 2;
+        outline: 4px solid var(--blue);
+        outline-offset: -4px;
       }
 
       .tile img {
@@ -2420,6 +2475,146 @@ function renderPanelHtml() {
         background: var(--education-text);
       }
 
+      .carousel-modal[hidden] {
+        display: none;
+      }
+
+      .carousel-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        background: rgb(1 10 14 / 78%);
+        backdrop-filter: blur(12px);
+      }
+
+      .carousel-dialog {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 560px) 64px;
+        align-items: center;
+        gap: 18px;
+        width: min(100%, 820px);
+      }
+
+      .carousel-header {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        color: #ffffff;
+      }
+
+      .carousel-title {
+        min-width: 0;
+        margin: 0;
+        overflow: hidden;
+        font-size: 22px;
+        font-weight: 850;
+        line-height: 1.18;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .carousel-counter {
+        color: rgb(255 255 255 / 72%);
+        font-size: 18px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .modal-icon-button {
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        background: rgb(255 255 255 / 12%);
+        border: 1px solid rgb(255 255 255 / 18%);
+        border-radius: 50%;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 1;
+      }
+
+      .modal-icon-button:hover,
+      .modal-icon-button:focus-visible {
+        background: rgb(255 255 255 / 20%);
+        outline: 0;
+      }
+
+      .modal-icon-button:disabled {
+        cursor: default;
+        opacity: 0.35;
+      }
+
+      .carousel-close {
+        flex: 0 0 auto;
+      }
+
+      .carousel-frame {
+        position: relative;
+        grid-column: 2;
+        overflow: hidden;
+        width: min(100%, 560px);
+        margin: 0;
+        aspect-ratio: 4 / 5;
+        background: #011a24;
+        border: 1px solid rgb(255 255 255 / 16%);
+        border-radius: 16px;
+        box-shadow: 0 26px 90px rgb(0 0 0 / 46%);
+      }
+
+      .carousel-frame img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .carousel-nav {
+        align-self: center;
+      }
+
+      .carousel-prev {
+        grid-column: 1;
+      }
+
+      .carousel-next {
+        grid-column: 3;
+      }
+
+      .carousel-dots {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        min-height: 24px;
+      }
+
+      .carousel-dot {
+        width: 11px;
+        height: 11px;
+        padding: 0;
+        background: rgb(255 255 255 / 28%);
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .carousel-dot[aria-current="true"] {
+        background: #ffffff;
+      }
+
+      .carousel-modal.is-single .carousel-nav,
+      .carousel-modal.is-single .carousel-dots {
+        visibility: hidden;
+      }
+
       @media (max-width: 780px) {
         .panel-page {
           align-items: start;
@@ -2455,6 +2650,29 @@ function renderPanelHtml() {
 
         .legacy-tile span {
           font-size: 19px;
+        }
+
+        .carousel-modal {
+          padding: 16px;
+        }
+
+        .carousel-dialog {
+          grid-template-columns: 48px minmax(0, 1fr) 48px;
+          gap: 10px;
+        }
+
+        .carousel-frame {
+          border-radius: 12px;
+        }
+
+        .modal-icon-button {
+          width: 42px;
+          height: 42px;
+          font-size: 28px;
+        }
+
+        .carousel-title {
+          font-size: 17px;
         }
       }
     </style>
@@ -2519,8 +2737,14 @@ function renderPanelHtml() {
         <section class="grid" aria-label="Grade de posts">
           ${gridItems
             .map(
-              (item) => `
-                <a class="tile tile-${item.marker}" href="${item.href}" aria-label="${escapeHtml(item.text)}">
+              (item, index) => `
+                <a
+                  class="tile tile-${item.marker}"
+                  href="${item.href}"
+                  aria-label="${escapeHtml(item.text)}"
+                  data-carousel-index="${index}"
+                  data-slide-count="${item.slides.length}"
+                >
                   <img src="${item.image}" alt="" />
                   <span class="tile-label">${escapeHtml(item.text)}</span>
                 </a>
@@ -2543,6 +2767,144 @@ function renderPanelHtml() {
           .join("")}
       </aside>
     </main>
+
+    <div class="carousel-modal" id="carousel-modal" role="dialog" aria-modal="true" aria-labelledby="carousel-title" hidden>
+      <div class="carousel-dialog">
+        <div class="carousel-header">
+          <h2 class="carousel-title" id="carousel-title"></h2>
+          <span class="carousel-counter" id="carousel-counter"></span>
+          <button class="modal-icon-button carousel-close" type="button" aria-label="Fechar carrossel">×</button>
+        </div>
+        <button class="modal-icon-button carousel-nav carousel-prev" type="button" aria-label="Slide anterior">‹</button>
+        <figure class="carousel-frame">
+          <img id="carousel-image" src="" alt="" />
+        </figure>
+        <button class="modal-icon-button carousel-nav carousel-next" type="button" aria-label="Próximo slide">›</button>
+        <div class="carousel-dots" id="carousel-dots" aria-label="Navegação do carrossel"></div>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const carouselItems = ${safeJsonForHtml(carouselData)};
+        const tiles = document.querySelectorAll("[data-carousel-index]");
+        const modal = document.querySelector("#carousel-modal");
+        const modalTitle = document.querySelector("#carousel-title");
+        const modalCounter = document.querySelector("#carousel-counter");
+        const modalImage = document.querySelector("#carousel-image");
+        const closeButton = document.querySelector(".carousel-close");
+        const previousButton = document.querySelector(".carousel-prev");
+        const nextButton = document.querySelector(".carousel-next");
+        const dots = document.querySelector("#carousel-dots");
+        let activeCarouselIndex = 0;
+        let activeSlideIndex = 0;
+        let lastFocusedElement = null;
+
+        function currentItem() {
+          return carouselItems[activeCarouselIndex];
+        }
+
+        function renderCarousel() {
+          const item = currentItem();
+          const slideTotal = item.slides.length;
+          const slideSource = item.slides[activeSlideIndex];
+          modalTitle.textContent = item.title;
+          modalCounter.textContent = String(activeSlideIndex + 1).padStart(2, "0") + "/" + String(slideTotal).padStart(2, "0");
+          modalImage.src = slideSource;
+          modalImage.alt = item.title + " - slide " + String(activeSlideIndex + 1);
+          modal.classList.toggle("is-single", slideTotal <= 1);
+          previousButton.disabled = slideTotal <= 1;
+          nextButton.disabled = slideTotal <= 1;
+          dots.innerHTML = item.slides
+            .map((_, index) => {
+              const isCurrent = index === activeSlideIndex ? "true" : "false";
+
+              return '<button class="carousel-dot" type="button" data-slide-index="' + index + '" aria-label="Ir para slide ' + String(index + 1) + '" aria-current="' + isCurrent + '"></button>';
+            })
+            .join("");
+        }
+
+        function openCarousel(index) {
+          lastFocusedElement = document.activeElement;
+          activeCarouselIndex = index;
+          activeSlideIndex = 0;
+          renderCarousel();
+          modal.hidden = false;
+          document.body.classList.add("modal-open");
+          closeButton.focus();
+        }
+
+        function closeCarousel() {
+          modal.hidden = true;
+          document.body.classList.remove("modal-open");
+
+          if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+            lastFocusedElement.focus();
+          }
+        }
+
+        function moveSlide(direction) {
+          const slideTotal = currentItem().slides.length;
+
+          if (slideTotal <= 1) {
+            return;
+          }
+
+          activeSlideIndex = (activeSlideIndex + direction + slideTotal) % slideTotal;
+          renderCarousel();
+        }
+
+        tiles.forEach((tile) => {
+          tile.addEventListener("click", (event) => {
+            event.preventDefault();
+            openCarousel(Number(tile.dataset.carouselIndex));
+          });
+        });
+
+        previousButton.addEventListener("click", () => moveSlide(-1));
+        nextButton.addEventListener("click", () => moveSlide(1));
+        closeButton.addEventListener("click", closeCarousel);
+
+        dots.addEventListener("click", (event) => {
+          if (!(event.target instanceof Element)) {
+            return;
+          }
+
+          const dot = event.target.closest("[data-slide-index]");
+
+          if (!dot) {
+            return;
+          }
+
+          activeSlideIndex = Number(dot.dataset.slideIndex);
+          renderCarousel();
+        });
+
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) {
+            closeCarousel();
+          }
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (modal.hidden) {
+            return;
+          }
+
+          if (event.key === "Escape") {
+            closeCarousel();
+          }
+
+          if (event.key === "ArrowLeft") {
+            moveSlide(-1);
+          }
+
+          if (event.key === "ArrowRight") {
+            moveSlide(1);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>`;
 }
@@ -2799,7 +3161,7 @@ Pacote com 7 carrosséis renderizados em PNG e 1 roteiro de Reel.
 ## Arquivos
 
 - \`index.html\`: prévia navegável de todos os carrosséis.
-- \`panel.html\`: painel estilo perfil do Instagram para visualizar a grade.
+- \`panel.html\`: painel estilo perfil do Instagram, com modal de carrossel ao clicar nas capas.
 - \`out/panel-preview.png\`: imagem rápida do painel.
 - \`out/post-XX/slide-YY.png\`: imagens prontas para postagem.
 - \`out/post-08/cover.png\`: capa 4:5 do Reel para visualizar na grade.

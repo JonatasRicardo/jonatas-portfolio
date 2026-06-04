@@ -45,7 +45,11 @@ const clientBrandLogos = [
   { name: "Havaianas", src: "/consultoria/logos/havaianas.png" },
   { name: "Riachuelo", src: "/consultoria/logos/riachuelo.png" },
   { name: "C&A", src: "/consultoria/logos/cea.png" },
-] as const;
+] satisfies Array<{
+  name: string;
+  src: string;
+  containerClassName?: string;
+}>;
 
 const faqs = [
   {
@@ -292,7 +296,7 @@ function MobileIntroPreview() {
 
 function MobileHero() {
   return (
-    <div className="relative mx-auto min-h-[100.375rem] max-w-[24.5625rem] px-7 pb-8 lg:hidden">
+    <div className="relative mx-auto max-w-[24.5625rem] px-7 pb-8 lg:hidden">
       <HeroHeadline className="pt-6" />
       <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30" />
 

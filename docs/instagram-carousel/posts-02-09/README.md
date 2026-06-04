@@ -5,7 +5,7 @@ Pacote com 7 carrosséis renderizados em PNG e 1 roteiro de Reel.
 ## Arquivos
 
 - `index.html`: prévia navegável de todos os carrosséis.
-- `panel.html`: painel estilo perfil do Instagram para visualizar a grade.
+- `panel.html`: painel estilo perfil do Instagram, com modal de carrossel ao clicar nas capas.
 - `out/panel-preview.png`: imagem rápida do painel.
 - `out/post-XX/slide-YY.png`: imagens prontas para postagem.
 - `out/post-08/cover.png`: capa 4:5 do Reel para visualizar na grade.

@@ -9,6 +9,8 @@ Pacote com 7 carrosséis renderizados em PNG e 1 roteiro de Reel.
 - `out/panel-preview.png`: imagem rápida do painel.
 - `out/post-XX/slide-YY.png`: imagens prontas para postagem.
 - `out/post-08/cover.png`: capa 4:5 do Reel para visualizar na grade.
+- `assets/backgrounds/post-XX-bg.png`: backgrounds realistas finais, em 2160x2700.
+- `assets/backgrounds/raw/post-XX-bg.png`: imagens brutas geradas antes do crop/resample.
 - `captions/post-XX.txt`: legenda e hashtags de cada carrossel.
 - `reel/post-08-roteiro.md`: roteiro, legenda, hashtags e checklist do Reel.
 - `render-posts.mts`: fonte TypeScript para editar copy, cor e layout.
@@ -41,10 +43,10 @@ Ritmo recomendado: 2 a 3 publicações por semana.
 
 ## Regras de legibilidade aplicadas
 
-- Capas escuras usam uma coluna segura de texto, sem elementos principais por trás.
+- Capas usam background realista escuro, com overlay e coluna segura de texto.
 - Elementos decorativos ficam com baixa opacidade quando se aproximam da copy.
-- Chamadas principais recebem um scrim sutil, não um card pesado.
-- Slides claros mantêm ilustrações no canto inferior direito e texto em área limpa.
+- Chamadas principais ficam direto sobre a imagem, sem card pesado.
+- Slides internos mantêm ilustrações no canto inferior direito e texto em área limpa.
 
 ## Gerar novamente
 

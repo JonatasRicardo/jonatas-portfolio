@@ -132,6 +132,15 @@
           var(--cream);
       }
 
+      .layout-cover.has-photo-bg {
+        background: var(--navy-dark);
+        color: var(--cream);
+      }
+
+      .layout-cover.has-photo-bg::after {
+        border-color: rgb(247 240 228 / 22%);
+      }
+
       .photo-bg {
         position: absolute;
         inset: 0;
@@ -140,7 +149,7 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-        filter: saturate(1.02) contrast(1.05);
+        filter: saturate(1.06) contrast(1.04) brightness(1.12);
       }
 
       .photo-overlay {
@@ -148,8 +157,8 @@
         inset: 0;
         z-index: 1;
         background:
-          linear-gradient(90deg, rgb(1 26 36 / 96%) 0%, rgb(1 26 36 / 88%) 46%, rgb(1 26 36 / 50%) 100%),
-          linear-gradient(180deg, rgb(1 26 36 / 60%) 0%, rgb(1 26 36 / 18%) 45%, rgb(1 26 36 / 86%) 100%);
+          linear-gradient(90deg, rgb(1 26 36 / 82%) 0%, rgb(1 26 36 / 56%) 44%, rgb(1 26 36 / 6%) 100%),
+          linear-gradient(180deg, rgb(1 26 36 / 16%) 0%, rgb(1 26 36 / 0%) 46%, rgb(1 26 36 / 34%) 100%);
       }
 
       .brand,
@@ -184,6 +193,11 @@
       .theme-pain .slide-count,
       .theme-proof.layout-cover .brand,
       .theme-proof.layout-cover .slide-count {
+        color: rgb(247 240 228 / 80%);
+      }
+
+      .layout-cover.has-photo-bg .brand,
+      .layout-cover.has-photo-bg .slide-count {
         color: rgb(247 240 228 / 80%);
       }
 
@@ -238,10 +252,6 @@
 
       .layout-cover.has-photo-bg .headline {
         max-width: 700px;
-        margin-left: -24px;
-        padding: 18px 24px 24px;
-        background: linear-gradient(90deg, rgb(1 26 36 / 54%), rgb(1 26 36 / 22%) 68%, rgb(1 26 36 / 0%));
-        border-radius: 8px;
       }
 
       .headline-line {
@@ -271,6 +281,7 @@
 
       .layout-cover.has-photo-bg .headline-line {
         font-size: 68px;
+        text-shadow: 0 4px 28px rgb(1 26 36 / 58%);
       }
 
       .layout-lesson .headline-line {
@@ -330,12 +341,29 @@
         color: var(--rust);
       }
 
+      .layout-cover.has-photo-bg .tone-accent {
+        color: var(--peach);
+      }
+
+      .layout-cover.has-photo-bg .tone-blue {
+        color: #89c8ff;
+      }
+
+      .layout-cover.has-photo-bg .tone-green {
+        color: #8ee986;
+      }
+
+      .layout-cover.has-photo-bg .tone-rust {
+        color: var(--peach);
+      }
+
       .tone-muted {
         color: rgb(0 49 68 / 70%);
       }
 
       .theme-pain .tone-muted,
-      .theme-proof.layout-cover .tone-muted {
+      .theme-proof.layout-cover .tone-muted,
+      .layout-cover.has-photo-bg .tone-muted {
         color: rgb(247 240 228 / 70%);
       }
 
@@ -462,10 +490,7 @@
       }
 
       .layout-cover.has-photo-bg .visual {
-        opacity: 0.22;
-        filter: saturate(0.9) contrast(0.96);
-        transform: translate(36px, 54px) scale(0.94);
-        transform-origin: right bottom;
+        display: none;
       }
 
       .visual-link-bio {
@@ -1032,7 +1057,7 @@
       class="slide theme-pain accent-accent layout-cover size-regular has-photo-bg"
       id="post-02-slide-01"
     >
-      <img class="photo-bg" src="../vendas-insta-whatsapp/assets/background-instagram-whatsapp-1080x1350.png" alt="" />
+      <img class="photo-bg" src="assets/backgrounds/post-02-bg.png" alt="" />
       <div class="photo-overlay"></div>
       
     <div class="brand">
@@ -1248,11 +1273,11 @@
             
     <section
       aria-label="Post 3, slide 1"
-      class="slide theme-education accent-blue layout-cover size-regular "
+      class="slide theme-education accent-blue layout-cover size-regular has-photo-bg"
       id="post-03-slide-01"
     >
-      
-      
+      <img class="photo-bg" src="assets/backgrounds/post-03-bg.png" alt="" />
+      <div class="photo-overlay"></div>
       
     <div class="brand">
       <span>Jonatas Santos</span>
@@ -1438,11 +1463,11 @@
             
     <section
       aria-label="Post 4, slide 1"
-      class="slide theme-proof accent-accent layout-cover size-regular "
+      class="slide theme-proof accent-accent layout-cover size-regular has-photo-bg"
       id="post-04-slide-01"
     >
-      
-      
+      <img class="photo-bg" src="assets/backgrounds/post-04-bg.png" alt="" />
+      <div class="photo-overlay"></div>
       
     <div class="brand">
       <span>Jonatas Santos</span>
@@ -1664,7 +1689,7 @@
       class="slide theme-pain accent-accent layout-cover size-regular has-photo-bg"
       id="post-05-slide-01"
     >
-      <img class="photo-bg" src="../vendas-insta-whatsapp/assets/background-instagram-whatsapp-1080x1350.png" alt="" />
+      <img class="photo-bg" src="assets/backgrounds/post-05-bg.png" alt="" />
       <div class="photo-overlay"></div>
       
     <div class="brand">
@@ -1889,11 +1914,11 @@
             
     <section
       aria-label="Post 6, slide 1"
-      class="slide theme-education accent-blue layout-cover size-regular "
+      class="slide theme-education accent-blue layout-cover size-regular has-photo-bg"
       id="post-06-slide-01"
     >
-      
-      
+      <img class="photo-bg" src="assets/backgrounds/post-06-bg.png" alt="" />
+      <div class="photo-overlay"></div>
       
     <div class="brand">
       <span>Jonatas Santos</span>
@@ -2130,11 +2155,11 @@
             
     <section
       aria-label="Post 7, slide 1"
-      class="slide theme-education accent-green layout-cover size-regular "
+      class="slide theme-education accent-green layout-cover size-regular has-photo-bg"
       id="post-07-slide-01"
     >
-      
-      
+      <img class="photo-bg" src="assets/backgrounds/post-07-bg.png" alt="" />
+      <div class="photo-overlay"></div>
       
     <div class="brand">
       <span>Jonatas Santos</span>
@@ -2326,7 +2351,7 @@
       class="slide theme-pain accent-accent layout-cover size-regular has-photo-bg"
       id="post-09-slide-01"
     >
-      <img class="photo-bg" src="../vendas-insta-whatsapp/assets/background-instagram-whatsapp-1080x1350.png" alt="" />
+      <img class="photo-bg" src="assets/backgrounds/post-09-bg.png" alt="" />
       <div class="photo-overlay"></div>
       
     <div class="brand">

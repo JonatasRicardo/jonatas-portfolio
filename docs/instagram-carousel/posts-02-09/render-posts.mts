@@ -646,6 +646,10 @@ function postSlug(postId: number) {
   return `post-${String(postId).padStart(2, "0")}`;
 }
 
+function coverBackgroundSrc(post: CarouselPost) {
+  return `assets/backgrounds/${postSlug(post.id)}-bg.png`;
+}
+
 function renderBrand(post: CarouselPost, slideNumber: number) {
   return `
     <div class="brand">
@@ -826,7 +830,7 @@ function renderVisual(visual: Visual | undefined, theme: Theme) {
 function renderSlide(post: CarouselPost, slide: Slide, slideIndex: number) {
   const slideNumber = slideIndex + 1;
   const slideId = `${postSlug(post.id)}-slide-${String(slideNumber).padStart(2, "0")}`;
-  const hasPhotoBackground = slide.layout === "cover" && post.theme === "pain";
+  const hasPhotoBackground = slide.layout === "cover";
   const visualHtml = renderVisual(slide.visual, post.theme);
 
   return `
@@ -835,7 +839,7 @@ function renderSlide(post: CarouselPost, slide: Slide, slideIndex: number) {
       class="slide theme-${post.theme} accent-${post.accent} layout-${slide.layout} size-${slide.size ?? "regular"} ${hasPhotoBackground ? "has-photo-bg" : ""}"
       id="${slideId}"
     >
-      ${hasPhotoBackground ? `<img class="photo-bg" src="${assetSrc("coverBackground")}" alt="" />` : ""}
+      ${hasPhotoBackground ? `<img class="photo-bg" src="${coverBackgroundSrc(post)}" alt="" />` : ""}
       ${hasPhotoBackground ? "<div class=\"photo-overlay\"></div>" : ""}
       ${renderBrand(post, slideNumber)}
       <div class="slide-content">
@@ -1002,6 +1006,15 @@ function renderHtml() {
           var(--cream);
       }
 
+      .layout-cover.has-photo-bg {
+        background: var(--navy-dark);
+        color: var(--cream);
+      }
+
+      .layout-cover.has-photo-bg::after {
+        border-color: rgb(247 240 228 / 22%);
+      }
+
       .photo-bg {
         position: absolute;
         inset: 0;
@@ -1010,7 +1023,7 @@ function renderHtml() {
         height: 100%;
         object-fit: cover;
         object-position: center;
-        filter: saturate(1.02) contrast(1.05);
+        filter: saturate(1.06) contrast(1.04) brightness(1.12);
       }
 
       .photo-overlay {
@@ -1018,8 +1031,8 @@ function renderHtml() {
         inset: 0;
         z-index: 1;
         background:
-          linear-gradient(90deg, rgb(1 26 36 / 96%) 0%, rgb(1 26 36 / 88%) 46%, rgb(1 26 36 / 50%) 100%),
-          linear-gradient(180deg, rgb(1 26 36 / 60%) 0%, rgb(1 26 36 / 18%) 45%, rgb(1 26 36 / 86%) 100%);
+          linear-gradient(90deg, rgb(1 26 36 / 82%) 0%, rgb(1 26 36 / 56%) 44%, rgb(1 26 36 / 6%) 100%),
+          linear-gradient(180deg, rgb(1 26 36 / 16%) 0%, rgb(1 26 36 / 0%) 46%, rgb(1 26 36 / 34%) 100%);
       }
 
       .brand,
@@ -1054,6 +1067,11 @@ function renderHtml() {
       .theme-pain .slide-count,
       .theme-proof.layout-cover .brand,
       .theme-proof.layout-cover .slide-count {
+        color: rgb(247 240 228 / 80%);
+      }
+
+      .layout-cover.has-photo-bg .brand,
+      .layout-cover.has-photo-bg .slide-count {
         color: rgb(247 240 228 / 80%);
       }
 
@@ -1108,10 +1126,6 @@ function renderHtml() {
 
       .layout-cover.has-photo-bg .headline {
         max-width: 700px;
-        margin-left: -24px;
-        padding: 18px 24px 24px;
-        background: linear-gradient(90deg, rgb(1 26 36 / 54%), rgb(1 26 36 / 22%) 68%, rgb(1 26 36 / 0%));
-        border-radius: 8px;
       }
 
       .headline-line {
@@ -1141,6 +1155,7 @@ function renderHtml() {
 
       .layout-cover.has-photo-bg .headline-line {
         font-size: 68px;
+        text-shadow: 0 4px 28px rgb(1 26 36 / 58%);
       }
 
       .layout-lesson .headline-line {
@@ -1200,12 +1215,29 @@ function renderHtml() {
         color: var(--rust);
       }
 
+      .layout-cover.has-photo-bg .tone-accent {
+        color: var(--peach);
+      }
+
+      .layout-cover.has-photo-bg .tone-blue {
+        color: #89c8ff;
+      }
+
+      .layout-cover.has-photo-bg .tone-green {
+        color: #8ee986;
+      }
+
+      .layout-cover.has-photo-bg .tone-rust {
+        color: var(--peach);
+      }
+
       .tone-muted {
         color: rgb(0 49 68 / 70%);
       }
 
       .theme-pain .tone-muted,
-      .theme-proof.layout-cover .tone-muted {
+      .theme-proof.layout-cover .tone-muted,
+      .layout-cover.has-photo-bg .tone-muted {
         color: rgb(247 240 228 / 70%);
       }
 
@@ -1332,10 +1364,7 @@ function renderHtml() {
       }
 
       .layout-cover.has-photo-bg .visual {
-        opacity: 0.22;
-        filter: saturate(0.9) contrast(0.96);
-        transform: translate(36px, 54px) scale(0.94);
-        transform-origin: right bottom;
+        display: none;
       }
 
       .visual-link-bio {
@@ -2539,18 +2568,37 @@ function renderReelCoverHtml() {
         height: 1350px;
         overflow: hidden;
         padding: 88px;
-        background:
-          linear-gradient(180deg, rgb(255 179 89 / 22%), rgb(247 240 228 / 0) 34%),
-          #f7f0e4;
-        color: #003144;
+        background: #011a24;
+        color: #f7f0e4;
       }
 
       .reel-cover::after {
         position: absolute;
         inset: 32px;
-        border: 2px solid rgb(0 49 68 / 12%);
+        z-index: 4;
+        border: 2px solid rgb(247 240 228 / 22%);
         content: "";
         pointer-events: none;
+      }
+
+      .photo-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        filter: saturate(1.06) contrast(1.04) brightness(1.12);
+      }
+
+      .photo-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background:
+          linear-gradient(90deg, rgb(1 26 36 / 82%) 0%, rgb(1 26 36 / 56%) 44%, rgb(1 26 36 / 6%) 100%),
+          linear-gradient(180deg, rgb(1 26 36 / 16%) 0%, rgb(1 26 36 / 0%) 46%, rgb(1 26 36 / 34%) 100%);
       }
 
       .brand,
@@ -2561,7 +2609,7 @@ function renderReelCoverHtml() {
         display: flex;
         align-items: center;
         gap: 14px;
-        color: rgb(0 49 68 / 72%);
+        color: rgb(247 240 228 / 80%);
         font-size: 22px;
         font-weight: 800;
       }
@@ -2603,18 +2651,19 @@ function renderReelCoverHtml() {
       }
 
       .blue {
-        color: #2f65b3;
+        color: #89c8ff;
       }
 
       .orange {
-        color: #ff8000;
+        color: #ffb359;
       }
 
       .tag {
         width: fit-content;
         margin-bottom: 34px;
         padding: 14px 20px;
-        background: #003144;
+        background: rgb(247 240 228 / 12%);
+        border: 2px solid rgb(247 240 228 / 18%);
         border-radius: 8px;
         color: #f7f0e4;
         font-size: 28px;
@@ -2632,7 +2681,7 @@ function renderReelCoverHtml() {
       .mini-card {
         min-height: 170px;
         padding: 22px;
-        border: 2px solid rgb(0 49 68 / 12%);
+        border: 2px solid rgb(247 240 228 / 18%);
         border-radius: 8px;
         font-size: 28px;
         font-weight: 900;
@@ -2640,22 +2689,17 @@ function renderReelCoverHtml() {
       }
 
       .mini-card:first-child {
-        background: #f6e8e8;
-        color: #8a2e2e;
+        background: rgb(247 240 228 / 10%);
+        color: #f7f0e4;
       }
 
       .mini-card:last-child {
-        background: #d6e6f8;
-        color: #2f65b3;
+        background: rgb(137 200 255 / 14%);
+        color: #89c8ff;
       }
 
       .visual {
-        position: absolute;
-        right: 64px;
-        bottom: 84px;
-        z-index: 1;
-        width: 390px;
-        height: 390px;
+        display: none;
       }
 
       .story,
@@ -2713,6 +2757,8 @@ function renderReelCoverHtml() {
   </head>
   <body>
     <section class="reel-cover" id="reel-cover" aria-label="Capa do Reel Post 08">
+      <img class="photo-bg" src="assets/backgrounds/post-08-bg.png" alt="" />
+      <div class="photo-overlay"></div>
       <div class="brand">
         <span>Jonatas Santos</span>
         <span>Web para negócios</span>
@@ -2757,6 +2803,8 @@ Pacote com 7 carrosséis renderizados em PNG e 1 roteiro de Reel.
 - \`out/panel-preview.png\`: imagem rápida do painel.
 - \`out/post-XX/slide-YY.png\`: imagens prontas para postagem.
 - \`out/post-08/cover.png\`: capa 4:5 do Reel para visualizar na grade.
+- \`assets/backgrounds/post-XX-bg.png\`: backgrounds realistas finais, em 2160x2700.
+- \`assets/backgrounds/raw/post-XX-bg.png\`: imagens brutas geradas antes do crop/resample.
 - \`captions/post-XX.txt\`: legenda e hashtags de cada carrossel.
 - \`reel/post-08-roteiro.md\`: roteiro, legenda, hashtags e checklist do Reel.
 - \`render-posts.mts\`: fonte TypeScript para editar copy, cor e layout.
@@ -2783,10 +2831,10 @@ Ritmo recomendado: 2 a 3 publicações por semana.
 
 ## Regras de legibilidade aplicadas
 
-- Capas escuras usam uma coluna segura de texto, sem elementos principais por trás.
+- Capas usam background realista escuro, com overlay e coluna segura de texto.
 - Elementos decorativos ficam com baixa opacidade quando se aproximam da copy.
-- Chamadas principais recebem um scrim sutil, não um card pesado.
-- Slides claros mantêm ilustrações no canto inferior direito e texto em área limpa.
+- Chamadas principais ficam direto sobre a imagem, sem card pesado.
+- Slides internos mantêm ilustrações no canto inferior direito e texto em área limpa.
 
 ## Gerar novamente
 

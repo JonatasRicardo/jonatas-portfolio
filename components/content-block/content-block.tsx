@@ -19,7 +19,7 @@ export function ContentBlock({
 }: ContentBlockProps) {
   return (
     <motion.div
-      initial={isFirst ? { opacity: 0, x: 30 } : { opacity: 0, y: 20 }}
+      initial={isFirst ? { opacity: 0, x: -30 } : { opacity: 0, y: 20 }}
       animate={{ opacity: 1, x: 0, y: 0 }}
       transition={
         transition ?? {

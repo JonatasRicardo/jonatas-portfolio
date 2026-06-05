@@ -1,8 +1,8 @@
 "use client"
 
-import { ArrowRight, BriefcaseBusiness, Languages } from "lucide-react"
+import { ArrowRight, BriefcaseBusiness } from "lucide-react"
 import Link from "next/link"
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 import { ArticlesPreview } from "components/articles/articles-preview"
 import { cn } from "components/base-ui/cn"
@@ -11,21 +11,16 @@ import { ContentBlock } from "components/content-block"
 import { ResumePreview } from "components/resume/resume-preview"
 import type { Post } from "interfaces/post"
 
-type HomeLanguage = "pt" | "en"
+export type HomeLanguage = "pt" | "en"
 
 interface HomePageContentProps {
   articles: Post[]
+  language: HomeLanguage
 }
-
-const languageStorageKey = "jonatas-home-language"
 
 const homeCopy = {
   pt: {
     languageLabel: "Idioma da página",
-    languageOptions: {
-      pt: "Português",
-      en: "English",
-    },
     intro: {
       paragraphs: [
         <>
@@ -57,7 +52,6 @@ const homeCopy = {
       description:
         "Uma frente mais prática do meu trabalho: presença digital, loja online, atendimento com IA e estratégia para quem quer parar de depender só do direct e do WhatsApp.",
       primaryAction: "Ver consultoria",
-      secondaryAction: "Conhecer serviços",
     },
     previews: {
       articlesTitle: "Artigos",
@@ -71,10 +65,6 @@ const homeCopy = {
   },
   en: {
     languageLabel: "Page language",
-    languageOptions: {
-      pt: "Português",
-      en: "English",
-    },
     intro: {
       paragraphs: [
         <>
@@ -106,7 +96,6 @@ const homeCopy = {
       description:
         "A more practical side of my work: digital presence, online stores, AI-powered support, and strategy for businesses that need to stop depending only on DMs and WhatsApp.",
       primaryAction: "View consulting",
-      secondaryAction: "Explore services",
     },
     previews: {
       articlesTitle: "Articles",
@@ -122,7 +111,6 @@ const homeCopy = {
   HomeLanguage,
   {
     languageLabel: string
-    languageOptions: Record<HomeLanguage, string>
     intro: {
       paragraphs: React.ReactNode[]
     }
@@ -131,7 +119,6 @@ const homeCopy = {
       title: string
       description: string
       primaryAction: string
-      secondaryAction: string
     }
     previews: {
       articlesTitle: string
@@ -145,23 +132,8 @@ const homeCopy = {
   }
 >
 
-export function HomePageContent({ articles }: HomePageContentProps) {
-  const [language, setLanguage] = useState<HomeLanguage>("pt")
-
-  useEffect(() => {
-    const storedLanguage = window.localStorage.getItem(languageStorageKey)
-
-    if (storedLanguage === "pt" || storedLanguage === "en") {
-      setLanguage(storedLanguage)
-    }
-  }, [])
-
+export function HomePageContent({ articles, language }: HomePageContentProps) {
   const copy = homeCopy[language]
-
-  const handleLanguageChange = (nextLanguage: HomeLanguage) => {
-    setLanguage(nextLanguage)
-    window.localStorage.setItem(languageStorageKey, nextLanguage)
-  }
 
   return (
     <ContentBlock isFirst>
@@ -171,35 +143,34 @@ export function HomePageContent({ articles }: HomePageContentProps) {
         transition={{ duration: 0.6, delay: 0.6 }}
         className="border-border border-b pb-6"
       >
-        <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-muted-foreground flex items-center gap-2 text-sm font-medium sm:whitespace-nowrap">
-            <Languages className="size-4" />
-            <span>{copy.languageLabel}</span>
-          </div>
-
-          <div
-            aria-label={copy.languageLabel}
-            className="border-border bg-background grid w-full max-w-[17rem] grid-cols-2 rounded-md border p-1"
-            role="group"
+        <nav
+          aria-label={copy.languageLabel}
+          className="text-muted-foreground mb-4 flex justify-end text-xs font-medium tracking-[0.08em]"
+        >
+          <Link
+            aria-current={language === "en" ? "page" : undefined}
+            className={cn(
+              "hover:text-foreground px-1.5 py-1 transition-colors",
+              language === "en" && "text-foreground"
+            )}
+            href="/?lang=en"
           >
-            {(["pt", "en"] as const).map((option) => (
-              <button
-                aria-pressed={language === option}
-                className={cn(
-                  "rounded px-3 py-1.5 text-sm font-medium transition-colors",
-                  language === option
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                )}
-                key={option}
-                onClick={() => handleLanguageChange(option)}
-                type="button"
-              >
-                {copy.languageOptions[option]}
-              </button>
-            ))}
-          </div>
-        </div>
+            EN
+          </Link>
+          <span aria-hidden="true" className="py-1">
+            /
+          </span>
+          <Link
+            aria-current={language === "pt" ? "page" : undefined}
+            className={cn(
+              "hover:text-foreground px-1.5 py-1 transition-colors",
+              language === "pt" && "text-foreground"
+            )}
+            href="/?lang=pt"
+          >
+            PT
+          </Link>
+        </nav>
 
         <div className="space-y-5">
           {copy.intro.paragraphs.map((paragraph, index) => (
@@ -220,19 +191,13 @@ export function HomePageContent({ articles }: HomePageContentProps) {
               <p className="text-muted-foreground mt-2 text-sm leading-relaxed">{copy.consulting.description}</p>
             </div>
 
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row md:flex-col lg:flex-row">
+            <div className="flex shrink-0">
               <Link
                 className="group bg-foreground text-background hover:bg-foreground/90 inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors"
                 href="/consultoria-web"
               >
                 {copy.consulting.primaryAction}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link
-                className="border-border text-foreground hover:bg-accent inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm font-medium transition-colors"
-                href="/consultoria-web#servicos"
-              >
-                {copy.consulting.secondaryAction}
               </Link>
             </div>
           </div>

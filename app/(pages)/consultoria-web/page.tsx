@@ -1,6 +1,8 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
+import { motion } from "motion/react"
 import { useMemo, useRef } from "react"
 
 import profileImg from "assets/imgs/jonatas-ricardo-santos-frontend-avatar.png"
@@ -105,9 +107,12 @@ const steps = [
 
 const blockClass = "space-y-5"
 
-function HeroHeadline({ className }: { className?: string }) {
+function HeroHeadline({ className, delay = 0.45 }: { className?: string; delay?: number }) {
   return (
-    <h1
+    <motion.h1
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
       className={cn(
         "text-[1.375rem] leading-[1.18] font-bold lg:text-[2.625rem] lg:leading-[1.16] lg:font-normal",
         "text-black",
@@ -123,17 +128,30 @@ function HeroHeadline({ className }: { className?: string }) {
       >
         vender mais com menos esforço?
       </span>
-    </h1>
+    </motion.h1>
   )
 }
 
-function HeroSpeechBubble({ className, tailClassName }: { className?: string; tailClassName?: string }) {
+function HeroSpeechBubble({
+  className,
+  delay = 0.6,
+  tailClassName,
+}: {
+  className?: string
+  delay?: number
+  tailClassName?: string
+}) {
   return (
-    <div className={cn("relative", className)}>
+    <motion.div
+      initial={{ display: "none", y: 20 }}
+      animate={{ display: "block", y: 0 }}
+      transition={{ duration: 0.6, delay }}
+      className={cn("relative", className)}
+    >
       <div
         className={cn(
-          "relative w-[15.0625rem] rounded-lg px-[1.125rem] py-5 shadow-[0_10px_24px_rgba(1,26,36,0.18)] lg:w-[38.875rem] lg:rounded-lg lg:px-7 lg:py-6",
-          p.bg.white
+          "relative w-[15.0625rem] rounded-lg bg-white/38 px-[1.125rem] py-5 shadow-[0_18px_42px_rgba(1,26,36,0.20)] backdrop-blur-md backdrop-saturate-150",
+          "lg:w-[38.875rem] lg:rounded-lg lg:bg-white/62 lg:px-7 lg:py-6 lg:backdrop-blur-md"
         )}
       >
         <p className={cn("text-[0.875rem] leading-[1.45] lg:text-[1.25rem] lg:leading-[1.5]", p.text.navyDark)}>
@@ -148,19 +166,24 @@ function HeroSpeechBubble({ className, tailClassName }: { className?: string; ta
         <span
           aria-hidden="true"
           className={cn(
-            "absolute -bottom-4 left-[2.625rem] size-8 rotate-45 shadow-[3px_3px_6px_rgba(1,26,36,0.06)] lg:-bottom-6 lg:left-[6rem] lg:size-12",
-            p.bg.white,
+            "absolute top-[calc(100%-1px)] left-[2.5rem] h-5 w-8 overflow-hidden lg:left-[6.25rem] lg:h-9 lg:w-12",
             tailClassName
           )}
-        />
+        >
+          <span className="absolute inset-0 bg-[#ffebc9] lg:bg-[#fffbf3] [clip-path:polygon(0_0,100%_0,50%_100%)]" />
+        </span>
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 function HeroMobileAvatar() {
   return (
-    <div className="relative z-30 shrink-0 rounded-full bg-[#e8e4dc] p-1 shadow-[0_4px_16px_rgba(1,26,36,0.12)]">
+    <Link
+      aria-label="Ir para a home em português"
+      className="relative z-30 block shrink-0 rounded-full bg-[#e8e4dc] p-1 shadow-[0_4px_16px_rgba(1,26,36,0.12)] transition-transform hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff8000]"
+      href="/?lang=pt"
+    >
       <div className="size-12 overflow-hidden rounded-full ring-2 ring-[#ff8000]">
         <Image
           alt="Jonatas Ricardo"
@@ -171,14 +194,18 @@ function HeroMobileAvatar() {
           width={80}
         />
       </div>
-    </div>
+    </Link>
   )
 }
 
 function HeroDesktopProfile() {
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="rounded-full bg-[#e9e1d5] p-1.5 shadow-[0_10px_28px_rgba(1,26,36,0.12)]">
+      <Link
+        aria-label="Ir para a home em português"
+        className="rounded-full bg-[#e9e1d5] p-1.5 shadow-[0_10px_28px_rgba(1,26,36,0.12)] transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff8000]"
+        href="/?lang=pt"
+      >
         <div className="size-[16.25rem] overflow-hidden rounded-full ring-4 ring-[#ff8000]/15">
           <Image
             alt="Jonatas Ricardo"
@@ -189,7 +216,7 @@ function HeroDesktopProfile() {
             width={320}
           />
         </div>
-      </div>
+      </Link>
 
       <h2 className="mt-5 text-xl font-semibold text-[#37312d]">Jonatas Ricardo S. Santos</h2>
       <p className="mt-0.5 text-base font-semibold text-[#37312d]">Especialista em Web para Negócios</p>
@@ -219,7 +246,12 @@ function BrandLogos() {
 
 function DesktopIntroPreview() {
   return (
-    <div className="absolute top-[29.5rem] left-[23.5rem] w-[42.5rem]">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.95 }}
+      className="absolute top-[29.5rem] left-[23.5rem] w-[42.5rem]"
+    >
       <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
         Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
         projetos para marcas como:
@@ -247,13 +279,18 @@ function DesktopIntroPreview() {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
 
 function MobileIntroPreview() {
   return (
-    <div className="relative mt-[20rem] space-y-2">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.95 }}
+      className="relative mt-[20rem] space-y-2"
+    >
       <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
         Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
         projetos para marcas como:
@@ -281,7 +318,7 @@ function MobileIntroPreview() {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -291,18 +328,28 @@ function MobileHero() {
       <HeroHeadline className="pt-6" />
       <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30" />
 
-      <div className="absolute top-[12.25rem] left-[9.75rem] z-20 w-[14.0625rem]">
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.75 }}
+        className="absolute top-[12rem] left-[8.75rem] z-20 w-[15rem]"
+      >
         <Image
           alt="Ilustração de loja digital no celular com produtos e redes sociais"
           className="h-auto w-full object-contain object-bottom"
           priority
           src={heroIllustration}
         />
-      </div>
+      </motion.div>
 
-      <div className="absolute top-[21.875rem] left-[3.375rem] z-40">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.9 }}
+        className="absolute top-[21.875rem] left-[3.375rem] z-40"
+      >
         <HeroMobileAvatar />
-      </div>
+      </motion.div>
 
       <MobileIntroPreview />
     </div>
@@ -315,18 +362,28 @@ function DesktopHero() {
       <HeroHeadline className="absolute top-[4.25rem] left-0 w-[40.75rem]" />
       <HeroSpeechBubble className="absolute top-[15.375rem] left-0 z-30" />
 
-      <div className="absolute top-[-1.25rem] right-[-3.125rem] z-20 w-[29.25rem]">
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.7 }}
+        className="absolute top-[-3.25rem] right-[-3.125rem] z-20 w-[34.25rem]"
+      >
         <Image
           alt="Ilustração de loja digital no celular com produtos e redes sociais"
           className="h-auto w-full object-contain object-bottom"
           priority
           src={heroIllustration}
         />
-      </div>
+      </motion.div>
 
-      <div className="absolute top-[29.75rem] left-2 z-20 w-[17rem]">
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.85 }}
+        className="absolute top-[29.75rem] left-2 z-20 w-[17rem]"
+      >
         <HeroDesktopProfile />
-      </div>
+      </motion.div>
 
       <DesktopIntroPreview />
     </div>
@@ -421,11 +478,9 @@ export default function ConsultoriaWebPage() {
   return (
     <div className="min-h-screen bg-[#fdf7ed] pb-24 lg:pb-28">
       <section className="relative overflow-hidden bg-[#fdf7ed] lg:min-h-[69.8125rem]">
-        <span aria-hidden="true" className="absolute top-[26rem] left-0" id="servicos" />
-
         <div aria-hidden="true" className="absolute inset-0">
-          <div className="h-[22.9375rem] bg-[#fce2bd] lg:h-[23.375rem]" />
-          <div className="h-[calc(100%-22.9375rem)] bg-[#fdf7ed] lg:h-[calc(100%-23.375rem)]" />
+          <div className="h-[21.5rem] bg-[#fce2bd] lg:h-[18.375rem]" />
+          <div className="h-[calc(100%-21.5rem)] bg-[#fdf7ed] lg:h-[calc(100%-18.375rem)]" />
         </div>
 
         <MobileHero />

@@ -1,10 +1,10 @@
-import { tool } from "ai";
-import { z } from "zod/v4";
+import { tool } from "ai"
+import { z } from "zod/v4"
 
 export const bookingTools = {
   showBookingWidget: tool({
     description:
-      "Show an inline booking calendar when the user wants to schedule a free 30-minute consultation call. Always pass name and email when the user already shared them in the chat.",
+      "Show an inline booking calendar when the user wants to schedule a free 15-minute consultation call. Always pass name, WhatsApp, and email when the user already shared them in the chat.",
     inputSchema: z.object({
       reason: z.string().describe("Brief reason why scheduling is being offered"),
       prefillName: z.string().optional().describe("User full name if already mentioned in chat"),
@@ -21,14 +21,14 @@ export const bookingTools = {
       ...input,
     }),
   }),
-};
+}
 
 export type BookingWidgetOutput = {
-  eventType: string;
-  calLink: string;
-  reason: string;
-  prefillName?: string;
-  prefillEmail?: string;
-  prefillPhone?: string;
-  prefillNotes?: string;
-};
+  eventType: string
+  calLink: string
+  reason: string
+  prefillName?: string
+  prefillEmail?: string
+  prefillPhone?: string
+  prefillNotes?: string
+}

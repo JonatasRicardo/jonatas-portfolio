@@ -541,7 +541,7 @@ function SalesSections({ onStartConversation }: { onStartConversation: () => voi
       <div className={cn("rounded-2xl p-6 text-center", "bg-[#1a1a1a]")}>
         <h2 className="text-xl font-semibold text-white">Pronto para parar de fazer tudo sozinho?</h2>
         <p className="mt-3 text-sm leading-relaxed text-white/55">
-          Uma conversa de 30 minutos já é suficiente para eu entender o seu caso e te mostrar o que é possível fazer.
+          Uma conversa de 15 minutos já é suficiente para eu entender o seu caso e te mostrar o que é possível fazer.
           Sem compromisso.
         </p>
         <Button

@@ -4,11 +4,10 @@ import { z } from "zod/v4"
 export const bookingTools = {
   showBookingWidget: tool({
     description:
-      "Show an inline booking calendar when the user wants to schedule a free 15-minute consultation call. Always pass name, WhatsApp, and email when the user already shared them in the chat.",
+      "Return a scheduling link for Cal.com when the user wants to schedule a free 15-minute consultation call. Always pass name and phone if already shared in the chat.",
     inputSchema: z.object({
       reason: z.string().describe("Brief reason why scheduling is being offered"),
       prefillName: z.string().optional().describe("User full name if already mentioned in chat"),
-      prefillEmail: z.string().optional().describe("User email if already mentioned in chat"),
       prefillPhone: z.string().optional().describe("User phone or WhatsApp if already mentioned in chat"),
       prefillNotes: z
         .string()
@@ -17,7 +16,10 @@ export const bookingTools = {
     }),
     execute: async (input) => ({
       eventType: process.env.CALCOM_EVENT_TYPE_SLUG ?? "consultoria-30min",
-      calLink: process.env.NEXT_PUBLIC_CALCOM_LINK ?? "",
+      calLink:
+        process.env.NEXT_PUBLIC_CALCOM_LINK ??
+        process.env.CALCOM_LINK ??
+        "https://cal.com/jonatasricardo/15min",
       ...input,
     }),
   }),
@@ -28,7 +30,6 @@ export type BookingWidgetOutput = {
   calLink: string
   reason: string
   prefillName?: string
-  prefillEmail?: string
   prefillPhone?: string
   prefillNotes?: string
 }

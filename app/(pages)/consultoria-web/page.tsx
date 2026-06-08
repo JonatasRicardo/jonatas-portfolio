@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
-import { useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import profileImg from "assets/imgs/jonatas-ricardo-santos-frontend-avatar.png"
 import heroIllustration from "assets/imgs/consultoria-hero-shelves.png"
@@ -562,7 +562,10 @@ function SalesSections({ onStartConversation }: { onStartConversation: () => voi
 }
 
 export default function ConsultoriaWebPage() {
+  const [hasStartedConversation, setHasStartedConversation] = useState(false)
+  const [showFloatingCta, setShowFloatingCta] = useState(true)
   const chatRef = useRef<ChatHandle>(null)
+  const lastScrollY = useRef(0)
 
   const whatsappUrl = useMemo(() => {
     return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`
@@ -572,13 +575,54 @@ export default function ConsultoriaWebPage() {
     chatRef.current?.startConversation(defaultMessage)
   }
 
+  const handleFloatingCtaClick = () => {
+    if (!hasStartedConversation) {
+      handleStartConversation()
+      return
+    }
+
+    chatRef.current?.focusComposer()
+  }
+
+  const setConversationStarted = () => {
+    setHasStartedConversation(true)
+    setShowFloatingCta(false)
+  }
+
+  useEffect(() => {
+    if (!hasStartedConversation) {
+      setShowFloatingCta(true)
+      return
+    }
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const delta = currentScrollY - lastScrollY.current
+
+      if (delta < -6) {
+        setShowFloatingCta(true)
+      } else if (delta > 6) {
+        setShowFloatingCta(false)
+      }
+
+      lastScrollY.current = currentScrollY
+    }
+
+    lastScrollY.current = window.scrollY
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [hasStartedConversation])
+
   return (
     <div className="min-h-screen bg-[#fdf7ed] pb-24 lg:pb-28">
       <section className="relative overflow-hidden bg-[#fdf7ed]">
         <MobileHero />
         <DesktopHero onStartConversation={handleStartConversation} />
       </section>
-      <FloatingMobileCta onStartConversation={handleStartConversation} />
+      {showFloatingCta && <FloatingMobileCta onStartConversation={handleFloatingCtaClick} />}
 
       <div className="mx-auto grid max-w-[76rem] items-start gap-10 px-8 pt-8 pb-10 sm:px-10 lg:grid-cols-[12rem_minmax(0,1fr)] lg:px-8 xl:px-0">
         <div className="hidden self-start lg:block" />
@@ -587,6 +631,7 @@ export default function ConsultoriaWebPage() {
           <Chat
             ref={chatRef}
             context="consultoria"
+            onFirstMessageSent={setConversationStarted}
             placeholder="Oi, sou o Jonatas. Me conta sobre o seu negócio."
             whatsappFallbackUrl={whatsappUrl}
           />

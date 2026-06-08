@@ -30,10 +30,12 @@ export interface ChatProps {
   placeholder?: string;
   whatsappFallbackUrl?: string;
   variant?: ChatMessageVariant;
+  onFirstMessageSent?: () => void;
 }
 
 export interface ChatHandle {
   startConversation: (message: string) => void;
+  focusComposer: () => void;
 }
 
 function isBookingWidgetPartOutput(output: unknown): output is BookingWidgetPartOutput {
@@ -83,13 +85,14 @@ function resolveMessageRole(role: UIMessage["role"]): ChatMessageRole {
 }
 
 const Chat = forwardRef<ChatHandle, ChatProps>(function Chat(
-  { context = "portfolio", placeholder = DEFAULT_PLACEHOLDER, whatsappFallbackUrl, variant },
+  { context = "portfolio", placeholder = DEFAULT_PLACEHOLDER, whatsappFallbackUrl, variant, onFirstMessageSent },
   ref
 ) {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const pendingMessageRef = useRef<string | null>(null);
+  const hasUserMessageSentRef = useRef(false);
   const resolvedVariant = variant ?? (context === "consultoria" ? "consultoria" : "portfolio");
   const isConsultoria = resolvedVariant === "consultoria";
 
@@ -106,6 +109,23 @@ const Chat = forwardRef<ChatHandle, ChatProps>(function Chat(
     transport,
   });
 
+  const focusComposer = () => {
+    containerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const textarea = containerRef.current?.querySelector("textarea");
+    if (textarea instanceof HTMLTextAreaElement) {
+      textarea.focus();
+    }
+  };
+
+  const markFirstMessageAsSent = () => {
+    if (hasUserMessageSentRef.current) {
+      return;
+    }
+
+    hasUserMessageSentRef.current = true;
+    onFirstMessageSent?.();
+  };
+
   useImperativeHandle(
     ref,
     () => ({
@@ -113,12 +133,14 @@ const Chat = forwardRef<ChatHandle, ChatProps>(function Chat(
         containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
         if (status === "ready") {
+          markFirstMessageAsSent();
           sendMessage({ text: message });
           return;
         }
 
         pendingMessageRef.current = message;
       },
+      focusComposer,
     }),
     [sendMessage, status]
   );
@@ -130,12 +152,14 @@ const Chat = forwardRef<ChatHandle, ChatProps>(function Chat(
 
     const message = pendingMessageRef.current;
     pendingMessageRef.current = null;
+    markFirstMessageAsSent();
     sendMessage({ text: message });
   }, [sendMessage, status]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (input.trim() && status === "ready") {
+      markFirstMessageAsSent();
       sendMessage({ text: input });
       setInput("");
     }

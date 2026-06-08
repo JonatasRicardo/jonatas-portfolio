@@ -107,34 +107,43 @@ const steps = [
 
 const blockClass = "space-y-5"
 
-function HeroHeadline({ className, delay = 0.45 }: { className?: string; delay?: number }) {
+function HeroHeadline({ className, delay = 0.2 }: { className?: string; delay?: number }) {
   return (
     <motion.h1
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
       className={cn(
-        "text-[1.375rem] leading-[1.18] font-bold lg:text-[2.625rem] lg:leading-[1.16] lg:font-normal",
-        "text-black",
+        "max-w-[35rem] text-[2rem] leading-[1.08] font-bold tracking-normal text-[#1a1a1a] sm:text-[3.25rem]",
+        "lg:max-w-none lg:text-[3.75rem] lg:leading-[1.02] xl:text-[3.875rem]",
         className
       )}
     >
-      Sabe como a internet pode ajudar seu negócio a{" "}
-      <span
-        className={cn(
-          p.text.green,
-          "underline decoration-[#011a24] decoration-[3px] underline-offset-[4px] lg:no-underline"
-        )}
-      >
-        vender mais com menos esforço?
-      </span>
+      Seu negócio <span className={p.text.green}>vendendo sozinho</span>.
     </motion.h1>
+  )
+}
+
+function HeroSubheadline({ className, delay = 0.35 }: { className?: string; delay?: number }) {
+  return (
+    <motion.p
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.55, delay }}
+      className={cn(
+        "mt-4 max-w-[38rem] leading-[1.42] font-medium text-[#4c4945] sm:text-[1.5rem]",
+        "lg:mt-5 lg:text-[1.625rem] lg:leading-[1.45]",
+        className
+      )}
+    >
+      Sites, lojas e automação com IA pra quem vende no Insta e no WhatsApp — pra vender mais com menos esforço.
+    </motion.p>
   )
 }
 
 function HeroSpeechBubble({
   className,
-  delay = 0.6,
+  delay = 0.5,
   tailClassName,
 }: {
   className?: string
@@ -143,19 +152,24 @@ function HeroSpeechBubble({
 }) {
   return (
     <motion.div
-      initial={{ display: "none", y: 20 }}
+      initial={{ display: "none", y: 40 }}
       animate={{ display: "block", y: 0 }}
       transition={{ duration: 0.6, delay }}
       className={cn("relative", className)}
     >
       <div
         className={cn(
-          "relative w-[15.0625rem] rounded-lg bg-white/38 px-[1.125rem] py-5 shadow-[0_18px_42px_rgba(1,26,36,0.20)] backdrop-blur-md backdrop-saturate-150",
-          "lg:w-[38.875rem] lg:rounded-lg lg:bg-white/62 lg:px-7 lg:py-6 lg:backdrop-blur-md"
+          "relative w-full rounded-[1.75rem] bg-white/50 px-5 py-5 shadow-[0_18px_42px_rgba(1,26,36,0.18)] backdrop-blur-md backdrop-saturate-150",
+          "sm:bg-white/55 sm:px-9 sm:py-9 lg:rounded-[1.625rem] lg:bg-white/62 lg:px-8 lg:py-8"
         )}
       >
-        <p className={cn("text-[0.875rem] leading-[1.45] lg:text-[1.25rem] lg:leading-[1.5]", p.text.navyDark)}>
-          Você já vende pelo WhatsApp, ou Instagram,{" "}
+        <p
+          className={cn(
+            "text-[0.9rem] leading-[1.48] font-semibold text-[#1f1f1f] sm:text-[1.5rem]",
+            "lg:text-[1.35rem] lg:leading-[1.55] xl:text-[1.5rem]"
+          )}
+        >
+          Você já vende pelo WhatsApp ou Instagram,{" "}
           <strong>
             mas enquanto você responde mensagem, cria conteúdo e ainda tenta fechar venda, o seu negócio depende 100% de
             você —{" "}
@@ -166,157 +180,193 @@ function HeroSpeechBubble({
         <span
           aria-hidden="true"
           className={cn(
-            "absolute top-[calc(100%-1px)] left-[2.5rem] h-5 w-8 overflow-hidden lg:left-[6.25rem] lg:h-9 lg:w-12",
+            "absolute top-[calc(100%-1px)] left-10 h-6 w-11 overflow-hidden lg:left-14 lg:h-8 lg:w-12",
             tailClassName
           )}
         >
-          <span className="absolute inset-0 bg-[#ffebc9] lg:bg-[#fffbf3] [clip-path:polygon(0_0,100%_0,50%_100%)]" />
+          <span className="absolute inset-0 bg-[#fff3db] [clip-path:polygon(0_0,100%_0,39%_100%)] lg:bg-[#fffbf3]/80" />
         </span>
       </div>
     </motion.div>
   )
 }
 
-function HeroMobileAvatar() {
+function HeroProfilePhoto({ className, imageClassName = "size-16" }: { className?: string; imageClassName?: string }) {
   return (
     <Link
       aria-label="Ir para a home em português"
-      className="relative z-30 block shrink-0 rounded-full bg-[#e8e4dc] p-1 shadow-[0_4px_16px_rgba(1,26,36,0.12)] transition-transform hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff8000]"
+      className={cn(
+        "relative z-30 block w-fit shrink-0 rounded-full bg-[#ff8000] p-1.5 shadow-[0_8px_20px_rgba(255,128,0,0.25)] transition-transform hover:scale-[1.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff8000]",
+        className
+      )}
       href="/?lang=pt"
     >
-      <div className="size-12 overflow-hidden rounded-full ring-2 ring-[#ff8000]">
+      <div className={cn("overflow-hidden rounded-full bg-[#ff8000] ring-2 ring-white/85", imageClassName)}>
         <Image
           alt="Jonatas Ricardo"
           className="size-full object-cover"
-          height={80}
+          height={128}
           priority
           src={profileImg}
-          width={80}
+          width={128}
         />
       </div>
     </Link>
   )
 }
 
-function HeroDesktopProfile() {
-  return (
-    <div className="flex flex-col items-center text-center">
-      <Link
-        aria-label="Ir para a home em português"
-        className="rounded-full bg-[#e9e1d5] p-1.5 shadow-[0_10px_28px_rgba(1,26,36,0.12)] transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ff8000]"
-        href="/?lang=pt"
-      >
-        <div className="size-[16.25rem] overflow-hidden rounded-full ring-4 ring-[#ff8000]/15">
-          <Image
-            alt="Jonatas Ricardo"
-            className="size-full object-cover"
-            height={320}
-            priority
-            src={profileImg}
-            width={320}
-          />
-        </div>
-      </Link>
+function HeroProofIdentity({ className, layout = "mobile" }: { className?: string; layout?: "mobile" | "desktop" }) {
+  const isDesktop = layout === "desktop"
 
-      <h2 className="mt-5 text-xl font-semibold text-[#37312d]">Jonatas Ricardo S. Santos</h2>
-      <p className="mt-0.5 text-base font-semibold text-[#37312d]">Especialista em Web para Negócios</p>
+  if (isDesktop) {
+    return (
+      <div className={cn("flex flex-col items-center text-center", className)}>
+        <HeroProfilePhoto className="shadow-none" imageClassName="size-28" />
+
+        <div className="mt-3 min-w-0">
+          <h2 className="text-lg leading-tight font-bold text-[#1f1f1f]">Jonatas</h2>
+          <p className="mt-1 text-sm leading-tight font-semibold text-[#5f5a53]">15 anos · Brasil + EUA</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className={cn("flex items-center gap-5", className)}>
+      <HeroProfilePhoto imageClassName="size-16" />
+
+      <div className="mt-[1rem] min-w-0">
+        <h2 className="text-[1.125rem] leading-tight font-bold text-[#1f1f1f]">Eu sou o Jonatas Ricardo</h2>
+        <p className="mt-0.5 text-[0.95rem] leading-tight font-semibold text-[#5f5a53]">
+          15 anos na internet · Brasil + EUA
+        </p>
+      </div>
     </div>
   )
 }
 
-function BrandLogos() {
+function BrandLogos({ className, imageClassName }: { className?: string; imageClassName?: string }) {
   return (
     <div
       aria-label="Marcas com as quais já trabalhei"
-      className="mt-3 flex w-full flex-row flex-nowrap items-center justify-between gap-2 sm:gap-3"
+      className={cn("flex w-full flex-row flex-nowrap items-center justify-between gap-3", className)}
       role="list"
     >
       {clientBrandLogos.map(({ name, src, containerClassName }) => (
         <div
-          className={cn("flex min-w-0 flex-1 items-center justify-center", containerClassName)}
+          className={cn("flex min-w-0 flex-1 basis-0 items-center justify-center", containerClassName)}
           key={name}
           role="listitem"
         >
-          <img alt={name} className="h-9 max-h-12 w-full object-contain object-center sm:h-10 lg:h-11" src={src} />
+          <img
+            alt={name}
+            className={cn("h-6 max-h-10 w-full object-contain object-center sm:h-8 lg:h-9", imageClassName)}
+            src={src}
+          />
         </div>
       ))}
     </div>
   )
 }
 
-function DesktopIntroPreview() {
+function IntroPreview({ layout }: { layout: "mobile" | "desktop" }) {
+  const isDesktop = layout === "desktop"
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.95 }}
-      className="absolute top-[29.5rem] left-[23.5rem] w-[42.5rem]"
+      className={cn("relative bg-[#fdf7ed]", isDesktop ? "z-20 -mt-8" : "z-10 -mt-14")}
     >
-      <p className="max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
-        projetos para marcas como:
-      </p>
-      <BrandLogos />
-      <p className="mt-2 max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar.
-      </p>
-      <p className="mt-2 max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Hoje uso esse conhecimento para ajudar empreendedores brasileiros a vender mais — com sites, aplicativos,
-        automações e inteligência artificial.
-      </p>
-      <p className="mt-2 max-w-[42.25rem] text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Sem complicação, sem papo técnico. Só resultado.
-      </p>
+      {isDesktop ? (
+        <div className="mx-auto grid max-w-[76rem] grid-cols-[12rem_minmax(0,1fr)] items-start gap-10 px-8 pt-10 pb-14 xl:px-0">
+          <HeroProofIdentity className="pt-1" layout="desktop" />
 
-      <div className="mt-6 grid grid-cols-3 gap-4">
-        {serviceCards.map(({ title, description, image }) => (
-          <div className="flex flex-col overflow-hidden rounded-2xl bg-white" key={title}>
-            <img alt={title} className="aspect-square w-full object-cover" src={image} />
-            <div className="flex flex-col gap-1.5 p-3.5">
-              <p className="text-sm leading-snug font-bold text-gray-900">{title}</p>
-              <p className="text-xs leading-relaxed text-gray-500">{description}</p>
+          <div className="min-w-0 space-y-6 pt-1">
+            <p className="max-w-[60rem] text-[1.1rem] leading-[1.75] font-semibold text-[#5f5a53]">
+              Faz mais de 15 anos que trabalho com negócios na internet no Brasil e nos Estados Unidos. Nesse caminho,
+              participei de projetos para marcas como Calvin Klein, Walmart, Havaianas, Riachuelo e C&A.
+            </p>
+
+            <div className="max-w-[58rem] border-y border-[#1a1a1a]/10 py-4">
+              <BrandLogos className="gap-10" imageClassName="h-8 lg:h-9" />
+            </div>
+
+            <div className="max-w-[58rem] space-y-4 text-[1rem] leading-[1.75] font-medium text-[#5f5a53]">
+              <p>
+                Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar. Hoje uso esse
+                conhecimento para ajudar empreendedores brasileiros a vender mais com sites, aplicativos, automações e
+                inteligência artificial.
+              </p>
+              <p className="font-bold text-[#1f1f1f]">Sem complicação, sem papo técnico. Só resultado.</p>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="px-8 pt-0 pb-8 sm:px-10 sm:py-9">
+          <div className="flex flex-row items-center gap-5">
+            <HeroProfilePhoto className="relative z-30 -mt-2" imageClassName="size-[4.25rem]" />
+            <div className="mt-3 min-w-0">
+              <h2 className="text-[1.125rem] leading-tight font-bold text-[#1f1f1f]">Eu sou o Jonatas Ricardo</h2>
+              <p className="mt-0.5 text-[0.8rem] leading-tight font-semibold text-[#5f5a53]">
+                15 anos na internet · Brasil + EUA
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 space-y-4 text-[0.9375rem] leading-relaxed font-medium text-[#5f5a53]">
+            <p>
+              Faz mais de 15 anos que trabalho com negócios na internet no Brasil e nos Estados Unidos. Já participei de
+              projetos para marcas como Calvin Klein, Walmart, Havaianas, Riachuelo e C&A.
+            </p>
+
+            <div className="border-y border-[#1a1a1a]/10 py-3">
+              <BrandLogos />
+            </div>
+
+            <p>
+              Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar. Hoje uso esse
+              conhecimento para ajudar empreendedores brasileiros a vender mais com sites, aplicativos, automações e
+              inteligência artificial.
+            </p>
+            <p className="font-bold text-[#1f1f1f]">Sem complicação, sem papo técnico. Só resultado.</p>
+          </div>
+        </div>
+      )}
     </motion.div>
   )
 }
 
-function MobileIntroPreview() {
+function HeroProofCta({
+  layout,
+  onStartConversation,
+}: {
+  layout: "mobile" | "desktop"
+  onStartConversation: () => void
+}) {
+  const isMobile = layout === "mobile"
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.95 }}
-      className="relative mt-[20rem] space-y-2"
+      transition={{ duration: 0.55, delay: 0.72 }}
+      className={cn(isMobile ? "mt-5 flex justify-end" : "absolute top-[37.5rem] left-1/2 z-20")}
     >
-      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Faz mais de 15 anos que trabalho com negócios na internet — no Brasil e nos Estados Unidos. Já participei de
-        projetos para marcas como:
-      </p>
-      <BrandLogos />
-      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Aprendi na prática o que separa um negócio que cresce do que fica rodando no lugar.
-      </p>
-      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Hoje uso esse conhecimento para ajudar empreendedores brasileiros a vender mais — com sites, aplicativos,
-        automações e inteligência artificial.
-      </p>
-      <p className="text-[0.9375rem] leading-[1.75] font-medium text-[#011a24]">
-        Sem complicação, sem papo técnico. Só resultado.
-      </p>
-
-      <div className="-mx-7 mt-6 flex gap-4 overflow-x-auto px-7">
-        {serviceCards.map(({ title, description, image }) => (
-          <div className="flex w-[17rem] shrink-0 flex-col overflow-hidden rounded-2xl bg-white" key={title}>
-            <img alt={title} className="aspect-square w-full object-cover" src={image} />
-            <div className="flex flex-col gap-1.5 p-3.5">
-              <p className="text-sm leading-snug font-bold text-gray-900">{title}</p>
-              <p className="text-xs leading-relaxed text-gray-500">{description}</p>
-            </div>
-          </div>
-        ))}
+      <div className={cn("flex flex-col", isMobile ? "items-start" : "-translate-x-1/2 items-center pt-1")}>
+        <Button
+          className={cn(
+            "h-auto rounded-full font-semibold shadow-[0_12px_28px_rgba(255,128,0,0.30)] hover:opacity-90",
+            isMobile ? "min-w-[16rem] px-6 py-3.5 text-[0.9375rem]" : "min-w-[18rem] px-14 py-5 text-xl",
+            p.bg.orange,
+            p.text.white
+          )}
+          onClick={onStartConversation}
+          type="button"
+        >
+          Quero conversar agora
+        </Button>
       </div>
     </motion.div>
   )
@@ -324,68 +374,85 @@ function MobileIntroPreview() {
 
 function MobileHero() {
   return (
-    <div className="relative mx-auto max-w-[24.5625rem] px-7 pb-8 lg:hidden">
-      <HeroHeadline className="pt-6" />
-      <HeroSpeechBubble className="absolute top-[8.8125rem] left-7 z-30" />
+    <div className="lg:hidden">
+      <div className="relative overflow-visible bg-[#fae8c8] px-8 pt-7 pb-10 sm:px-10">
+        <div className="relative w-full">
+          <HeroHeadline />
+          <HeroSubheadline />
 
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.75 }}
-        className="absolute top-[12rem] left-[8.75rem] z-20 w-[15rem]"
-      >
-        <Image
-          alt="Ilustração de loja digital no celular com produtos e redes sociais"
-          className="h-auto w-full object-contain object-bottom"
-          priority
-          src={heroIllustration}
-        />
-      </motion.div>
+          <div className="relative mt-6 min-h-[17.5rem] pb-[6rem]">
+            <HeroProductShowcase className="top-[2.7rem] right-[-2.3rem] z-20 w-[16rem] opacity-95" />
+            <HeroSpeechBubble className="relative z-30 max-w-[82%]" tailClassName="left-7 h-8 w-11" />
+          </div>
+        </div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.94 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.9 }}
-        className="absolute top-[21.875rem] left-[3.375rem] z-40"
-      >
-        <HeroMobileAvatar />
-      </motion.div>
-
-      <MobileIntroPreview />
+      <IntroPreview layout="mobile" />
     </div>
   )
 }
 
-function DesktopHero() {
+function FloatingMobileCta({ onStartConversation }: { onStartConversation: () => void }) {
   return (
-    <div className="relative mx-auto hidden min-h-[69.8125rem] w-full max-w-[66.75rem] lg:block">
-      <HeroHeadline className="absolute top-[4.25rem] left-0 w-[40.75rem]" />
-      <HeroSpeechBubble className="absolute top-[15.375rem] left-0 z-30" />
-
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.7 }}
-        className="absolute top-[-3.25rem] right-[-3.125rem] z-20 w-[34.25rem]"
+    <motion.div
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: 0.8 }}
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-50 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden"
+    >
+      <Button
+        className={cn(
+          "pointer-events-auto flex h-auto w-full rounded-full px-6 py-4 text-[0.9375rem] font-semibold shadow-[0_14px_34px_rgba(255,128,0,0.38)] hover:opacity-90",
+          p.bg.orange,
+          p.text.white
+        )}
+        onClick={onStartConversation}
+        type="button"
       >
-        <Image
-          alt="Ilustração de loja digital no celular com produtos e redes sociais"
-          className="h-auto w-full object-contain object-bottom"
-          priority
-          src={heroIllustration}
-        />
-      </motion.div>
+        Quero conversar agora
+      </Button>
+    </motion.div>
+  )
+}
 
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.85 }}
-        className="absolute top-[29.75rem] left-2 z-20 w-[17rem]"
-      >
-        <HeroDesktopProfile />
-      </motion.div>
+function HeroProductShowcase({ className }: { className?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, delay: 0.7 }}
+      className={cn("pointer-events-none absolute z-0", className)}
+    >
+      <Image
+        alt="Ilustração de loja digital no celular com produtos e redes sociais"
+        className="h-auto w-full max-w-none object-contain drop-shadow-[0_24px_42px_rgba(1,26,36,0.16)]"
+        priority
+        src={heroIllustration}
+      />
+    </motion.div>
+  )
+}
 
-      <DesktopIntroPreview />
+function DesktopHero({ onStartConversation }: { onStartConversation: () => void }) {
+  return (
+    <div className="hidden lg:block">
+      <div className="flex min-h-screen flex-col">
+        <div className="flex flex-1 overflow-hidden bg-[#fae8c8]">
+          <div className="relative mx-auto min-h-[46rem] w-full max-w-[82rem] px-8 pt-12 pb-12 xl:px-0">
+            <HeroProductShowcase className="top-[-2rem] right-[-4rem] w-[47rem] xl:top-[-4rem] xl:right-[-5rem] xl:w-[52rem]" />
+
+            <div className="relative z-10 max-w-[42rem] pt-4">
+              <HeroHeadline className="max-w-[41rem]" />
+              <HeroSubheadline />
+              <HeroSpeechBubble className="mt-16" tailClassName="lg:left-[10.5rem]" />
+            </div>
+
+            <HeroProofCta layout="desktop" onStartConversation={onStartConversation} />
+          </div>
+        </div>
+
+        <IntroPreview layout="desktop" />
+      </div>
     </div>
   )
 }
@@ -397,6 +464,36 @@ function SectionLabel({ children, className }: { children: React.ReactNode; clas
 function SalesSections({ onStartConversation }: { onStartConversation: () => void }) {
   return (
     <ContentStack className="space-y-8">
+      <ContentBlock className="border-0 bg-transparent p-0 shadow-none" delay={1.05}>
+        <SectionLabel className={p.text.green}>O que eu construo</SectionLabel>
+        <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>
+          Site, loja e automações para vender sem depender só de você
+        </h2>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          {serviceCards.map(({ title, description, image }) => (
+            <div
+              className="group relative flex min-h-[15rem] overflow-hidden rounded-lg shadow-[0_12px_30px_rgba(1,26,36,0.14)] lg:min-h-[22rem]"
+              key={title}
+            >
+              <img
+                alt={title}
+                className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                src={image}
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(1,26,36,0.04)_0%,rgba(1,26,36,0.42)_48%,rgba(1,26,36,0.9)_100%)]"
+              />
+              <div className="relative z-10 mt-auto flex flex-col gap-2 p-4 lg:p-5">
+                <p className="text-base leading-snug font-bold text-white">{title}</p>
+                <p className="text-sm leading-relaxed text-white/78">{description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </ContentBlock>
+
       <ContentBlock delay={1.15} className={blockClass}>
         <SectionLabel className={p.text.orange}>Como funciona</SectionLabel>
         <h2 className={cn("text-xl font-semibold", p.text.navyDark)}>
@@ -477,18 +574,15 @@ export default function ConsultoriaWebPage() {
 
   return (
     <div className="min-h-screen bg-[#fdf7ed] pb-24 lg:pb-28">
-      <section className="relative overflow-hidden bg-[#fdf7ed] lg:min-h-[69.8125rem]">
-        <div aria-hidden="true" className="absolute inset-0">
-          <div className="h-[21.5rem] bg-[#fce2bd] lg:h-[18.375rem]" />
-          <div className="h-[calc(100%-21.5rem)] bg-[#fdf7ed] lg:h-[calc(100%-18.375rem)]" />
-        </div>
-
+      <section className="relative overflow-hidden bg-[#fdf7ed]">
         <MobileHero />
-        <DesktopHero />
+        <DesktopHero onStartConversation={handleStartConversation} />
       </section>
+      <FloatingMobileCta onStartConversation={handleStartConversation} />
 
-      <div className="mx-auto max-w-[24.5625rem] px-7 py-8 lg:max-w-[66.75rem] lg:px-0 lg:py-10">
-        <div className="space-y-8 lg:ml-[23.5rem] lg:max-w-[42.25rem]">
+      <div className="mx-auto grid max-w-[76rem] items-start gap-10 px-8 pt-8 pb-10 sm:px-10 lg:grid-cols-[12rem_minmax(0,1fr)] lg:px-8 xl:px-0">
+        <div className="hidden self-start lg:block" />
+        <div className="min-w-0 pt-1">
           <SalesSections onStartConversation={handleStartConversation} />
           <Chat
             ref={chatRef}
@@ -497,25 +591,6 @@ export default function ConsultoriaWebPage() {
             whatsappFallbackUrl={whatsappUrl}
           />
         </div>
-      </div>
-
-      <div
-        className={cn(
-          "fixed inset-x-0 bottom-0 z-50 border-t border-[#011a24]/8 px-4 py-3 backdrop-blur-sm",
-          "bg-[#fdf7ed]/95 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
-        )}
-      >
-        <Button
-          className={cn(
-            "mx-auto flex h-auto w-full max-w-[24.5625rem] rounded-full px-6 py-3.5 text-base font-semibold shadow-[0_8px_24px_rgba(255,128,0,0.35)] hover:opacity-90 lg:max-w-[42.25rem]",
-            p.bg.orange,
-            p.text.white
-          )}
-          onClick={handleStartConversation}
-          type="button"
-        >
-          Quero conversar
-        </Button>
       </div>
     </div>
   )

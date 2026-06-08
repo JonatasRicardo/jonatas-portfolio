@@ -24,23 +24,49 @@ function hasRequiredPrefill(name?: string) {
   return Boolean(name?.trim());
 }
 
+function getDigits(value: string) {
+  return value.replace(/\D/g, "");
+}
+
 function normalizePhone(phone: string) {
-  const digits = phone.replace(/\D/g, "");
+  const digits = getDigits(phone);
+
   if (!digits) {
     return "";
   }
 
-  return phone.trim().startsWith("+") ? `+${digits}` : `+${digits}`;
+  if (digits.startsWith("55")) {
+    return digits;
+  }
+
+  if (digits.length <= 9) {
+    return "";
+  }
+
+  return `55${digits}`;
 }
 
-function buildBookingLink(baseLink: string, name: string, phone: string, notes?: string) {
+function needsDdd(phone: string) {
+  const digits = getDigits(phone);
+
+  if (!digits) {
+    return false;
+  }
+
+  const nationalDigits = digits.startsWith("55") ? digits.slice(2) : digits;
+  return nationalDigits.length <= 9;
+}
+
+function buildBookingLink(baseLink: string, name: string, phone: string) {
   const safeBaseLink = baseLink || DEFAULT_CAL_COM_LINK;
   let url: URL;
 
   try {
     url = new URL(safeBaseLink);
   } catch {
-    return `${DEFAULT_CAL_COM_LINK}?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}`;
+    return `${DEFAULT_CAL_COM_LINK}?name=${encodeURIComponent(name)}&attendeePhoneNumber=${encodeURIComponent(
+      normalizePhone(phone),
+    )}`;
   }
 
   if (name) {
@@ -52,23 +78,7 @@ function buildBookingLink(baseLink: string, name: string, phone: string, notes?:
 
     if (normalizedPhone) {
       url.searchParams.set("attendeePhoneNumber", normalizedPhone);
-      url.searchParams.set(
-        "location",
-        JSON.stringify({
-          value: "phone",
-          optionValue: normalizedPhone,
-        }),
-      );
     }
-  }
-
-  const noteParts = [
-    notes,
-    phone ? `WhatsApp: ${phone}` : undefined,
-  ].filter(Boolean);
-
-  if (noteParts.length > 0) {
-    url.searchParams.set("notes", noteParts.join("\n"));
   }
 
   return url.toString();
@@ -79,7 +89,6 @@ export function BookingWidget({
   reason,
   prefillName,
   prefillPhone,
-  prefillNotes,
   whatsappUrl,
   onBookingSuccessful,
   className,
@@ -91,8 +100,16 @@ export function BookingWidget({
     name: prefillName?.trim() ?? "",
     phone: prefillPhone?.trim() ?? "",
   });
+  const [resolvedPhone, setResolvedPhone] = useState(
+    hasRequiredPrefill(prefillName) && !needsDdd(prefillPhone ?? "")
+      ? normalizePhone(prefillPhone ?? "")
+      : "",
+  );
+  const [dddError, setDddError] = useState("");
 
-  const [showCalendar, setShowCalendar] = useState(hasRequiredPrefill(prefillName));
+  const [showCalendar, setShowCalendar] = useState(
+    hasRequiredPrefill(prefillName) && !needsDdd(prefillPhone ?? ""),
+  );
 
   const resolvedCalLink = calLink || DEFAULT_CAL_COM_LINK;
 
@@ -101,15 +118,11 @@ export function BookingWidget({
     `https://wa.me/${DEFAULT_WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_WHATSAPP_MESSAGE)}`;
 
   const bookingLink = useMemo(
-    () =>
-      buildBookingLink(
-        resolvedCalLink,
-        attendee.name.trim(),
-        attendee.phone.trim(),
-        prefillNotes,
-      ),
-    [resolvedCalLink, attendee.name, attendee.phone, prefillNotes],
+    () => buildBookingLink(resolvedCalLink, attendee.name.trim(), resolvedPhone),
+    [resolvedCalLink, attendee.name, resolvedPhone],
   );
+
+  const shouldAskForDdd = needsDdd(attendee.phone);
 
   if (!resolvedCalLink) {
     return (
@@ -142,14 +155,26 @@ export function BookingWidget({
           className="space-y-3"
           onSubmit={(event) => {
             event.preventDefault();
+            setDddError("");
 
             if (attendee.name.trim()) {
+              const finalPhone = normalizePhone(attendee.phone);
+              const finalBookingLink = buildBookingLink(resolvedCalLink, attendee.name.trim(), finalPhone);
+
+              if (shouldAskForDdd && !finalPhone) {
+                setDddError(
+                  "Seu WhatsApp parece sem DDD. Envia novamente incluindo o DDD (ex.: 21) para eu seguir.",
+                );
+                return;
+              }
+
               onBookingSuccessful?.({
                 name: attendee.name,
-                phone: attendee.phone,
-                calLink: bookingLink,
+                phone: finalPhone,
+                calLink: finalBookingLink,
               });
 
+              setResolvedPhone(finalPhone);
               setShowCalendar(true);
             }
           }}
@@ -171,19 +196,24 @@ export function BookingWidget({
 
           <div className="space-y-1.5">
             <Label className="text-xs text-[#37312d]" htmlFor={phoneId}>
-              WhatsApp (opcional)
+              WhatsApp
             </Label>
             <Input
               autoComplete="tel"
               className="border-[#011a24]/15 bg-white"
               id={phoneId}
               inputMode="tel"
-              onChange={(event) => setAttendee((current) => ({ ...current, phone: event.target.value }))}
-              placeholder="(21) 99999-9999"
+              onChange={(event) => {
+                setDddError("");
+                setAttendee((current) => ({ ...current, phone: event.target.value }));
+              }}
+              placeholder="21999999999"
               type="tel"
               value={attendee.phone}
             />
           </div>
+
+          {dddError && <p className="text-xs text-red-600">{dddError}</p>}
 
           <Button
             className="h-auto w-full rounded-full bg-[#ff8000] px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
@@ -206,15 +236,25 @@ export function BookingWidget({
       >
         <a
           href={bookingLink}
-          onClick={() =>
-            onBookingSuccessful?.({
-              name: attendee.name,
-              phone: attendee.phone,
-              calLink: bookingLink,
-            })
-          }
           rel="noreferrer"
           target="_blank"
+          onClick={(event) => {
+            const finalPhone = normalizePhone(attendee.phone);
+
+              if (attendee.phone && shouldAskForDdd && !finalPhone) {
+              event.preventDefault();
+              setDddError(
+                "Seu WhatsApp parece sem DDD. Envia novamente incluindo o DDD (ex.: 21) para eu seguir.",
+              );
+              return;
+            }
+
+            onBookingSuccessful?.({
+              name: attendee.name,
+              phone: finalPhone,
+              calLink: bookingLink,
+            });
+          }}
         >
           Abrir agenda do Calendário
         </a>

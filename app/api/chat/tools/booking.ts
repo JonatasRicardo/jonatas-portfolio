@@ -4,10 +4,10 @@ import { z } from "zod/v4"
 export const bookingTools = {
   showBookingWidget: tool({
     description:
-      "Return a scheduling link for Cal.com when the user wants to schedule a free 15-minute consultation call. Always pass name and phone if already shared in the chat.",
+      "Return a scheduling link for Cal.com when the user wants to schedule a free 15-minute consultation call. Pass name and phone if available; the booking form can complete missing values.",
     inputSchema: z.object({
       reason: z.string().describe("Brief reason why scheduling is being offered"),
-      prefillName: z.string().optional().describe("User full name if already mentioned in chat"),
+      prefillName: z.string().optional().describe("User name (first name is sufficient) if already mentioned in chat"),
       prefillPhone: z.string().optional().describe("User phone or WhatsApp if already mentioned in chat"),
       prefillNotes: z
         .string()
